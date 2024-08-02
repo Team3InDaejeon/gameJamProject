@@ -133,6 +133,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (false == Input.anyKey)
         {
             Idle();
+            animator.SetBool("isRunning", false);
             return;
         }
         
@@ -141,6 +142,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             KeyManager.Inst.GetAxisRawVertical() != 0)
         {
             Move();
+            animator.SetBool("isRunning", true);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.Jump))
@@ -151,6 +153,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
             ChangeSkill(CharacterState.MeleeAttack);
+            animator.SetTrigger("attackTrigger");
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))

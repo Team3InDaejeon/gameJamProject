@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 using Unity.VisualScripting;
+using System;
 public enum EnemyState
 {
     Idle,
@@ -155,7 +156,7 @@ public class EnemyAI : CharacterBase,ICombat
         else if (currentTimeForMoving >= timeForMoving)
         {
             currentTimeForMoving = 0;
-            randomPoint = new Vector2(Random.Range(-5, 5), transform.position.y);
+            randomPoint = new Vector2(UnityEngine.Random.Range(-5, 5), transform.position.y);
         }
         else
         {
@@ -175,8 +176,9 @@ public class EnemyAI : CharacterBase,ICombat
         float adjustedSpeed = moveSpeed * multiplier;
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, adjustedSpeed * Time.deltaTime);
 
-        Vector2 headDirection = targetPosition - (Vector2)transform.position;
-        animator.SetFloat("walkSpeed", headDirection.x);
+        Vector2 headDirection =(targetPosition - (Vector2)transform.position).normalized;
+
+        animator.SetFloat("walkSpeed", Mathf.Abs(headDirection.x));
 
         Flip(target);
 

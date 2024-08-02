@@ -32,10 +32,7 @@ public abstract class CharacterBase : MonoBehaviour
     protected CharacterState State;
     protected CharacterType CurrentType;
 
-
     
-
-    HealthManager HealthTempUI;
     virtual protected void Start()
     {
         Stat = GetComponent<CharacterStat>(); 
