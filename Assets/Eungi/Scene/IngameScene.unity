@@ -647,7 +647,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.709
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2109,6 +2109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2035863511}
   - component: {fileID: 2035863510}
+  - component: {fileID: 2035863512}
   m_Layer: 0
   m_Name: PlayerHealthManager
   m_TagString: Untagged
@@ -2123,7 +2124,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035863509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c3310b2b94b4459f8eae976d01c78f7, type: 3}
   m_Name: 
@@ -2148,6 +2149,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2035863512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035863509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cc2fe264624422d9f6c4fbea466836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RedType: 0
+  BlueType: 0
+  RedHealthBar: {fileID: 690951334}
+  BlueHealthBar: {fileID: 837000867}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

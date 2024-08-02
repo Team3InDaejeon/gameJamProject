@@ -32,12 +32,18 @@ public abstract class CharacterBase : MonoBehaviour
     protected CharacterState State;
     protected CharacterType CurrentType;
 
-    
+    HealthManager HealthTempUI;
 
     virtual protected void Awake() 
     {
         Stat = this.GetComponent<CharacterStat>(); 
         State = CharacterState.Idle;
+        Stat.OnHealthChanged += (int health) => HealthTempUI.UpdateGauge((int)health);
+    }
+
+    void OnDestroy()
+    {
+        Stat.OnHealthChanged -= (int health) => HealthTempUI.UpdateGauge((int)health);
     }
 
     virtual protected void SetState(CharacterState NewState) 
