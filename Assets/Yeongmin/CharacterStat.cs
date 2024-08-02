@@ -5,17 +5,18 @@ using UnityEngine;
 public class CharacterStat : MonoBehaviour
 {
     [SerializeField]
-    protected float MaxHealth = 0.0f;
+    protected int MaxHealth = 100;
     [SerializeField]
-    protected float MaxStrikingPower = 0.0f;
+    protected int MinHealth = 0;
+    [SerializeField]
+    protected int MaxStrikingPower = 10;
     [SerializeField]
     protected float MaxMoveSpeed = 10.0f;
 
-    protected float CurrentHealth;
-    protected float Current​StrikingPower;
+    protected int CurrentHealth;
+    protected int Current​StrikingPower;
     protected float Current​MoveSpeed;
 
-   
 
     public CharacterStat()
     {
@@ -24,18 +25,18 @@ public class CharacterStat : MonoBehaviour
         Current​MoveSpeed = MaxMoveSpeed;
     }
 
-    public float GetHealth()  { return CurrentHealth;}
-    public float GetATK()  { return Current​StrikingPower;}
+    public int GetHealth()  { return CurrentHealth;}
+    public int GetATK()  { return Current​StrikingPower;}
     public float GetMoveSpeed()  { return Current​MoveSpeed;}
 
     public void SetHealth(float NewHealth)
     {
-        CurrentHealth = Mathf.Clamp(NewHealth, 0, MaxHealth);
+        CurrentHealth = (int)Mathf.Clamp(NewHealth, MinHealth, MaxHealth);
     }
 
     public void SetATK(float NewStrikingPower)
     {
-        Current​StrikingPower = Mathf.Clamp(NewStrikingPower, 0, MaxStrikingPower);
+        Current​StrikingPower = (int)Mathf.Clamp(NewStrikingPower, 0, MaxStrikingPower);
     }
 
     public void SetMoveSpeed(float NewMoveSpeed)
@@ -43,22 +44,22 @@ public class CharacterStat : MonoBehaviour
         Current​MoveSpeed = Mathf.Clamp(NewMoveSpeed, 0, MaxMoveSpeed);
     }
 
-    public void IncreaseHealth(float Amount)
+    public void IncreaseHealth(int Amount)
     {
         SetHealth(CurrentHealth + Amount);
     }
 
-    public void DecreaseHealth(float Amount)
+    public void DecreaseHealth(int Amount)
     {
         SetHealth(CurrentHealth - Amount);
     }
 
-    public void IncreaseATK(float Amount)
+    public void IncreaseATK(int Amount)
     {
         SetATK(Current​StrikingPower + Amount);
     }
 
-    public void DecreaseATK(float Amount)
+    public void DecreaseATK(int Amount)
     {
         SetATK(Current​StrikingPower - Amount);
     }
