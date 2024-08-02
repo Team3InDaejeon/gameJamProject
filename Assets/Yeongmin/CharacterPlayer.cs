@@ -7,12 +7,7 @@ public class CharacterPlayer : CharacterBase
 {
     [Header("")]
     [Tooltip("")]
-    public float MouseSensitivity = 2f;
     public GameObject Camera;
-    [Tooltip("")]
-    public float CameraRotSpeed = 200f;
-    protected float CameraRotX = 0f;
-    protected float CameraRotY;
 
     [Tooltip("")] 
     public float DefaultGravity = 1.0f;
