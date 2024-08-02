@@ -4,10 +4,8 @@ using UnityEngine;
 
 public abstract class CharacterSkill : MonoBehaviour
 {
-    [SerializeField]
-    ScriptableSkill SkillInfo;
-
-    float CurrentSkillCoolTime = 0;
+    public ScriptableSkill SkillInfo;
+    int CurrentSkillCoolTime = 0;
     protected CharacterPlayer Player;
     SkillCooltimeUI cooltimeUI;
 

@@ -49,6 +49,19 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
+
+        foreach (var kvp in SkillMap)
+        {
+            CharacterSkill skill = kvp.Value;
+            if (skill != null && skill.SkillInfo != null)
+            {
+                Debug.Log($"Index: {skill.SkillInfo.Index}, Name: {skill.SkillInfo.Name},Effect: {skill.SkillInfo.Effect}, Cooldown: {skill.SkillInfo.Cooltime}");
+            }
+            else
+            {
+                Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
+            }
+        }
     }
 
     private void OnDestroy()
