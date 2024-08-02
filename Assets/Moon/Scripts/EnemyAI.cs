@@ -110,6 +110,9 @@ public class EnemyAI : CharacterBase,ICombat
         //TODO : Enemy Walk Animation Start
     }
     void Walk_Update(){
+        if(target==null){
+            fsm.ChangeState(EnemyState.Idle);
+        }
         if(Vector2.Distance(transform.position, target.position) > searchRange + 1f){
             fsm.ChangeState(EnemyState.Idle);
             target=null;
