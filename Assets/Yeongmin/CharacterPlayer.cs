@@ -174,36 +174,36 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    private void CheckOnGround()
-    {
-        //Debug.Log("bIsGrounded: " + bIsGrounded);
+    // private void CheckOnGround()
+    // {
+    //     //Debug.Log("bIsGrounded: " + bIsGrounded);
 
-        List<RaycastHit> hitInfos;
-        Vector3 center = transform.position;
-        hitInfos = Physics.SphereCastAll(center, characterController.radius, Vector3.down, 0.001f).ToList();
+    //     List<RaycastHit> hitInfos;
+    //     Vector3 center = transform.position;
+    //     hitInfos = Physics.SphereCastAll(center, characterController.radius, Vector3.down, 0.001f).ToList();
 
-        hitInfos.RemoveAll(hit => (hit.transform.root.GetComponent<CharacterBase>() != null));
+    //     hitInfos.RemoveAll(hit => (hit.transform.root.GetComponent<CharacterBase>() != null));
 
-        hitInfos.RemoveAll(hit => (hit.transform.root.gameObject.layer == LayerMask.NameToLayer("Projectiles")));
+    //     hitInfos.RemoveAll(hit => (hit.transform.root.gameObject.layer == LayerMask.NameToLayer("Projectiles")));
 
-        if (hitInfos.Count == 0)
-        {
-            // GroundCheckTimer = GROUND_CHECK_TIME;
-            bIsGrounded = false;
-            return;
-        }
+    //     if (hitInfos.Count == 0)
+    //     {
+    //         // GroundCheckTimer = GROUND_CHECK_TIME;
+    //         bIsGrounded = false;
+    //         return;
+    //     }
 
-        for (int i = 0; i < hitInfos.Count; i++)
-        {
-            //Debug.Log("Hit Object Name: " + hitInfos[i].collider.gameObject.name);
-            if (hitInfos[i].collider.tag == "Landable")
-            {
-                bIsGrounded = true;
-                Gravity = DefaultGravity;
-                return;
-            }
-        }
-    }
+    //     for (int i = 0; i < hitInfos.Count; i++)
+    //     {
+    //         //Debug.Log("Hit Object Name: " + hitInfos[i].collider.gameObject.name);
+    //         if (hitInfos[i].collider.tag == "Landable")
+    //         {
+    //             bIsGrounded = true;
+    //             Gravity = DefaultGravity;
+    //             return;
+    //         }
+    //     }
+    // }
     
     protected override void Idle() 
     {

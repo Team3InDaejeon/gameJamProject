@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7cee0a0415a1f4c95d51d9fd1349f3, type: 3}
+  m_Name: SO_NPC2
+  m_EditorClassIdentifier: 
+  Index: NPC2
+  Name: "\uC758\uC9C0"
+  Stage: 2
+  Script1: "\uADF8\uC800 \uC0B4\uACE0 \uC2F6\uC5C8\uC744 \uBFD0\uC774\uC57C"
+  Script2: "\uADF8\uC800 \uAC15\uB82C\uD788 \uC0B4\uACE0\uC2F6\uC5C8\uC5B4\u2026"
+  Script3: 0
+  UnlockSkill: E
