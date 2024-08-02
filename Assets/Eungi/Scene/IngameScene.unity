@@ -644,8 +644,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1243702813}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_MinValue: -1
-  m_MaxValue: 0
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -808,8 +808,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1994853459}
   m_HandleRect: {fileID: 0}
   m_Direction: 1
-  m_MinValue: -1
-  m_MaxValue: 0
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -2130,8 +2130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireType: 0
   IceType: 0
-  FireHealth: 0
-  IceHealth: 0
+  PlayerHealth: 0
   FireHPSlider: {fileID: 690951334}
   IceHPSlider: {fileID: 837000867}
 --- !u!4 &2035863511

@@ -8,8 +8,7 @@ public class PlayerHealthBar : MonoBehaviour
     [Header("PlayerType")]
     public bool FireType = false;
     public bool IceType = false;
-    [Range(0, 100)]public float FireHealth = 100.0f;
-    [Range(0, 100)]public float IceHealth = 100.0f;
+    [Range(-100, 100)]public float PlayerHealth = 0.0f;
 
     [Header("SliderBar")]
     public Slider FireHPSlider;
@@ -17,40 +16,40 @@ public class PlayerHealthBar : MonoBehaviour
 
     void Start() //Reset
     {
-        FireHPSlider.value = -1.0f;
+        FireHPSlider.value = 0.0f;
         IceHPSlider.value = -1.0f;
-        FireHealth = 100.0f;
-        IceHealth = 100.0f;
+        PlayerHealth = 0.0f;
+        PlayerHealth = 0.0f;
         FireType = true;
         IceType = true;
     }
 
     void Update()
     {
-        if (FireHealth == 100.0f && IceHealth == 100.0f) //노말상태
+        if (PlayerHealth == 0.0f) //Normal
         {
             FireType = true;
             IceType = true;
         }
 
-        if (FireHealth < 100.0f && FireType == true) //Red상태
-        {
-            FireHPSlider.value = -1 * FireHealth/100;
-            if (FireHealth > 0.0f)
+        if (PlayerHealth > 0.0f) //Red
+        {   
+            FireType = true;
+            IceType = false;
+            FireHPSlider.value = PlayerHealth/100;
+            if (PlayerHealth > 0.0f)
             {
-                FireType = true;
-                IceType = false;
-                FireHPSlider.value = -1 * FireHealth/100;
+                FireHPSlider.value = PlayerHealth/100;
             }
         }
-        if (IceHealth < 100.0f && IceType == true) //Blue상태
+        if (PlayerHealth < 0.0f) //Blue
         {
-            IceHPSlider.value = -1 * IceHealth/100;
-            if (IceHealth > 0.0f)
+            IceType = true;
+            FireType = false;
+            IceHPSlider.value = PlayerHealth/100;
+            if (PlayerHealth < 0.0f)
             {
-                IceType = true;
-                FireType = false;
-                IceHPSlider.value = -1 * IceHealth/100;
+                IceHPSlider.value = -1 * (PlayerHealth/100);
             }
         }
     }

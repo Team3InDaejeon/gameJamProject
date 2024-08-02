@@ -27,7 +27,7 @@ public class SkillCoolTime : MonoBehaviour
 
     void Update()
     {
-        if (Q_Key == true && canUseSkill == true) //Q키가 활성화 됐을 때
+        if (Q_Key == true && canUseSkill == true) //Q_Key
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -38,7 +38,7 @@ public class SkillCoolTime : MonoBehaviour
             }
         }
 
-        else if (W_Key == true && canUseSkill == true) //W키가 활성화 됐을 때
+        else if (W_Key == true && canUseSkill == true) //W_Key
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -49,7 +49,7 @@ public class SkillCoolTime : MonoBehaviour
             }
         }
 
-        else if (E_Key == true && canUseSkill == true) //E키가 활성화 됐을 때
+        else if (E_Key == true && canUseSkill == true) //E_Key
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -60,7 +60,7 @@ public class SkillCoolTime : MonoBehaviour
             }
         }
 
-        else if (R_Key == true && canUseSkill == true) //R키가 활성화 됐을 때
+        else if (R_Key == true && canUseSkill == true) //R_Key
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
