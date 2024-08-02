@@ -1,5 +1,5 @@
 
 public interface ICombat
 {
-    public void TakeDamage(EnemyType enemyType, int damageAmount);
+    public void TakeDamage(int damageAmount, EnemyType enemyType=EnemyType.Normal);
 }

@@ -16,7 +16,7 @@ public enum EnemyType
     Normal,
     Blue
 }
-public class EnemyAI : CharacterBase
+public class EnemyAI : CharacterBase,ICombat
 {
     [Header("Stat Setting")]
     [SerializeField]
@@ -48,21 +48,29 @@ public class EnemyAI : CharacterBase
     bool isGrounded=true;
     float speedMultiplier=1;
 
+    IEnumerator TakeDamageCoroutine(){
+        while(fsm.State!=EnemyState.Death){
+            TakeDamage(10);
+            yield return new WaitForSeconds(2f);
+        }
+        
+    }
     //MonoBehaviour Functions
     private void Awake()
     {
         fsm = new StateMachine<EnemyState>(this);
         fsm.ChangeState(EnemyState.Idle);
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         animator=GetComponent<Animator>();
         boxCollider=GetComponent<BoxCollider2D>();
-        Debug.Log("is Stat null? : "+Stat==null);
         if(Stat!=null){
             moveSpeed=Stat.GetMoveSpeed();
         }
+        StartCoroutine(TakeDamageCoroutine());
     }
     void Update(){
         fsm.Driver.Update.Invoke();
@@ -75,8 +83,6 @@ public class EnemyAI : CharacterBase
 
         // Raycast 발사
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
-
-        Debug.Log(isGrounded);
 
         // 디버그 Ray 그리기
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
@@ -196,7 +202,15 @@ public class EnemyAI : CharacterBase
             yield return new WaitForSeconds(searchTime);
         }
     }
-    
+
+    public void TakeDamage(int damage, EnemyType enemyType = EnemyType.Normal)
+    {
+        Stat.DecreaseHealth(damage);
+        Debug.Log("Enemy Health : " + Stat.GetHealth());
+        if(Stat.GetHealth()<=0){
+            fsm.ChangeState(EnemyState.Death);
+        }
+    }
 
     protected override void Jump()
     {

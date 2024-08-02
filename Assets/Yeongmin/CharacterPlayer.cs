@@ -25,13 +25,10 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public event System.Action OnCharacterDead;
 
-    void Awake() 
-    {
-        base.Awake();
-    }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -57,7 +54,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    public void TakeDamage(EnemyType enemyType, int damageAmount) 
+    public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
         switch (enemyType) 
         {
