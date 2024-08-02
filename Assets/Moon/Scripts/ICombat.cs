@@ -1,5 +1,5 @@
 
 public interface ICombat
 {
-    public void TakeDamage(int damage);
+    public void TakeDamage(EnemyType enemyType, float damageAmount);
 }

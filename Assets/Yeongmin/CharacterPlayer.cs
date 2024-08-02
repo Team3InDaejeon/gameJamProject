@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class CharacterPlayer : CharacterBase
+public class CharacterPlayer : CharacterBase, ICombat
 {
     [Header("")]
     [Tooltip("")]
@@ -21,6 +21,8 @@ public class CharacterPlayer : CharacterBase
     private Animator animator;
     float JumpForce = 10.0f;
 
+    public event System.Action OnCharacterDead;
+
     void Awake() 
     {
         // characterController = this.GetComponent<CharacterController>();
@@ -29,10 +31,91 @@ public class CharacterPlayer : CharacterBase
         animator = GetComponent<Animator>();
     }
 
-
-    void Start()
+    private void Start()
     {
+        if (Stat != null)
+        {
+            OnCharacterDead += GameManager.Inst.GameOver;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (Stat != null)
+        {
+            OnCharacterDead -= GameManager.Inst.GameOver;
+        }
+    }
+
+    public void TakeDamage(EnemyType enemyType, float damageAmount) 
+    {
+        switch (enemyType) 
+        {
+            case EnemyType.Normal: TakeDamageByNormalEnemy(damageAmount);  break;
+            case EnemyType.Red: TakeDamageByRedEnemy(damageAmount); break;
+            case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
+        }
+    }
+
+    private void TakeDamageByNormalEnemy ( float damageAmount)
+    {
+        // 플레이어가 노말일 때, 노말에게 맞으면 즉사  
+        // 플레이어가 레드일 때, 노말에게 맞으면 수치가 증가  
+        // 플레이어가 블루일 때, 노말에게 맞으면 수치가 감소  
+        switch (CurrentType) 
+        {
+            case CharacterType.Red: Stat.IncreaseHealth(damageAmount);  break;
+            case CharacterType.Normal: SetDead(); break;
+            case CharacterType.Blue: Stat.DecreaseHealth(damageAmount);  break;
+        }
         
+    }
+
+    private void TakeDamageByRedEnemy(float damageAmount)
+    {
+        // 플레이어가 노말일 때, 레드에게 맞으면 수치 증가  
+        // 플레이어가 레드일 때, 레드에게 맞으면 수치가 증가  
+        // 플레이어가 블루일 때, 레드에게 맞으면 수치가 증가  
+        Stat.IncreaseHealth(damageAmount);
+    }
+
+    private void TakeDamageByBlueEnemy(float damageAmount)
+    {
+        // 플레이어가 노말일 때, 블루에게 맞으면 수치 감소  
+        // 플레이어가 레드일 때, 블루에게 맞으면 수치가 감소 
+        // 플레이어가 블루일 때, 블루에게 맞으면 수치가 감소  
+        Stat.DecreaseHealth(damageAmount);
+    }
+
+    private void SetCharacterType() 
+    {
+        if (Stat.GetHealth() == 0 ) 
+        {
+            SetType(CharacterType.Normal);
+            return;
+        }
+        else if (Stat.GetHealth() < 100 && Stat.GetHealth() > 0) 
+        {
+            SetType(CharacterType.Red);
+            return;
+        }
+        else if (Stat.GetHealth() > 0 && Stat.GetHealth() > -100)
+        {
+            SetType(CharacterType.Blue);
+            return;
+        }
+
+        SetDead();
+    }
+
+    protected override void SetDead() 
+    {
+        SetState(CharacterState.Dead);
+
+        if (Stat != null)
+        {
+            OnCharacterDead?.Invoke();
+        }
     }
 
     void Update()
@@ -43,7 +126,6 @@ public class CharacterPlayer : CharacterBase
     private void FixedUpdate() 
     {
        // CheckOnGround();
-        
     }
 
     private void InputProc() 
@@ -121,17 +203,6 @@ public class CharacterPlayer : CharacterBase
                 return;
             }
         }
-
-        // if (groundCheckTimer > 0.0f && !bIsGrounded)
-        // {
-        //     groundCheckTimer -= Time.fixedDeltaTime;
-        // }
-       // else if (!bIsGrounded)
-       // {
-       //     // groundCheckTimer = GROUND_CHECK_TIME;
-       //     bIsGrounded = true;
-       //     Gravity = defaultGravity;
-       // }
     }
     
     protected override void Idle() 

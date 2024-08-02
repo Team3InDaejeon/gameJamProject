@@ -15,8 +15,7 @@ public class KeyManager : MonoBehaviour
                 keyManager = FindObjectOfType<KeyManager>();
                 if (keyManager == null)
                 {
-                    // 필요한 경우, 에러 로그를 남깁니다.
-                    Debug.LogError("KeyManager 인스턴스가 존재하지 않습니다! KeyManager 스크립트가 포함된 게임 오브젝트를 씬에 추가하십시오.");
+                    Debug.LogError("KeyManager does Not Exist! ");
                 }
             }
             return keyManager;

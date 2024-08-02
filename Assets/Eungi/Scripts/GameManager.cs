@@ -1,34 +1,41 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager gameManager;
+
+    public static GameManager Inst
+    {
+        get
+        {
+            if (gameManager == null)
+            {
+                gameManager = FindObjectOfType<GameManager>();
+                if (gameManager == null)
+                {
+                    Debug.LogError("GameManager does Not Exist!");
+                }
+            }
+            return gameManager;
+        }
+    }
+
     //Test
     public float PlayerHP = 100.0f;
     public GameObject GameOverButton;
 
     private GameObject Canvas;
-    
+
     public int EventTick = 0;
 
-    //public string GameOverSceneName;
-    
     void Start()
     {
         Canvas = GameObject.FindGameObjectWithTag("CanvasUI");
     }
 
-    void Update()
-    {
-        if (PlayerHP <= 0.0f && EventTick < 1 && Canvas != null)
-        {
-            GameOver();
-            EventTick++;
-        }
-    }
-
-    private void GameOver()
+    public void GameOver()
     {
         //GameSceneManager.instance.ChangeScene(GameOverSceneName);
 
