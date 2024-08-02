@@ -457,6 +457,10 @@ GameObject:
   - component: {fileID: 1546052894}
   - component: {fileID: 1546052895}
   - component: {fileID: 1546052896}
+  - component: {fileID: 1546052901}
+  - component: {fileID: 1546052900}
+  - component: {fileID: 1546052899}
+  - component: {fileID: 1546052898}
   - component: {fileID: 1546052897}
   m_Layer: 0
   m_Name: Player
@@ -643,14 +647,77 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546052890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33246f8b976a28d44960561163b7214c, type: 3}
+  m_Script: {fileID: 11500000, guid: ec9bbe8b45fe189499c136cd8d9720c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 8
-  SkillName: "\uB300\uC26C"
-  SkillSerialName: Q
-  SkillDesc: "0.5\uCD08\uAC04 \uC5B4\uB5A0\uD55C \uD53C\uD574\uB3C4 \uBC1B\uC9C0\uC54A\uC740\uCC44\uB85C
-    \uC774\uB3D9\uC18D\uB3C4\uC758 2\uBC30\uB85C \uC55E\uC73C\uB85C \uC774\uB3D9\uD55C\uB2E4"
+  SkillCoolTime: 0
+  SkillName: 
+  SkillSerialName: 
+  SkillDesc: 
+--- !u!114 &1546052898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546052890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420570f9e23fc7e48886e69bef81c8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillCoolTime: 0
+  SkillName: 
+  SkillSerialName: 
+  SkillDesc: 
+--- !u!114 &1546052899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546052890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77c1e5c47cd57b48ac566bd32589384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillCoolTime: 0
+  SkillName: 
+  SkillSerialName: 
+  SkillDesc: 
+--- !u!114 &1546052900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546052890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c127bf14db6a2843aaecaf053f1769e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillCoolTime: 0
+  SkillName: 
+  SkillSerialName: 
+  SkillDesc: 
+--- !u!114 &1546052901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546052890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fd1609625718748b4f1e7833712467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillCoolTime: 0
+  SkillName: 
+  SkillSerialName: 
+  SkillDesc: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
