@@ -21,6 +21,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     float JumpForce = 10.0f;
 
     CharacterSkill CurrentSkill;
+    Dictionary<CharacterState, CharacterSkill> SkillMap;
 
     public event System.Action OnCharacterDead;
 
@@ -30,10 +31,19 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.Start();
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
         }
+
+        SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
+
+        SkillMap.Add(CharacterState.MeleeAttack, GetComponent<PlayerASkill>());
+        SkillMap.Add(CharacterState.QSkill, GetComponent<PlayerQSkill>());
+        SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
+        SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
+        SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
     }
 
     private void OnDestroy()
@@ -56,9 +66,6 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
     {
-        // 플레이어가 노말일 때, 노말에게 맞으면 즉사  
-        // 플레이어가 레드일 때, 노말에게 맞으면 수치가 증가  
-        // 플레이어가 블루일 때, 노말에게 맞으면 수치가 감소  
         switch (CurrentType) 
         {
             case CharacterType.Red: Stat.IncreaseHealth(damageAmount);  break;
@@ -70,17 +77,11 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     private void TakeDamageByRedEnemy(int damageAmount)
     {
-        // 플레이어가 노말일 때, 레드에게 맞으면 수치 증가  
-        // 플레이어가 레드일 때, 레드에게 맞으면 수치가 증가  
-        // 플레이어가 블루일 때, 레드에게 맞으면 수치가 증가  
         Stat.IncreaseHealth(damageAmount);
     }
 
     private void TakeDamageByBlueEnemy(int damageAmount)
     {
-        // 플레이어가 노말일 때, 블루에게 맞으면 수치 감소  
-        // 플레이어가 레드일 때, 블루에게 맞으면 수치가 감소 
-        // 플레이어가 블루일 때, 블루에게 맞으면 수치가 감소  
         Stat.DecreaseHealth(damageAmount);
     }
 
@@ -147,27 +148,42 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
-            MeleeAttack();
+            ChangeSkill(CharacterState.MeleeAttack);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))
         {
-            QSkill();
+            ChangeSkill(CharacterState.QSkill);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.WSkill))
         {
-            WSkill();
+            ChangeSkill(CharacterState.WSkill);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.ESkill))
         {
-            ESkill();
+            ChangeSkill(CharacterState.ESkill);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.RSkill))
         {
-            RSkill();
+            ChangeSkill(CharacterState.RSkill);
+        }
+    }
+
+    void ChangeSkill(CharacterState NewState) 
+    {
+        base.SetState(NewState);
+
+        if (SkillMap.TryGetValue(NewState, out var currentSkill))
+        {
+            CurrentSkill = currentSkill;
+            CurrentSkill.StartSkill();
+        }
+        else
+        {
+            Debug.LogWarning($"No skill found for state {NewState}");
         }
     }
 
@@ -205,7 +221,6 @@ public class CharacterPlayer : CharacterBase, ICombat
     protected override void Idle() 
     {
         base.SetState(CharacterState.Idle);
-       // Debug.Log("Idle");
     }
 
     protected override void Move(float multiplier = 1.0f) 
@@ -227,35 +242,4 @@ public class CharacterPlayer : CharacterBase, ICombat
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
         }
     }
-
-    private void MeleeAttack()
-    {
-        base.SetState(CharacterState.MeleeAttack);
-        Debug.Log("MeleeAttack");
-    }
-
-    private void QSkill()
-    {
-        base.SetState(CharacterState.QSkill);
-        Debug.Log("QSkill ");
-    }
-
-    private void WSkill()
-    {
-        base.SetState(CharacterState.WSkill);
-        Debug.Log("WSkill ");
-    }
-
-    private void ESkill()
-    {
-        base.SetState(CharacterState.ESkill);
-        Debug.Log("ESkill ");
-    }
-
-    private void RSkill()
-    {
-        base.SetState(CharacterState.RSkill);
-        Debug.Log("RSkill ");
-    }
-
 }
