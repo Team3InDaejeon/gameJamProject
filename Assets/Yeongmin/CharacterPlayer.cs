@@ -24,15 +24,12 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public event System.Action OnCharacterDead;
 
-    void Awake() 
+
+    protected override void Start()
     {
-        base.Awake();
+        base.Start();
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    }
-
-    private void Start()
-    {
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
@@ -47,7 +44,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    public void TakeDamage(EnemyType enemyType, int damageAmount) 
+    public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
         switch (enemyType) 
         {
