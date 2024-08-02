@@ -13,6 +13,13 @@ public class HealthManager : MonoBehaviour
     public Slider RedHealthBar;
     public Slider BlueHealthBar; 
 
+    [Header("IMG")]
+    public GameObject ConditionOBJ;
+    public Sprite Red_IMG;
+    public Sprite Blue_IMG;
+
+    Image TypeIMG;
+
     HealthManager(CharacterBase Character)
     {
         
@@ -22,6 +29,8 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
+        TypeIMG = GetComponent<Image>();
+
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
         RedType = true;
@@ -40,6 +49,7 @@ public class HealthManager : MonoBehaviour
         {
             RedType = true;
             BlueType = false;
+            TypeIMG.sprite = Red_IMG;
             if (RedType == true)
             {
                 RedHealthBar.value = Amount/100;
@@ -50,6 +60,7 @@ public class HealthManager : MonoBehaviour
         {
             BlueType = true;
             RedType = false;
+            TypeIMG.sprite = Blue_IMG;
             if (BlueType == true)
             {
                 RedHealthBar.value = Amount/100;
