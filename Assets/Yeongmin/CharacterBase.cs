@@ -40,13 +40,10 @@ public abstract class CharacterBase : MonoBehaviour
     {
         Stat = GetComponent<CharacterStat>(); 
         State = CharacterState.Idle;
-        Stat.OnHealthChanged += (int health) => HealthTempUI.UpdateGauge((int)health);
+        
     }
 
-    void OnDestroy()
-    {
-        Stat.OnHealthChanged -= (int health) => HealthTempUI.UpdateGauge((int)health);
-    }
+    
 
     virtual protected void SetState(CharacterState NewState) 
     {

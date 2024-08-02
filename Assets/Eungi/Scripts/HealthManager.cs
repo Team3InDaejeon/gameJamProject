@@ -5,6 +5,22 @@ using UnityEngine.UI;
 
 public class HealthManager : MonoBehaviour
 {
+    private static HealthManager healthManager;
+    public static HealthManager Inst
+    {
+        get
+        {
+            if (healthManager == null)
+            {
+                healthManager = FindObjectOfType<HealthManager>();
+                if (healthManager == null)
+                {
+                    Debug.LogError("GameManager does Not Exist!");
+                }
+            }
+            return healthManager;
+        }
+    }
     [Header("Type")]
     public bool RedType = false;
     public bool BlueType = false;

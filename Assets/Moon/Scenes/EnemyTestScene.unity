@@ -756,7 +756,7 @@ MonoBehaviour:
   searchRange: 5
   attackRange: 2
   cooltime: 1
-  jumpPower: 2
+  jumpPower: 1
   moveSpeed: 3
   enemyType: 0
   timeForMoving: 4

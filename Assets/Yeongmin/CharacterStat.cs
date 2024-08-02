@@ -48,6 +48,10 @@ public class CharacterStat : MonoBehaviour
         CurrentHealth = (int)Mathf.Clamp(NewHealth, MinHealth, MaxHealth);
         OnHealthChanged?.Invoke(CurrentHealth);
     }
+    public void SetMaxHealth(int NewMaxHealth)
+    {
+        MaxHealth = NewMaxHealth;
+    }
 
     public void SetATK(float NewStrikingPower)
     {
@@ -87,5 +91,13 @@ public class CharacterStat : MonoBehaviour
     public void DecreaseMoveSpeed(float Amount)
     {
         SetATK(Current​MoveSpeed - Amount);
+    }
+    public ScriptableEnemy GetCharacterInfo()
+    {
+        return CharacterInfo as ScriptableEnemy;
+    }
+    public void RaiseHealthChangedEvent()
+    {
+        OnHealthChanged?.Invoke(CurrentHealth);
     }
 }

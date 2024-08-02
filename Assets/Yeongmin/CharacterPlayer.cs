@@ -35,6 +35,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
+            Stat.OnHealthChanged += (int health) => HealthManager.Inst.UpdateGauge((int)health);
         }
 
         SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
@@ -51,9 +52,9 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead -= GameManager.Inst.GameOver;
+            Stat.OnHealthChanged -= (int health) => HealthManager.Inst.UpdateGauge((int)health);
         }
     }
-
     public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
         switch (enemyType) 
@@ -62,6 +63,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             case EnemyType.Red: TakeDamageByRedEnemy(damageAmount); break;
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
+        Stat.RaiseHealthChangedEvent();
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -72,7 +74,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             case CharacterType.Normal: SetDead(); break;
             case CharacterType.Blue: Stat.DecreaseHealth(damageAmount);  break;
         }
-        
+        Stat.RaiseHealthChangedEvent();
     }
 
     private void TakeDamageByRedEnemy(int damageAmount)

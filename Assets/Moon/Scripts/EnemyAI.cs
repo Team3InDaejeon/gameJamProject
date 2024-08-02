@@ -24,7 +24,7 @@ public class EnemyAI : CharacterBase,ICombat
     [SerializeField]
     protected float attackRange = 2;
     [SerializeField]
-    protected float cooltime = 1;
+    protected float cooltime = 2;
     [SerializeField]
     protected float jumpPower = 1;
     [SerializeField]
@@ -48,13 +48,6 @@ public class EnemyAI : CharacterBase,ICombat
     bool isGrounded=true;
     float speedMultiplier=1;
 
-    IEnumerator TakeDamageCoroutine(){
-        while(fsm.State!=EnemyState.Death){
-            TakeDamage(10);
-            yield return new WaitForSeconds(2f);
-        }
-        
-    }
     //MonoBehaviour Functions
     private void Awake()
     {
@@ -69,8 +62,13 @@ public class EnemyAI : CharacterBase,ICombat
         boxCollider=GetComponent<BoxCollider2D>();
         if(Stat!=null){
             moveSpeed=Stat.GetMoveSpeed();
+            ScriptableEnemy enemyInfo=Stat.GetCharacterInfo();
+            Stat.SetMaxHealth(enemyInfo.Health);
+            Stat.SetHealth(enemyInfo.Health);
+            enemyType=enemyInfo.Type;
+            Debug.Log($"Enemy Type : {enemyType}");
         }
-        StartCoroutine(TakeDamageCoroutine());
+        Initialize();
     }
     void Update(){
         fsm.Driver.Update.Invoke();
@@ -86,10 +84,10 @@ public class EnemyAI : CharacterBase,ICombat
 
         // 디버그 Ray 그리기
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
+        
     }
     void Initialize()
     {
-        randomPoint=transform.position;
         fsm.ChangeState(EnemyState.Idle);
     }
     //State Functions
@@ -121,12 +119,14 @@ public class EnemyAI : CharacterBase,ICombat
     void Attack_Enter()
     {
         Debug.Log("Attack Start");
+        animator.SetFloat("walkSpeed", 0);
         //TODO : Enemy Attack Animation Start
     }
     void Attack_Update(){
         if(currentAttackTime>=cooltime){
             //TODO : Enemy Attack
             currentAttackTime=0;
+            animator.SetTrigger("attackTrigger");
         }
         else if(target != null && Vector2.Distance(transform.position, target.position) > attackRange+1f)
         {
@@ -140,6 +140,7 @@ public class EnemyAI : CharacterBase,ICombat
     void Death_Enter()
     {
         Debug.Log("Death Start");
+        animator.SetTrigger("deathTrigger");
         //TODO : Enemy Death Animation Start
         Destroy(gameObject,2f);
     }
@@ -164,29 +165,37 @@ public class EnemyAI : CharacterBase,ICombat
     }
     protected override void Move(float multiplier = 1)
     {
-        // If a target exists, move towards it; otherwise, move towards a random point
-        if (target != null)
-        {
-            MoveTowardsTarget(target.position, multiplier);
-        }
-        else
-        {
-            MoveTowardsTarget(randomPoint, multiplier);
-        }
+        Vector2 targetPosition = (target != null) ? (Vector2)target.position : randomPoint;
+        MoveTowardsTarget(targetPosition, multiplier);
     }
-    void MoveTowardsTarget(Vector2 target, float multiplier = 1)
+
+    private void MoveTowardsTarget(Vector2 target, float multiplier = 1)
     {
         Vector2 targetPosition = new Vector2(target.x, transform.position.y);
-        float adjustedSpeed = moveSpeed * multiplier; // Adjust speed with multiplier
+        float adjustedSpeed = moveSpeed * multiplier;
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, adjustedSpeed * Time.deltaTime);
 
-        // Give offset to the target position, so that the enemy will not jump every single time
+        Vector2 headDirection = targetPosition - (Vector2)transform.position;
+        animator.SetFloat("walkSpeed", headDirection.x);
+
+        Flip(target);
+
         if (target.y > transform.position.y + 0.5f && isGrounded)
         {
             Jump();
         }
     }
-
+    void Flip(Vector2 target){
+        float deltaX = transform.position.x - target.x;
+        if (deltaX > 0 )
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (deltaX < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+    }
     public IEnumerator FindTarget(float searchRange, float searchTime, EnemyState newState)
     {
         while (true)
