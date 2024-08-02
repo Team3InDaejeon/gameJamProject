@@ -5,22 +5,13 @@ using UnityEngine;
 public abstract class CharacterSkill : MonoBehaviour
 {
     [SerializeField]
-    float SkillCoolTime = 0;
-
-    [SerializeField]
-    private string SkillName = "";
-
-    [SerializeField]
-    private string SkillSerialName = "";
-
-    [SerializeField]
-    private string SkillDesc = "";
+    ScriptableSkill SkillInfo;
 
     float CurrentSkillCoolTime = 0;
 
     void Start()
     {
-        CurrentSkillCoolTime = SkillCoolTime;
+        CurrentSkillCoolTime = SkillInfo.Cooltime;
     }
 
     public abstract void StartSkill();
