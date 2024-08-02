@@ -47,7 +47,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    public void TakeDamage(EnemyType enemyType, float damageAmount) 
+    public void TakeDamage(EnemyType enemyType, int damageAmount) 
     {
         switch (enemyType) 
         {
@@ -57,7 +57,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    private void TakeDamageByNormalEnemy ( float damageAmount)
+    private void TakeDamageByNormalEnemy ( int damageAmount)
     {
         // 플레이어가 노말일 때, 노말에게 맞으면 즉사  
         // 플레이어가 레드일 때, 노말에게 맞으면 수치가 증가  
@@ -71,7 +71,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         
     }
 
-    private void TakeDamageByRedEnemy(float damageAmount)
+    private void TakeDamageByRedEnemy(int damageAmount)
     {
         // 플레이어가 노말일 때, 레드에게 맞으면 수치 증가  
         // 플레이어가 레드일 때, 레드에게 맞으면 수치가 증가  
@@ -79,7 +79,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         Stat.IncreaseHealth(damageAmount);
     }
 
-    private void TakeDamageByBlueEnemy(float damageAmount)
+    private void TakeDamageByBlueEnemy(int damageAmount)
     {
         // 플레이어가 노말일 때, 블루에게 맞으면 수치 감소  
         // 플레이어가 레드일 때, 블루에게 맞으면 수치가 감소 

@@ -212,6 +212,9 @@ public class EnemyAI : CharacterBase
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(randomPoint, 1);
     }
-    
-    
+
+    protected override void SetDead()
+    {
+        
+    }
 }
