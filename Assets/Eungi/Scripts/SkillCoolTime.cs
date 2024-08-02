@@ -9,6 +9,7 @@ public class SkillCoolTime : MonoBehaviour
 
     [Header("UI")]
     public Image img_Skill;
+    public Text coolTimeCounter;
 
     [Header("Key")]
     public bool Q_Key;
@@ -17,6 +18,7 @@ public class SkillCoolTime : MonoBehaviour
     public bool R_Key;
 
     private bool canUseSkill = true;
+    public float currentCoolTime;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class SkillCoolTime : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 canUseSkill = false;
+                currentCoolTime = SkillCool;
                 img_Skill.fillAmount = 1.0f;
                 StartCoroutine(CoolTime(SkillCool));
             }
@@ -40,6 +43,7 @@ public class SkillCoolTime : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 canUseSkill = false;
+                currentCoolTime = SkillCool;
                 img_Skill.fillAmount = 1.0f;
                 StartCoroutine(CoolTime(SkillCool));
             }
@@ -50,6 +54,7 @@ public class SkillCoolTime : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 canUseSkill = false;
+                currentCoolTime = SkillCool;
                 img_Skill.fillAmount = 1.0f;
                 StartCoroutine(CoolTime(SkillCool));
             }
@@ -60,6 +65,7 @@ public class SkillCoolTime : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 canUseSkill = false;
+                currentCoolTime = SkillCool;
                 img_Skill.fillAmount = 1.0f;
                 StartCoroutine(CoolTime(SkillCool));
             }
@@ -70,6 +76,14 @@ public class SkillCoolTime : MonoBehaviour
     {
         while(img_Skill.fillAmount > 0.0f)
         {
+            currentCoolTime -= 1 * Time.smoothDeltaTime;
+            coolTimeCounter.text = "" + (int)currentCoolTime;
+
+            if (currentCoolTime <= 0)
+            {
+                coolTimeCounter.text = "";
+            }
+
             img_Skill.fillAmount -= 1 * Time.smoothDeltaTime/cool;
             yield return null;
         }
