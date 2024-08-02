@@ -15,6 +15,8 @@ public class CharacterStat : MonoBehaviour
     protected float Current​StrikingPower;
     protected float Current​MoveSpeed;
 
+   
+
     public CharacterStat()
     {
         CurrentHealth = MaxHealth;
