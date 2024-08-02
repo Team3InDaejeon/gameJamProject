@@ -16,29 +16,39 @@ public enum EnemyType
     Normal,
     Blue
 }
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : CharacterBase
 {
     [Header("Stat Setting")]
-    public float searchRange = 5;
-    public float attackRange = 2;
-    public float moveSpeed=1;
-    public float cooltime = 1;
-    public float jumpPower = 1;
+    [SerializeField]
+    protected float searchRange = 5;
+    [SerializeField]
+    protected float attackRange = 2;
+    [SerializeField]
+    protected float cooltime = 1;
+    [SerializeField]
+    protected float jumpPower = 1;
+    [SerializeField]
+    protected float moveSpeed=3;
     public EnemyType enemyType=EnemyType.Red;
+    private BoxCollider2D boxCollider;
+
     //AI Setting
     public float timeForMoving = 10;
 
+    [Header("Test Setting")]
+    public float rayLength=1.2f;
 
     StateMachine<EnemyState> fsm;
     public Rigidbody2D rb;
-    Collider2D collider2d;
-    Coroutine curCoroutine;
     Transform target;
     Vector2 randomPoint;
+    Animator animator;
     float currentTimeForMoving=0;
     float currentAttackTime=0;
     bool isGrounded=true;
+    float speedMultiplier=1;
 
+    //MonoBehaviour Functions
     private void Awake()
     {
         fsm = new StateMachine<EnemyState>(this);
@@ -47,32 +57,36 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        collider2d = GetComponent<Collider2D>();
+        animator=GetComponent<Animator>();
+        boxCollider=GetComponent<BoxCollider2D>();
+        Debug.Log("is Stat null? : "+Stat==null);
+        if(Stat!=null){
+            moveSpeed=Stat.GetMoveSpeed();
+        }
     }
     void Update(){
         fsm.Driver.Update.Invoke();
     }
     void FixedUpdate()
     {
-        // 현재 떨어지고 있는 경우에만 isGrounded를 업데이트
-        if (rb.velocity.y <= 0)
-        {
-            RaycastHit2D rayHit = Physics2D.Raycast(rb.position, Vector2.down, 1, LayerMask.GetMask("Platform"));
-            if (rayHit.collider != null && rayHit.distance < 0.6f)
-            {
-                isGrounded = true;
-            }
-            else
-            {
-                isGrounded = false;
-            }
-        }
+        // 바운딩 박스의 바닥 부분의 중심 좌표 계산
+        Vector2 origin = boxCollider.bounds.center;
+        origin.y = boxCollider.bounds.min.y;
+
+        // Raycast 발사
+        isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
+
+        Debug.Log(isGrounded);
+
+        // 디버그 Ray 그리기
+        Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
     }
     void Initialize()
     {
         randomPoint=transform.position;
         fsm.ChangeState(EnemyState.Idle);
     }
+    //State Functions
     void Idle_Enter()
     {
         Debug.Log("Idle Start");
@@ -81,21 +95,9 @@ public class EnemyAI : MonoBehaviour
     }
     void Idle_Update()
     {
-        if (target != null)
-        {
-            fsm.ChangeState(EnemyState.Walk);
-        }
-        else if (currentTimeForMoving >= timeForMoving)
-        {
-            currentTimeForMoving = 0;
-            randomPoint = new Vector2(Random.Range(-5, 5), transform.position.y);
-        }
-        else
-        {
-            currentTimeForMoving += Time.deltaTime;
-            MoveTowardsTarget(randomPoint);
-        }
+        Idle();
     }
+    
     void Walk_Enter()
     {
         Debug.Log("Walk Start");
@@ -107,7 +109,7 @@ public class EnemyAI : MonoBehaviour
             fsm.ChangeState(EnemyState.Idle);
             target=null;
         }else{
-            MoveTowardsTarget(target.position);
+            Move(speedMultiplier);
         }
     }
     void Attack_Enter()
@@ -135,7 +137,50 @@ public class EnemyAI : MonoBehaviour
         //TODO : Enemy Death Animation Start
         Destroy(gameObject,2f);
     }
-    
+
+    //Utility Functions
+    protected override void Idle()
+    {
+        if (target != null)
+        {
+            fsm.ChangeState(EnemyState.Walk);
+        }
+        else if (currentTimeForMoving >= timeForMoving)
+        {
+            currentTimeForMoving = 0;
+            randomPoint = new Vector2(Random.Range(-5, 5), transform.position.y);
+        }
+        else
+        {
+            currentTimeForMoving += Time.deltaTime;
+            Move(speedMultiplier);
+        }
+    }
+    protected override void Move(float multiplier = 1)
+    {
+        // If a target exists, move towards it; otherwise, move towards a random point
+        if (target != null)
+        {
+            MoveTowardsTarget(target.position, multiplier);
+        }
+        else
+        {
+            MoveTowardsTarget(randomPoint, multiplier);
+        }
+    }
+    void MoveTowardsTarget(Vector2 target, float multiplier = 1)
+    {
+        Vector2 targetPosition = new Vector2(target.x, transform.position.y);
+        float adjustedSpeed = moveSpeed * multiplier; // Adjust speed with multiplier
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, adjustedSpeed * Time.deltaTime);
+
+        // Give offset to the target position, so that the enemy will not jump every single time
+        if (target.y > transform.position.y + 0.5f && isGrounded)
+        {
+            Jump();
+        }
+    }
+
     public IEnumerator FindTarget(float searchRange, float searchTime, EnemyState newState)
     {
         while (true)
@@ -151,18 +196,9 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitForSeconds(searchTime);
         }
     }
-    void MoveTowardsTarget(Vector2 target)
-    {
-        Vector2 targetPosition = new Vector2(target.x, transform.position.y);
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-        //Give offset to the target position, so that the enemy will not jump every single time
-        if (target.y > transform.position.y + 0.5f && isGrounded)
-        {
-            Jump();
-        }
-    }
+    
 
-    void Jump()
+    protected override void Jump()
     {
         isGrounded = false;
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
@@ -175,7 +211,6 @@ public class EnemyAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(randomPoint, 1);
-        Gizmos.DrawRay(rb.position, Vector3.down); //ray를 그리기
     }
     
     
