@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterStat : MonoBehaviour
 {
+    [Header("Character Stat")]
     [SerializeField]
     protected int MaxHealth = 100;
     [SerializeField]
@@ -12,17 +13,28 @@ public class CharacterStat : MonoBehaviour
     protected int MaxStrikingPower = 10;
     [SerializeField]
     protected float MaxMoveSpeed = 10.0f;
+    [SerializeField]
+    protected ScriptableCharacterBase CharacterInfo;
 
     protected int CurrentHealth;
     protected int Current​StrikingPower;
     protected float Current​MoveSpeed;
 
 
-    public CharacterStat()
+    // Unity doesn't call constructors for MonoBehaviours, use Awake or Start instead
+    private void Awake()
     {
+        // If CharacterInfo is assigned, initialize the character stats from it
+        if (CharacterInfo != null)
+        {
+            MaxStrikingPower = CharacterInfo.StrikingPower;
+        }
+        Debug.Log("CharacterStat Awake");
+
+        // Set the current stats to their respective max values
         CurrentHealth = MaxHealth;
-        Current​StrikingPower = MaxStrikingPower;
-        Current​MoveSpeed = MaxMoveSpeed;
+        CurrentStrikingPower = MaxStrikingPower;
+        CurrentMoveSpeed = MaxMoveSpeed;
     }
 
     public int GetHealth()  { return CurrentHealth;}

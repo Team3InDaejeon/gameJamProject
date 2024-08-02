@@ -297,6 +297,7 @@ MonoBehaviour:
   MinHealth: 0
   MaxStrikingPower: 10
   MaxMoveSpeed: 5
+  CharacterInfo: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,6 +661,7 @@ GameObject:
   - component: {fileID: 1660478625}
   - component: {fileID: 1660478629}
   - component: {fileID: 1660478630}
+  - component: {fileID: 1660478631}
   m_Layer: 0
   m_Name: EnemyAITest
   m_TagString: Untagged
@@ -754,7 +756,7 @@ MonoBehaviour:
   searchRange: 5
   attackRange: 2
   cooltime: 1
-  jumpPower: 7
+  jumpPower: 2
   moveSpeed: 3
   enemyType: 0
   timeForMoving: 4
@@ -848,6 +850,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1660478631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660478624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f4eec60698d07040af576ce7b8a8c73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  MinHealth: 0
+  MaxStrikingPower: 10
+  MaxMoveSpeed: 3
+  CharacterInfo: {fileID: 11400000, guid: 4fc50df2ad661384fb59a9a30a2771ea, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

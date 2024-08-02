@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b1959da7b5134e8af3640290d4328, type: 3}
-  m_Name: Enemy1
+  m_Script: {fileID: 11500000, guid: cdd22d33e77ea9c46807750ba1a418a4, type: 3}
+  m_Name: Character
   m_EditorClassIdentifier: 
-  Index: enemy1
-  Name: Chalrie
-  Type: 0
-  Health: 100
-  StrikingPower: 50
+  Index: Char1
+  Name: "\uC8FC\uC778\uACF5"
+  StrikingPower: 10
+  CriticalRate: 0.1
+  CriticalDamage: 1.5
+  AttackSpeed: 1.2

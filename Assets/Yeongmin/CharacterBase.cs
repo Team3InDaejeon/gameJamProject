@@ -32,11 +32,9 @@ public abstract class CharacterBase : MonoBehaviour
     protected CharacterState State;
     protected CharacterType CurrentType;
 
-    
-
-    virtual protected void Awake() 
+    virtual protected void Start() 
     {
-        Stat = this.GetComponent<CharacterStat>(); 
+        Stat = GetComponent<CharacterStat>(); 
         State = CharacterState.Idle;
     }
 
