@@ -8,10 +8,17 @@ public abstract class CharacterSkill : MonoBehaviour
     ScriptableSkill SkillInfo;
 
     float CurrentSkillCoolTime = 0;
+    protected CharacterPlayer Player;
+    SkillCooltimeUI cooltimeUI;
+
+    protected SkillCooldownManager CooldownManager;
 
     void Start()
     {
+        Player = GetComponent<CharacterPlayer>();
+
         CurrentSkillCoolTime = SkillInfo.Cooltime;
+        CooldownManager = new SkillCooldownManager(SkillInfo.Cooltime);
     }
 
     public abstract void StartSkill();

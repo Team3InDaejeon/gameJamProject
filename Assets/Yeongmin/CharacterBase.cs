@@ -31,6 +31,7 @@ public abstract class CharacterBase : MonoBehaviour
     protected CharacterStat Stat;
     protected CharacterState State;
     protected CharacterType CurrentType;
+    public CharacterStat GetStatComponent() { return Stat; }
 
     virtual protected void Start() 
     {

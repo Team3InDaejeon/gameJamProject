@@ -23,8 +23,13 @@ public class CharacterPlayer : CharacterBase, ICombat
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap;
 
-    public event System.Action OnCharacterDead;
+    public bool bIsInvincible { get; private set; }
+    public void SetInvincibility(bool invincible)
+    {
+        bIsInvincible = invincible;
+    }
 
+    public event System.Action OnCharacterDead;
 
     protected override void Start()
     {
@@ -56,12 +61,19 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
+        if (bIsInvincible) 
+        {
+            return;
+        }
+
         switch (enemyType) 
         {
             case EnemyType.Normal: TakeDamageByNormalEnemy(damageAmount);  break;
             case EnemyType.Red: TakeDamageByRedEnemy(damageAmount); break;
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
+
+        SetCharacterType();
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
