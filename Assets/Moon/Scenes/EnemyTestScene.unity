@@ -865,7 +865,7 @@ MonoBehaviour:
   MaxHealth: 100
   MinHealth: 0
   MaxStrikingPower: 10
-  MaxMoveSpeed: 10
+  MaxMoveSpeed: 3
   CharacterInfo: {fileID: 11400000, guid: 4fc50df2ad661384fb59a9a30a2771ea, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
