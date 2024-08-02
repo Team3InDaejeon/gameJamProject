@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class CharacterSkill : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    float SkillCoolTime = 0;
+
+    [SerializeField]
+    private string SkillName = "";
+
+    [SerializeField]
+    private string SkillSerialName = "";
+
+    [SerializeField]
+    private string SkillDesc = "";
+
+    float CurrentSkillCoolTime = 0;
+
     void Start()
     {
-        
+        CurrentSkillCoolTime = SkillCoolTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartSkill() 
     {
-        
+        Debug.Log("StartSkill");
+    }
+
+    public void UpdateSkill()
+    {
+
+    }
+
+    public void EndSkill()
+    {
+        Debug.Log("EndSkill");
     }
 }

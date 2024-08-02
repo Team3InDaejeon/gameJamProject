@@ -14,18 +14,18 @@ public class CharacterPlayer : CharacterBase, ICombat
     private float Gravity = 1.0f;
     private bool bIsGrounded = false;
 
-    private CharacterController characterController;
     float SlowValue;
 
     private Rigidbody2D CharacterRigidbody;
     private Animator animator;
     float JumpForce = 10.0f;
 
+    CharacterSkill CurrentSkill;
+
     public event System.Action OnCharacterDead;
 
     void Awake() 
     {
-        // characterController = this.GetComponent<CharacterController>();
         base.Awake();
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
