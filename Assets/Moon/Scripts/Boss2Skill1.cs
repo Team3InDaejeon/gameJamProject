@@ -6,7 +6,7 @@ public class Boss2Skill1 : BossPattern
     public float damageRadius = 15f;
     public int damageAmount = 50;
     public float pauseDuration = 1f;
-    public float damageDuration = 1f;
+    public float damageDuration = 5f;
 
     public GameObject damageEffect;
 
@@ -47,11 +47,14 @@ public class Boss2Skill1 : BossPattern
             {
                 if (hitCollider.CompareTag("Player"))
                 {
+                    Debug.Log("Hit Player");
                     ICombat damageable = hitCollider.GetComponent<ICombat>();
                     if (damageable != null)
                     {
                         damageable.TakeDamage(damageAmount/5, bossAI.bossInfo.Type);
                     }
+                    CharacterStat playerStat = hitCollider.GetComponent<CharacterStat>();
+                    Debug.Log(playerStat.GetCurrentHealth());
                 }
             }
             

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Boss2 : BossAI
+public class Boss3 : BossAI
 {
     public float wanderRadius = 5f;
     public float wanderInterval = 3f;

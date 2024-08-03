@@ -99,6 +99,10 @@ public class CharacterStat : MonoBehaviour
     {
         return MaxHealth;
     }
+    public int GetCurrentHealth(){
+        return CurrentHealth;
+    }
+
     public void RaiseHealthChangedEvent()
     {
         OnHealthChanged?.Invoke(CurrentHealth);
