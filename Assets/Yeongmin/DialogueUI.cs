@@ -7,9 +7,16 @@ using TMPro;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField]
-    Image Image_Backgorund;
+    Image Image_Background;
+    [SerializeField]
+    Image Image_Name;
     [SerializeField]
     TextMeshProUGUI Text_Dialogue;
+    [SerializeField]
+    TextMeshProUGUI Text_Name;
+
+    [SerializeField]
+    GameObject UI_PlayerSkill;
 
     List<string> Dialogues = new List<string>();
 
@@ -32,9 +39,21 @@ public class DialogueUI : MonoBehaviour
         }
 
         MaxIndex = Dialogues.Count;
+        Text_Dialogue.text = NPCDataInfo.Name;
+    }
+
+    void Start()
+    {
+        this.SetActive(false);
     }
 
     public void StartDialogue() 
+    {
+        UI_PlayerSkill.SetActive(false);
+        SetDialogue();
+    }
+
+    private void SetDialogue() 
     {
         if (Dialogues.Count > 0)
         {
@@ -47,6 +66,7 @@ public class DialogueUI : MonoBehaviour
         ++CurrentIndex;
         if (CurrentIndex >= MaxIndex)
         {
+            UI_PlayerSkill.SetActive(true);
             GameManager.Inst.NextStage();
         }
         else 
