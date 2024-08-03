@@ -298,9 +298,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1805274583312626689, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: Force
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1805274583312626689, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: CooltimeUI
       value: 
       objectReference: {fileID: 3088670735135150292}
+    - target: {fileID: 1805274583312626689, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: SkillDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2355806545414612125, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.9
@@ -345,25 +353,9 @@ PrefabInstance:
       propertyPath: CooltimeUI
       value: 
       objectReference: {fileID: 8050983265763720003}
-    - target: {fileID: 3500958379855946061, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
-      propertyPath: TriggerBox
-      value: 
-      objectReference: {fileID: 1312535230}
-    - target: {fileID: 3500958379855946061, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
-      propertyPath: WhipLength
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5211351197351171570, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751677704383762883, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
-      propertyPath: m_Mass
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5751677704383762883, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
-      propertyPath: m_GravityScale
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7945162358105227556, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: CooltimeUI
@@ -866,11 +858,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!61 &1312535230 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 2002038877246351748, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
-  m_PrefabInstance: {fileID: 339118431}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9115510202208752
 MonoBehaviour:
   m_ObjectHideFlags: 0

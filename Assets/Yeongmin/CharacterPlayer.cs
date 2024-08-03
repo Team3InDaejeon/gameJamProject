@@ -26,6 +26,11 @@ public class CharacterPlayer : CharacterBase, ICombat
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
     SpiralWhip SpiralWhipWeapon;
+
+    [Header("Effect Setting")]
+    public GameObject hitEffect;
+    public GameObject takeDamageEffect;
+
     public bool bIsInvincible { get; private set; }
 
     public event System.Action OnCharacterDead;
@@ -101,7 +106,10 @@ public class CharacterPlayer : CharacterBase, ICombat
         SetCharacterType();
 
         Stat.RaiseHealthChangedEvent();
+
         animator.SetTrigger("Attacked");
+        GameObject effect = Instantiate(takeDamageEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 2f);
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -329,6 +337,8 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         animator.SetTrigger("attackTrigger");
         SpiralWhipWeapon.bIsAttackActive = true;
+        GameObject effect = Instantiate(hitEffect, SpiralWhipWeapon.transform.position, Quaternion.identity);
+        Destroy(effect, 2f);
     }
 
     protected void SetWhipAngle(float angle)

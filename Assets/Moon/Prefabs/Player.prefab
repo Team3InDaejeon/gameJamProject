@@ -152,10 +152,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 1.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -181,7 +181,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
   DefaultGravity: 1
-  WhipLength: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  RayLength: 0.2
+  hitEffect: {fileID: 6915711765963966195, guid: 2a10dc8f8c1a398419e85ea1ae5206ac, type: 3}
+  takeDamageEffect: {fileID: 8952839095479930137, guid: 209d2ff2962f273478711d6e5063326f, type: 3}
 --- !u!114 &8963561729281633184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,6 +347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723ad0502f11d364e8816171f290fb5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WhipLength: 3
+  TriggerBox: {fileID: 2002038877246351748}
   bIsAttackActive: 0
 --- !u!61 &2002038877246351748
 BoxCollider2D:
