@@ -6,13 +6,11 @@ public class PlayerWSkill : CharacterSkill
 {
     public override void StartSkill() 
     {
-        if (Player == null)
+        if (Player != null && CooldownManager.CheckCooldown()) 
         {
-            return; 
+            Player.GetStatComponent().SetHealth(0);
+            CooldownManager.StartCooldown();
         }
-
-        Player.GetStatComponent().SetHealth(0);
-        CooldownManager.StartCooldown();
     }
     public override void UpdateSkill() { }
     public override void EndSkill() { }

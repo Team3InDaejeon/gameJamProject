@@ -8,7 +8,7 @@ public class PlayerQSkill : CharacterSkill
     float Force = 2.0f ;
 
     [SerializeField]
-    float SkillDuration = 0.5f;
+    float SkillDuration = 0.4f;
     float SkillStartTime = 0.0f;
 
     public override void StartSkill() 
