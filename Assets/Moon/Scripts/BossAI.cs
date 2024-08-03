@@ -7,7 +7,7 @@ public class BossAI : EnemyAI
     [SerializeField]
     private List<BossPattern> availablePatterns;
     private Queue<BossPattern> patternQueue = new Queue<BossPattern>();
-    private bool isExecutingPattern = false;
+    public bool isExecutingPattern = false;
     [SerializeField]
     private List<int> patternOrder;
 
@@ -91,5 +91,10 @@ public class BossAI : EnemyAI
     {
         base.Move(multiplier * 0.8f); 
     }
+    protected override void SetDead()
+    {
+        base.SetDead();
+        // 보스가 죽었을 때의 처리
 
+    }
 }

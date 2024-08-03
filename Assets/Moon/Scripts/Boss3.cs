@@ -7,10 +7,7 @@ public class Boss3 : BossAI
     public float wanderInterval = 3f;
     private Vector2 wanderTarget;
 
-    [SerializeField]
-    private float playerDetectionRange = 10f;
-
-    private bool isExecutingPattern = false;
+    private bool isWandering = false;
 
     protected override void Start()
     {
@@ -21,67 +18,12 @@ public class Boss3 : BossAI
 
     protected override void Update()
     {
+        base.Update(); // BossAI의 Update 로직 유지
 
-        if (IsPlayerInAttackRange())
+        if (!isExecutingPattern && isWandering)
         {
-            if (!isExecutingPattern)
-            {
-                base.Update(); // 패턴 실행을 위한 기본 Update 호출
-            }
-            else
-            {
-                StopMovement(); // 패턴 실행 중에는 움직임 정지
-            }
+            Move(1); // WanderMovement 대신 Move 사용
         }
-        else if (IsPlayerInDetectionRange())
-        {
-            if (!isExecutingPattern)
-            {
-                MoveTowardsPlayer();
-            }
-        }
-        else
-        {
-            if (!isExecutingPattern)
-            {
-                fsm.ChangeState(EnemyState.Walk);
-                WanderMovement();
-            }
-        }
-    }
-
-    private bool IsPlayerInDetectionRange()
-    {
-        return GetTarget() != null && Vector2.Distance(transform.position, GetTarget().position) <= playerDetectionRange;
-    }
-
-    private bool IsPlayerInAttackRange()
-    {
-        return GetTarget() != null && Vector2.Distance(transform.position, GetTarget().position) <= attackRange;
-    }
-
-    private void StopMovement()
-    {
-        // 여기서 애니메이션을 정지 상태로 변경할 수 있습니다.
-        if (rb != null)
-        {
-            rb.velocity = Vector2.zero;
-        }
-    }
-
-    private void MoveTowardsPlayer()
-    {
-        if (GetTarget() != null)
-        {
-            Vector2 direction = ((Vector2)GetTarget().position - (Vector2)transform.position).normalized;
-            transform.Translate(direction * moveSpeed * Time.deltaTime);
-        }
-    }
-
-    private void WanderMovement()
-    {
-        Vector2 movement = Vector2.MoveTowards(transform.position, wanderTarget, moveSpeed * Time.deltaTime) - (Vector2)transform.position;
-        transform.Translate(movement);
     }
 
     private IEnumerator WanderRoutine()
@@ -89,9 +31,10 @@ public class Boss3 : BossAI
         while (true)
         {
             yield return new WaitForSeconds(wanderInterval);
-            if (!IsPlayerInDetectionRange())
+            if (!isExecutingPattern)
             {
                 SetNewWanderTarget();
+                isWandering = true;
             }
         }
     }
@@ -100,26 +43,48 @@ public class Boss3 : BossAI
     {
         float randomAngle = Random.Range(0f, 360f);
         wanderTarget = (Vector2)transform.position + (Vector2)(Quaternion.Euler(0, 0, randomAngle) * Vector2.right * wanderRadius);
-        Debug.Log($"New Wander Target: {wanderTarget}");
     }
 
     protected override IEnumerator ExecuteNextPattern()
     {
-        isExecutingPattern = true;
+        isWandering = false; // 패턴 실행 시 배회 중지
         yield return StartCoroutine(base.ExecuteNextPattern());
-        isExecutingPattern = false;
+        isWandering = true; // 패턴 실행 후 배회 재개
     }
 
-    // 필요한 경우 Move 메서드 오버라이드
     protected override void Move(float multiplier = 1)
     {
-        if (!isExecutingPattern)
+        if (isWandering)
         {
-            base.Move(multiplier);
+            Vector2 direction = ((Vector2)wanderTarget - (Vector2)transform.position).normalized;
+            Vector2 movement = direction * moveSpeed * multiplier * Time.deltaTime;
+
+            if (rb != null)
+            {
+                rb.MovePosition(rb.position + movement);
+            }
+            else
+            {
+                transform.position += (Vector3)movement;
+            }
+
+            if (Vector2.Distance(transform.position, wanderTarget) < 0.1f)
+            {
+                SetNewWanderTarget();
+            }
         }
         else
         {
-            StopMovement();
+            base.Move(multiplier * 0.8f);
         }
+    }
+
+    // 디버그를 위한 메서드
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, wanderRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, wanderTarget);
     }
 }
