@@ -95,6 +95,6 @@ public class BossAI : EnemyAI
     {
         base.SetDead();
         // 보스가 죽었을 때의 처리
-
+        GameManager.Inst.PostBossDeath();
     }
 }
