@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject GameOverButton;
-    int CurrentStage = 0;
+    public int CurrentStage = 0;
 
     void Start()
     {
@@ -60,5 +60,10 @@ public class GameManager : MonoBehaviour
         {
             Spawner.SpawnInteractiveNPC(CurrentStage);
         }
+    }
+
+    public void NextStage() 
+    {
+        // 씬이동
     }
 }

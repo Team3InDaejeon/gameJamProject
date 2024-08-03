@@ -336,25 +336,24 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, BackGroundLayerMask);
-        //Debug.Log(hitInfo.collider);
         if (hitInfo.collider != null)
         {
             // 충돌한 콜라이더의 태그가 "Ground"인지 확인
             if (hitInfo.collider.CompareTag("Ground"))
             {
                 bIsGrounded = true;
-                Debug.Log("Grounded on: " + hitInfo.collider.name);
+                // Debug.Log("Grounded on: " + hitInfo.collider.name);
             }
             else
             {
                 bIsGrounded = false;
-                Debug.Log("Not grounded, hit: " + hitInfo.collider.name);
+                // Debug.Log("Not grounded, hit: " + hitInfo.collider.name);
             }
         }
         else
         {
             bIsGrounded = false;
-            Debug.Log("Not grounded");
+            // Debug.Log("Not grounded");
         }
     }
 
