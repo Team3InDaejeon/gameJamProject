@@ -5,6 +5,8 @@ using System.Linq;
 
 public class CharacterPlayer : CharacterBase, ICombat
 {
+    public LayerMask BackGroundLayerMask; 
+
     [Header("")]
     [Tooltip("")]
     public GameObject Camera;
@@ -26,7 +28,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
     SpiralWhip SpiralWhipWeapon;
-
+    int layermask;
     [Header("Effect Setting")]
     public GameObject hitEffect;
     public GameObject takeDamageEffect;
@@ -48,7 +50,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SpiralWhipWeapon = GetComponentInChildren<SpiralWhip>();
-
+        layermask=(-1)-(1<<LayerMask.NameToLayer("Background"));
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
@@ -79,6 +81,9 @@ public class CharacterPlayer : CharacterBase, ICombat
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
         }*/
+
+        int BackgroundLayer= LayerMask.NameToLayer("Background");
+        BackGroundLayerMask= ~(1 << BackgroundLayer);
     }
 
     private void OnDestroy()
@@ -205,6 +210,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.Jump))
         {
+            Debug.Log("jump");
             Jump();
         }
 
@@ -252,7 +258,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     private void CheckOnAir() 
     {
-        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
+        /*Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
         Vector2 direction = Vector2.down;
 
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, AirRayLength);
@@ -267,27 +273,87 @@ public class CharacterPlayer : CharacterBase, ICombat
             }
         }
         bIsGrounded = false;
-        animator.SetBool("IsInAir", true);
+        animator.SetBool("IsInAir", true);*/
+
+
+
+
+
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y - AirRayLength);
+        Vector2 direction = Vector2.down;
+
+        // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, BackGroundLayerMask);
+        //Debug.Log(hitInfo.collider);
+        if (hitInfo.collider != null)
+        {
+            // 충돌한 콜라이더의 태그가 "Ground"인지 확인
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                Debug.Log("Grounded on: " + hitInfo.collider.name);
+                animator.SetBool("IsInAir", false);
+            }
+            else
+            {
+                bIsGrounded = false;
+                Debug.Log("Not grounded, hit: " + hitInfo.collider.name);
+                animator.SetBool("IsInAir", true);
+            }
+        }
+        else
+        {
+            bIsGrounded = false;
+            Debug.Log("Not grounded");
+            animator.SetBool("IsInAir", true);
+        }
     }
 
     private void CheckOnGround()
     {
-        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
+        /*Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
         Vector2 direction = Vector2.down;
         float distance = RayLength;
 
         // 레이캐스트를 사용하여 바닥 체크
-        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, distance);
-
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, distance,~LayerMask.GetMask("Background"));
+        Debug.Log(hitInfo);
         if (hitInfo.collider != null)
         {
+            Debug.Log("HIT!");
             if (hitInfo.collider.CompareTag("Ground"))
             {
+                Debug.Log("ground true");
                 bIsGrounded = true;
                 return;
             }
         }
-        bIsGrounded = false;
+        bIsGrounded = false;*/
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y - 0.1f);
+        Vector2 direction = Vector2.down;
+
+        // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, BackGroundLayerMask);
+        //Debug.Log(hitInfo.collider);
+        if (hitInfo.collider != null)
+        {
+            // 충돌한 콜라이더의 태그가 "Ground"인지 확인
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                Debug.Log("Grounded on: " + hitInfo.collider.name);
+            }
+            else
+            {
+                bIsGrounded = false;
+                Debug.Log("Not grounded, hit: " + hitInfo.collider.name);
+            }
+        }
+        else
+        {
+            bIsGrounded = false;
+            Debug.Log("Not grounded");
+        }
     }
     
     protected override void Idle() 
@@ -331,6 +397,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         if (bIsGrounded)
         {
+            
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
             animator.SetTrigger("IsJump");
         }

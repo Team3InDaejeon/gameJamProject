@@ -63,7 +63,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 66bd3e3788edc442fa6ac9d698bb7ecb, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -239,8 +239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
   CooltimeUI: {fileID: 0}
-  Force: 7
-  SkillDuration: 0.4
+  Force: 10
+  SkillDuration: 0.5
 --- !u!114 &9117359880619361172
 MonoBehaviour:
   m_ObjectHideFlags: 0
