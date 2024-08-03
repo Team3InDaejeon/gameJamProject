@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        // GameOver
+        Time.timeScale = 0f;
     }
 
     public void EnterBossCombat() 
@@ -64,6 +64,20 @@ public class GameManager : MonoBehaviour
 
     public void NextStage() 
     {
-        // 씬이동
+        switch (CurrentStage) 
+        {
+            case 0:
+                ++CurrentStage;
+                GameSceneManager.Inst.ChangeScene("Stage_02");
+                break;
+            case 1:
+                ++CurrentStage;
+                GameSceneManager.Inst.ChangeScene("Stage_03");
+                break;
+            case 2:
+                ++CurrentStage;
+                GameSceneManager.Inst.ChangeScene("Stage_04");
+                break;
+        }
     }
 }

@@ -170,6 +170,8 @@ public class CharacterPlayer : CharacterBase, ICombat
             OnCharacterDead?.Invoke();
             animator.SetTrigger("Dead");
         }
+
+        
     }
 
     void Update()
