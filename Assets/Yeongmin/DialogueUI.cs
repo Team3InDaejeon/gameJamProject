@@ -16,7 +16,7 @@ public class DialogueUI : MonoBehaviour
     TextMeshProUGUI Text_Name;
 
     [SerializeField]
-    GameObject UI_PlayerSkill;
+    List<GameObject> UI_Ingame;
 
     List<string> Dialogues = new List<string>();
 
@@ -49,7 +49,10 @@ public class DialogueUI : MonoBehaviour
 
     public void StartDialogue() 
     {
-        UI_PlayerSkill.SetActive(false);
+        for (int i = 0; i < UI_Ingame.Count; ++i)
+        {
+            UI_Ingame[i].SetActive(false);
+        }
         SetDialogue();
     }
 
@@ -66,7 +69,10 @@ public class DialogueUI : MonoBehaviour
         ++CurrentIndex;
         if (CurrentIndex >= MaxIndex)
         {
-            UI_PlayerSkill.SetActive(true);
+            for (int i = 0; i < UI_Ingame.Count; ++i) 
+            {
+                UI_Ingame[i].SetActive(true);
+            }
             GameManager.Inst.NextStage();
         }
         else 

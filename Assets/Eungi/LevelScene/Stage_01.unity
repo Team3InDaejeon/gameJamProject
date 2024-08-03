@@ -141,46 +141,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2078308453}
     m_Modifications:
-    - target: {fileID: 1092064793191298276, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_fontSize
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092064793191298276, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 36
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092064793191298276, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_isRightToLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092064793191298276, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_TextStyleHashCode
-      value: -1183493901
-      objectReference: {fileID: 0}
-    - target: {fileID: 1092064793191298276, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814286650780584556, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814286650780584556, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e262771936a8a524e91b7662991c685c, type: 3}
     - target: {fileID: 4769339358360823659, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_Name
       value: DialogueUI
       objectReference: {fileID: 0}
-    - target: {fileID: 7289639189981969191, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 252
-      objectReference: {fileID: 0}
-    - target: {fileID: 7289639189981969191, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 241
-      objectReference: {fileID: 0}
+    - target: {fileID: 5409773699025886344, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
+      propertyPath: UI_Ingame.Array.data[0]
+      value: 
+      objectReference: {fileID: 1951956679}
+    - target: {fileID: 5409773699025886344, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
+      propertyPath: UI_Ingame.Array.data[1]
+      value: 
+      objectReference: {fileID: 592080197}
     - target: {fileID: 8163413652523114622, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -260,14 +232,6 @@ PrefabInstance:
     - target: {fileID: 8163413652523114622, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8595302026003683318, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 81
-      objectReference: {fileID: 0}
-    - target: {fileID: 8595302026003683318, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 74
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -721,6 +685,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &592080197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1769917574054424779, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
+  m_PrefabInstance: {fileID: 1788963380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &629301751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1452,10 @@ PrefabInstance:
     - target: {fileID: 68429002172314861, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
       propertyPath: m_Name
       value: PlayerSkillUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 68429002172314861, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2839387101164193731, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
       propertyPath: m_Pivot.x
@@ -2549,6 +2522,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1951956679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 68429002172314861, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
+  m_PrefabInstance: {fileID: 1167184458}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1963533041
 GameObject:
   m_ObjectHideFlags: 0
