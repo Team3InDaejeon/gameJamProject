@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class KeyManager : MonoBehaviour
 {
@@ -24,43 +25,43 @@ public class KeyManager : MonoBehaviour
 
     void Awake()
     {
-        // ÀÌ¹Ì ÀÎ½ºÅÏ½º°¡ Á¸ÀçÇÏ¸é »õ·Î¿î ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+        // ï¿½Ì¹ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä±ï¿½
         if (keyManager)
         {
             Destroy(gameObject);
         }
         else
         {
-            // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º ¼³Á¤
+            // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
             keyManager = this;
             DontDestroyOnLoad(gameObject);
         }
     }
 
 
-    // ==Å° °ª============================
-    // ÀÌµ¿
+    // ==Å° ï¿½ï¿½============================
+    // ï¿½Ìµï¿½
     public KeyCode MoveLeft = KeyCode.LeftArrow;
     public KeyCode MoveRight = KeyCode.RightArrow;
     public KeyCode MoveUp = KeyCode.UpArrow;
     public KeyCode MoveDown = KeyCode.DownArrow;
 
-    // Á¡ÇÁ
+    // ï¿½ï¿½ï¿½ï¿½
     public KeyCode Jump = KeyCode.Space;
 
     
-  // °ø°Ý
-    public KeyCode MeleeAttack = KeyCode.A;     //±ÙÁ¢°ø°Ý
+  // ï¿½ï¿½ï¿½ï¿½
+    public KeyCode MeleeAttack = KeyCode.A;     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public KeyCode QSkill = KeyCode.Q;              //QSkill
     public KeyCode WSkill = KeyCode.W;             //WSkill
     public KeyCode ESkill = KeyCode.E;              //ESkill
     public KeyCode RSkill = KeyCode.R;              //RSkill
 
-    // ¿É¼Ç
-    public KeyCode Menu = KeyCode.Escape;          // ¿É¼ÇÃ¢
+    // ï¿½É¼ï¿½
+    public KeyCode Menu = KeyCode.Escape;          // ï¿½É¼ï¿½Ã¢
 
 
-  // ==Áö¿ø ÇÔ¼ö======================
+  // ==ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½======================
   public float GetAxisRawHorizontal()
   {
         return Input.GetAxis("Horizontal");
