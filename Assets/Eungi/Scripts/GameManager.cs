@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Test
     public GameObject GameOverButton;
+    int CurrentStage = 0;
 
     void Start()
     {
@@ -47,10 +47,19 @@ public class GameManager : MonoBehaviour
 
     public void PostBossDeath() 
     {
+        // 카메라 고정
         GameObject VRCamera = GameObject.FindWithTag("CineMachineCamera");
         if (VRCamera != null)
         {
             VRCamera.GetComponent<BossRoomCamera>().SetFollowPlayer();
+        }
+
+        // NPC 스폰
+        GameObject Spawner = GameObject.FindWithTag("NPCSpawner");
+        NPCSpawner = Spawner.GetComponent<NPCSpawner>();
+        if (NPCSpawner) 
+        {
+            NPCSpawner.SpawnInteractiveNPC(CurrentStage);
         }
     }
 }

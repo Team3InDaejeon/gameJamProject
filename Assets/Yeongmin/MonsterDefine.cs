@@ -6,7 +6,7 @@ using UnityEngine;
 public enum NonPlayerType
 {
     Mob1 = 0,
-    Mob2,
+    Mob2 = 1,
     Mob3,
     Mob4,
     Mob5,
