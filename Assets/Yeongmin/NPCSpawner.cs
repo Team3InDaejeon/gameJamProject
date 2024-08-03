@@ -9,7 +9,7 @@ public class NPCSpawner : MonoBehaviour
     [Header("순서대로 넣어주세요")]
     public List<GameObject> monsterEntries = new List<GameObject>();
 
-     void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         CharacterPlayer Player = other.GetComponent<CharacterPlayer>();
         if (Player != null)
@@ -28,8 +28,7 @@ public class NPCSpawner : MonoBehaviour
     public void SpawnInteractiveNPC(int CurrentStage)
     {
         int NPCIndex = CurrentStage + 10;
-        GameObject npc = Instantiate(monsterEntries[NPCIndex], transform.position, Quaternion.identity);
-
+        Instantiate(monsterEntries[NPCIndex], transform.position, Quaternion.identity);
         // InteractiveNPC if (npc.GetComponent<InteractiveNPC>()) 
     }
 }

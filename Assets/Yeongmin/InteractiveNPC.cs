@@ -13,8 +13,12 @@ public class InteractiveNPC : MonoBehaviour
 
     void Start()
     {
+        UI_Dialogue = GameObject.FindWithTag("NPCUI").GetComponent<NPCSpawner>();
         CurrentStage = GameManager.Inst.CurrentStage;
-        UI_Dialogue.Initialize(NPCDataInfo);
+        if (UI_Dialogue) 
+        {
+            UI_Dialogue.Initialize(NPCDataInfo);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
