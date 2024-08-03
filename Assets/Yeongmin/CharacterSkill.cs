@@ -2,24 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public abstract class CharacterSkill : MonoBehaviour
 {
     public ScriptableSkill SkillInfo;
     int CurrentSkillCoolTime = 0;
     protected CharacterPlayer Player;
-    SkillCooltimeUI cooltimeUI;
+
+    [SerializeField]
+    private SkillCooltimeUI CooltimeUI;
 
     protected SkillCooldownManager CooldownManager;
 
-    void Start()
+    void Awake()
     {
         Player = GetComponent<CharacterPlayer>();
+        CooldownManager = new SkillCooldownManager();
+    }
 
-        CurrentSkillCoolTime = SkillInfo.Cooltime;
-        CooldownManager = new SkillCooldownManager(SkillInfo.Cooltime);
+    void Start()
+    {
+        if (SkillInfo != null)
+        {
+            CooldownManager.Initialize(SkillInfo.Cooltime);
+        }
+
+        if (CooltimeUI != null)
+        {
+            CooltimeUI.Initizlize(CooldownManager);
+        }
     }
 
     public abstract void StartSkill();
-    public abstract void UpdateSkill();
+    public virtual void UpdateSkill() 
+    {
+        CooldownManager.Update();
+    }
     public abstract void EndSkill();
 }

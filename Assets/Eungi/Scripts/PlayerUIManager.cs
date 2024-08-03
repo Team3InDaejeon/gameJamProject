@@ -6,15 +6,6 @@ using System;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [Header("Skill_UI")]
-    public Image[] img_Skill = new Image[4];
-    public Text coolTimeCounter;
-    public int KeyInputValue;
-
-    private float SkillCool = 0.0f;
-    private float currentCoolTime;
-    private bool canUseSkill = true;
-
     private static PlayerUIManager playerUIManager;
     public static PlayerUIManager Inst
     {
@@ -25,7 +16,7 @@ public class PlayerUIManager : MonoBehaviour
                 playerUIManager = FindObjectOfType<PlayerUIManager>();
                 if (playerUIManager == null)
                 {
-                    Debug.LogError("GameManager does Not Exist!");
+                    Debug.LogError("playerUIManager does Not Exist!");
                 }
             }
             return playerUIManager;
@@ -57,11 +48,6 @@ public class PlayerUIManager : MonoBehaviour
     {
         TypeIMG = GetComponent<Image>();
 
-        for (int i = 0; i < 3; i++)
-        {
-            img_Skill[i].fillAmount = 0.0f;
-        }
-
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
         RedType = true;
@@ -70,13 +56,7 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(CoolTime(SkillCool, KeyInputValue));
-
-        if (Input.GetKeyDown(KeyManager.Inst.QSkill))
-        {   
-            KeyInputValue = 0;
-            Debug.Log("QSkill");
-        }
+        
     }
 
     public void UpdateGauge(int Amount)
@@ -108,26 +88,5 @@ public class PlayerUIManager : MonoBehaviour
                 BlueHealthBar.value = Amount/100;
             }
         }
-    }
-
-    IEnumerator CoolTime(float cool, int keyValue) //Skill Filter
-    {
-        while(img_Skill[keyValue].fillAmount > 0.0f)
-        {
-            currentCoolTime -= 1 * Time.smoothDeltaTime;
-            coolTimeCounter.text = "" + (int)currentCoolTime;
-
-            if (currentCoolTime <= 0)
-            {
-                coolTimeCounter.text = "";
-            }
-
-            img_Skill[keyValue].fillAmount -= 1 * Time.smoothDeltaTime/cool;
-
-            yield return null;
-        }
-        canUseSkill = true;
-
-        yield break;
     }
 }

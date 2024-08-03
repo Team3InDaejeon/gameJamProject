@@ -15,9 +15,9 @@ public class PlayerQSkill : CharacterSkill
     {
         if (Player != null && CooldownManager.CheckCooldown())
         {
-            Player.SetInvincibility(true);  
-            SkillStartTime = Time.time;
             CooldownManager.StartCooldown();
+            Player.SetInvincibility(true);
+            SkillStartTime = Time.time;
         }
     }
     
@@ -28,6 +28,7 @@ public class PlayerQSkill : CharacterSkill
             return;
         }
 
+        base.UpdateSkill();
         if (Player.bIsInvincible) 
         {
             if (Time.time - SkillStartTime >= SkillDuration)

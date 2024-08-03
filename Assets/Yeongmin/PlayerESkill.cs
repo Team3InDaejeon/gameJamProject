@@ -27,7 +27,15 @@ public class PlayerESkill : CharacterSkill
         }
     }
 
-    public override void UpdateSkill() { }
+    public override void UpdateSkill()
+    {
+        if (Player == null)
+        {
+            return;
+        }
+
+        base.UpdateSkill();
+    }
     public override void EndSkill() 
     {
         if (ActiveFireTrap != null)
