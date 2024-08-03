@@ -511,9 +511,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  MinHealth: 0
+  MinHealth: -100
   MaxStrikingPower: 100
   MaxMoveSpeed: 0.2
+  CharacterInfo: {fileID: 11400000, guid: 7584889f5120a544bb2b6aa10189c728, type: 2}
 --- !u!212 &1546052894
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -650,10 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec9bbe8b45fe189499c136cd8d9720c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 0
-  SkillName: 
-  SkillSerialName: 
-  SkillDesc: 
+  SkillInfo: {fileID: 11400000, guid: 75db9d49573268c418704ac7275418a7, type: 2}
 --- !u!114 &1546052898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -666,10 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420570f9e23fc7e48886e69bef81c8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 0
-  SkillName: 
-  SkillSerialName: 
-  SkillDesc: 
+  SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
 --- !u!114 &1546052899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,10 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77c1e5c47cd57b48ac566bd32589384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 0
-  SkillName: 
-  SkillSerialName: 
-  SkillDesc: 
+  SkillInfo: {fileID: 11400000, guid: 9d1150cb39b5ed242babcbe782080024, type: 2}
 --- !u!114 &1546052900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,10 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c127bf14db6a2843aaecaf053f1769e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 0
-  SkillName: 
-  SkillSerialName: 
-  SkillDesc: 
+  SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
 --- !u!114 &1546052901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,10 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fd1609625718748b4f1e7833712467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillCoolTime: 0
-  SkillName: 
-  SkillSerialName: 
-  SkillDesc: 
+  SkillInfo: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
