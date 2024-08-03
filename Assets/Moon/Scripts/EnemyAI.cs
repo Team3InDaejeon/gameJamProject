@@ -76,14 +76,14 @@ public class EnemyAI : CharacterBase,ICombat
     }
     void FixedUpdate()
     {
-        // 바운딩 박스의 바닥 부분의 중심 좌표 계산
+        // 바운??박스??바닥 부분의 중심 좌표 계산
         Vector2 origin = boxCollider.bounds.center;
         origin.y = boxCollider.bounds.min.y;
 
         // Raycast 발사
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
 
-        // 디버그 Ray 그리기
+        // ?�버�?Ray 그리�?
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
         
     }

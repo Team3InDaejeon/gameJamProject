@@ -4,7 +4,38 @@ using UnityEngine;
 
 public class PlayerRSkill : CharacterSkill
 {
-    public override void StartSkill() { }
-    public override void UpdateSkill() { }
-    public override void EndSkill() { }
+    [SerializeField]
+    int DamageAmount = 50;
+
+    int OriginalATK = 0;
+
+    public override void StartSkill() 
+    {
+        if (Player != null && CooldownManager.CheckCooldown())
+        {
+            if (Player.CurrentType != CharacterType.Blue) 
+            {
+                return;
+            }
+            CooldownManager.StartCooldown();
+            OriginalATK = Player.GetStatComponent().GetATK();
+            Player.GetStatComponent().SetATK(DamageAmount);
+            Player.MeleeAttack();
+
+            EndSkill();
+        }
+    }
+
+    public override void UpdateSkill() 
+    {
+    
+    }
+
+    public override void EndSkill() 
+    {
+        if (Player != null) 
+        {
+            Player.GetStatComponent().SetATK(OriginalATK);
+        }
+    }
 }

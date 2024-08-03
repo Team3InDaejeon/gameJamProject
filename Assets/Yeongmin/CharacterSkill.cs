@@ -4,14 +4,19 @@ using UnityEngine;
 
 public abstract class CharacterSkill : MonoBehaviour
 {
-    [SerializeField]
-    ScriptableSkill SkillInfo;
+    public ScriptableSkill SkillInfo;
+    int CurrentSkillCoolTime = 0;
+    protected CharacterPlayer Player;
+    SkillCooltimeUI cooltimeUI;
 
-    float CurrentSkillCoolTime = 0;
+    protected SkillCooldownManager CooldownManager;
 
     void Start()
     {
+        Player = GetComponent<CharacterPlayer>();
+
         CurrentSkillCoolTime = SkillInfo.Cooltime;
+        CooldownManager = new SkillCooldownManager(SkillInfo.Cooltime);
     }
 
     public abstract void StartSkill();
