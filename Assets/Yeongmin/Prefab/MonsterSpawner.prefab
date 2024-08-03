@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3544725691086835002}
   - component: {fileID: 5280753682643600552}
   - component: {fileID: 5939196881101128754}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: MonsterSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 1}
+  m_Size: {x: 7, y: 22.61}
   m_EdgeRadius: 0
 --- !u!114 &5939196881101128754
 MonoBehaviour:
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b288fd914b2324b964f55008e649b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCType: 0
+  NPCType: 10
   monsterEntries:
   - {fileID: 3719754451594008297, guid: 6bcb211b04a620844904a4af7c7b5164, type: 3}
   - {fileID: 3719754451594008297, guid: 42918f34fcda3244389b2602ce224ae3, type: 3}
@@ -102,3 +102,4 @@ MonoBehaviour:
   - {fileID: 2871930009490541070, guid: 5b42677a00605c44d9e6e80d7a08df41, type: 3}
   - {fileID: 2595394463506254703, guid: 774f7f8f3e6d2684fbefc73903ce6e9d, type: 3}
   - {fileID: 3891483346368275828, guid: 73fb8a07ef666f341bc7bd223cc03f6f, type: 3}
+  - {fileID: 3312147651110356334, guid: 35181910afdaa2241acbe312fb334563, type: 3}
