@@ -7,6 +7,7 @@ public class ScriptableBoss : ScriptableObject
     public string Index;
     public string Name;
     public EnemyType Type;
+    public float moveSpeed;
     public int Health;
     public int Atk1Damage;
     public int Atk2Damage;
