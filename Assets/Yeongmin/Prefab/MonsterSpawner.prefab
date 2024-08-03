@@ -91,4 +91,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCType: 0
-  monsterEntries: []
+  monsterEntries:
+  - {fileID: 3719754451594008297, guid: 6bcb211b04a620844904a4af7c7b5164, type: 3}
+  - {fileID: 3719754451594008297, guid: 42918f34fcda3244389b2602ce224ae3, type: 3}
+  - {fileID: 7648427479778368610, guid: cf7cf8ec4ef503a409bffe20f04bfa0d, type: 3}
+  - {fileID: 7648427479778368610, guid: 00f1110ee8f852f4aa1e97e5168c4247, type: 3}
+  - {fileID: 7648427479778368610, guid: 562f60b99eec86946a895a7bbc0ca39f, type: 3}
+  - {fileID: 2871930009490541070, guid: e2b32ab6932415448bba89cf90728506, type: 3}
+  - {fileID: 2871930009490541070, guid: 5b7c755ccc934364b834b92989faadaa, type: 3}
+  - {fileID: 2871930009490541070, guid: 5b42677a00605c44d9e6e80d7a08df41, type: 3}
+  - {fileID: 2595394463506254703, guid: 774f7f8f3e6d2684fbefc73903ce6e9d, type: 3}
+  - {fileID: 3891483346368275828, guid: 73fb8a07ef666f341bc7bd223cc03f6f, type: 3}

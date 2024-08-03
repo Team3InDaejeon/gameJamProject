@@ -15,6 +15,7 @@ MonoBehaviour:
   Index: Boss1
   Name: "\uBE44\uBA85"
   Type: 0
+  moveSpeed: 0
   Health: 400
   Atk1Damage: 30
   Atk2Damage: 50

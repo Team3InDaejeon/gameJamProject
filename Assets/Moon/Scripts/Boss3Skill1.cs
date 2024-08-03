@@ -6,155 +6,96 @@ public class Boss3Skill1 : BossPattern
     [HideInInspector]
     public Transform target;
     Transform bossTransform;
-    public GameObject bossArmPrefab;  // 보스의 팔 Transform
-    public float attackRange = 5f;
+    public GameObject slashPrefab;  // 큰 검기 프리팹
+    public float attackRange = 30f;  // 검기가 이동할 거리
     [HideInInspector]
-    public float damageAmount = 10f;
-    public float armExtendSpeed = 5f;   // 팔을 뻗는 속도
-
-    private Vector3 targetPosition;
-    private Vector3 originalArmPosition;
-    private Quaternion originalArmRotation;
-    private float currentTime = 0;
-    private float maintainTime = 0.5f;
-    private float attackDelay = 1.0f;
-    private float aimingTime = 4.0f;
-
-    private GameObject bossArm;
-
-    public override void Init(BossAI bossAI){
-        target=bossAI.GetTarget();
-        bossTransform=bossAI.transform;
-        damageAmount=bossAI.bossInfo.Atk1Damage;
-        bossArm = Instantiate(bossArmPrefab, bossTransform.position, Quaternion.identity);
-        bossArm.GetComponent<Boss1Arm>().Init(bossAI.bossInfo.Atk1Damage,bossAI.bossInfo.Type);
-        bossArm.SetActive(false);
+    public int damageAmount = 10;
+    public float slashSpeed = 15f;   // 검기 이동 속도
+    public float slashHeight = 20f;  // 검기의 높이 (맵 Y축을 덮을 만큼 큰 값)
+    Animator animator;
+    public override void Init(BossAI bossAI)
+    {
+        target = bossAI.GetTarget();
+        bossTransform = bossAI.transform;
+        damageAmount = bossAI.bossInfo.Atk1Damage;
+        animator=bossAI.animator;
     }
 
     public override IEnumerator ExecutePattern()
     {
-        if (target == null || bossArmPrefab == null)
+        if (target == null || slashPrefab == null)
         {
-            Debug.LogWarning("Target or BossArm is not set for Boss1Skill1");
+            Debug.LogWarning("Target or SlashPrefab is not set for Boss3Skill1");
             yield break;
         }
-        if(bossArm==null){
 
-            bossArm = Instantiate(bossArmPrefab, bossTransform.position, Quaternion.identity);
-        }
-        else{
-            bossArm.SetActive(true);
-        }
 
-        // 초기 팔 위치와 회전 저장
-        originalArmPosition = bossArm.transform.localPosition;
-        originalArmRotation = bossArm.transform.localRotation;
-
-        // 타겟 위치 지정
-        
-
-       
-        // 타겟 위치 유지 및 조준
-        while (currentTime < aimingTime)
-        {
-            currentTime += Time.deltaTime;
-            targetPosition = target.position;
-            // 보스가 타겟을 향해 회전
-            Vector3 directionToTarget = (targetPosition - bossTransform.position).normalized;
-            float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-            bossArm.transform.rotation = Quaternion.Euler(0, 0, angle-180);
-            // 시각적 효과 (예: 레이저 조준선)
-            Debug.DrawLine(bossTransform.position, targetPosition, Color.red);
-            yield return null;
-        }
-        currentTime=0;
-        yield return new WaitForSeconds(attackDelay);
-        // 공격 실행 (팔 뻗기)
-        yield return StartCoroutine(ExtendArm());
-
-        yield return new WaitForSeconds(maintainTime);
-
-        // 팔 원위치
-        yield return StartCoroutine(RetractArm());
+        // 검기 발사
+        yield return StartCoroutine(LaunchSlash());
     }
 
-    private IEnumerator ExtendArm()
+    private IEnumerator LaunchSlash()
     {
-        Vector3 directionToTarget = (targetPosition - bossTransform.position).normalized;
+        animator.SetTrigger("AttackTrigger");
+        Vector3 directionToTarget = (target.position - bossTransform.position).normalized;
 
-        // 먼저 팔의 회전을 설정합니다
-        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-        bossArm.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
+        // 검기 생성 및 초기 설정
+        GameObject slash = Instantiate(slashPrefab, bossTransform.position, Quaternion.identity);
+        slash.transform.right = directionToTarget;  // 검기의 방향을 타겟 쪽으로 설정
 
-        Vector3 originalPosition = bossArm.transform.position;
-        Vector3 extendDirection = bossArm.transform.TransformDirection(Vector3.left);
-        Vector3 extendedPosition = originalPosition + extendDirection * 15;
+        // 검기에 데미지 정보 전달 (필요한 경우)
+        Slash slashComponent = slash.GetComponent<Slash>();
+        if (slashComponent != null)
+        {
+            slashComponent.SetDamage(damageAmount);
+        }
 
+        // 검기 크기 초기화
+        slash.transform.localScale = Vector3.zero;
+
+        // 0.5초 동안 검기 크기 증가
+        float growDuration = 0.3f;
+        Vector3 targetScale = new Vector3(1f, 1f, 1f);
         float elapsedTime = 0f;
-        float extendDuration = attackRange / armExtendSpeed; // 팔을 뻗는 데 걸리는 시간 계산
 
-        while (elapsedTime < extendDuration)
+        while (elapsedTime < growDuration)
         {
             elapsedTime += Time.deltaTime;
-            float t = elapsedTime / extendDuration; // 0에서 1 사이의 값
-
-            // 월드 좌표계에서 팔을 선형적으로 확장
-            bossArm.transform.position = Vector3.Lerp(originalPosition, extendedPosition, t);
-
+            float t = elapsedTime / growDuration;
+            slash.transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, t);
             yield return null;
         }
 
-        // 최종 위치 보정
-        bossArm.transform.position = extendedPosition;
-    }
+        // 최종 크기 설정
+        slash.transform.localScale = targetScale;
 
-    private IEnumerator RetractArm()
-    {
-        Vector3 extendedPosition = bossArm.transform.position;
-        Quaternion extendedRotation = bossArm.transform.rotation;
-
-        Vector3 retractDirection = bossArm.transform.TransformDirection(Vector3.right); // 팔을 접는 방향
-        Vector3 targetPosition = extendedPosition + retractDirection * attackRange; // 원래 위치로 돌아가기
-
-        float elapsedTime = 0f;
-        float retractDuration = attackRange / armExtendSpeed;
-
-        while (elapsedTime < retractDuration)
+        // 검기 이동
+        float distanceTraveled = 0;
+        while (distanceTraveled < attackRange)
         {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / retractDuration; // 0에서 1 사이의 값
+            slash.transform.Translate(Vector3.right * slashSpeed * Time.deltaTime);
+            distanceTraveled += slashSpeed * Time.deltaTime;
 
-            // 위치를 선형적으로 보간
-            bossArm.transform.position = Vector3.Lerp(extendedPosition, targetPosition, t);
-
-            // 회전을 구면 선형 보간(Slerp)으로 부드럽게 변경
-            bossArm.transform.rotation = Quaternion.Slerp(extendedRotation, originalArmRotation, t);
+            // 이동하면서 점점 투명해지게 설정
+            float alpha = 1 - (distanceTraveled / attackRange);
+            SetSlashAlpha(slash, alpha);
 
             yield return null;
         }
 
-        // 최종 위치와 회전 보정
-        bossArm.transform.position = targetPosition;
-        bossArm.transform.rotation = originalArmRotation;
-        bossArm.transform.localPosition = originalArmPosition; // 로컬 위치도 원래대로 복원
-        bossArm.SetActive(false);
+        // 검기 제거
+        Destroy(slash);
     }
 
-    // private void ExecuteAttack()
-    // {
-    //     // 공격 로직
-    //     RaycastHit2D hit = Physics2D.Raycast(bossArmTransform.position, bossArmTransform.right, attackRange);
-
-    //     if (hit.collider != null && hit.collider.CompareTag("Player"))
-    //     {
-    //         PlayerHealth playerHealth = hit.collider.GetComponent<PlayerHealth>();
-    //         if (playerHealth != null)
-    //         {
-    //             playerHealth.TakeDamage(damageAmount);
-    //         }
-    //     }
-
-    //     // 공격 시각 효과
-    //     Debug.DrawRay(bossArmTransform.position, bossArmTransform.right * attackRange, Color.yellow, 0.5f);
-    // }
+    // 검기의 알파값을 설정하는 헬퍼 메서드
+    private void SetSlashAlpha(GameObject slash, float alpha)
+    {
+        SpriteRenderer spriteRenderer = slash.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            color.a = alpha;
+            spriteRenderer.color = color;
+        }
+    }
 }

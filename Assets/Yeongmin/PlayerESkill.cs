@@ -54,7 +54,14 @@ public class PlayerESkill : CharacterSkill
         float PlayerWidth = Player.GetComponent<BoxCollider2D>().bounds.size.x;
         float FireTrapWidth = FireTrapPrefab.GetComponent<BoxCollider2D>().bounds.size.x;
         Vector2 SpawnPosition = (Vector2)transform.position +Player.GetDirection() * (PlayerWidth + FireTrapWidth/2);
-        SpawnPosition += new Vector2(DurationDistance,0);
+        if (Player.GetDirection().x < 0.0f)
+        {
+            SpawnPosition -= new Vector2(DurationDistance,0);
+        }
+        if (Player.GetDirection().x > 0.0f)
+        {
+            SpawnPosition += new Vector2(DurationDistance,0);
+        }
         ActiveFireTrap = Instantiate(FireTrapPrefab, SpawnPosition, Quaternion.identity);
         FireTrap fireTrap = ActiveFireTrap.GetComponent<FireTrap>();
        
@@ -63,7 +70,7 @@ public class PlayerESkill : CharacterSkill
             fireTrap.Initialize(DotDamageAmount, SkillDuration);
         }
 
-        // ÀÏÁ¤ ½Ã°£ ÈÄ ºÒÀåÆÇ Á¦°Å
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Destroy(ActiveFireTrap, SkillDuration);
     }
 }

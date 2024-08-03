@@ -184,7 +184,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     private void OnDrawGizmos()
     {
-        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y);
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(origin, origin + Vector2.down * AirRayLength);
     }
@@ -281,7 +281,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
 
 
-        Vector2 origin = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y - AirRayLength);
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y);
         Vector2 direction = Vector2.down;
 
         // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
