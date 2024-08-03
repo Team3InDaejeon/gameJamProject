@@ -793,7 +793,7 @@ Transform:
   m_GameObject: {fileID: 764523210}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1111114, y: -1.541, z: -10}
+  m_LocalPosition: {x: -0.111111164, y: -1.75, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -927,11 +927,11 @@ PrefabInstance:
       objectReference: {fileID: 543323759}
     - target: {fileID: 2355806545414612125, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.9
+      value: -6.72
       objectReference: {fileID: 0}
     - target: {fileID: 2355806545414612125, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.541
+      value: -3.67
       objectReference: {fileID: 0}
     - target: {fileID: 2355806545414612125, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_LocalPosition.z
@@ -981,6 +981,14 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 764523210}
+    - target: {fileID: 7989651982433030877, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: RayLength
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7989651982433030877, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: AirRayLength
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7989651982433030877, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 8
@@ -2238,7 +2246,7 @@ Transform:
   m_GameObject: {fileID: 1882198494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9, y: -1.541, z: -10}
+  m_LocalPosition: {x: -6.72, y: -3.67, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
