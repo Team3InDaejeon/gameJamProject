@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7889481309691450972}
   - component: {fileID: 7043154869068250859}
   - component: {fileID: 113524084322675477}
+  - component: {fileID: 6136342088444822989}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -71,3 +72,22 @@ MonoBehaviour:
   PlayerHP: 100
   GameOverButton: {fileID: 0}
   EventTick: 0
+--- !u!114 &6136342088444822989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4659524493083388316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5cc2fe264624422d9f6c4fbea466836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RedType: 0
+  BlueType: 0
+  RedHealthBar: {fileID: 0}
+  BlueHealthBar: {fileID: 0}
+  ConditionOBJ: {fileID: 0}
+  Red_IMG: {fileID: 21300000, guid: d67a0a1d786e842a0bd80f6a26624a82, type: 3}
+  Blue_IMG: {fileID: 21300000, guid: 7a19161e9518846e2ac4f607b713dd5c, type: 3}
