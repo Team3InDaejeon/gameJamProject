@@ -15,7 +15,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Start()
     {
-        stat = GetComponent<CharacterStat>();
+        stat = GetComponentInParent<CharacterStat>();
         //EnemyMaxHealth = this.GetComponent<CharacterStat>().GetMaxHealth();
         //EnemyCurrentHealth = this.GetComponent<CharacterStat>().GetHealth();
         //EnemyHPbar.value = (float)EnemyCurrentHealth / (float)EnemyMaxHealth;
