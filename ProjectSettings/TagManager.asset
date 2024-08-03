@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - CineMachineCamera
   - NPCSpawner
+  - NPCUI
   layers:
   - Default
   - TransparentFX
