@@ -35,7 +35,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
-            Stat.OnHealthChanged += (int health) => HealthManager.Inst.UpdateGauge((int)health);
+            Stat.OnHealthChanged += (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
 
         SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
@@ -52,7 +52,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead -= GameManager.Inst.GameOver;
-            Stat.OnHealthChanged -= (int health) => HealthManager.Inst.UpdateGauge((int)health);
+            Stat.OnHealthChanged -= (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
     }
     public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
