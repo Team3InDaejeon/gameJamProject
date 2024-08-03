@@ -41,6 +41,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
+            Stat.OnHealthChanged += (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
 
         SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
@@ -72,9 +73,9 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead -= GameManager.Inst.GameOver;
+            Stat.OnHealthChanged -= (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
     }
-
     public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
         if (bIsInvincible) 
@@ -89,7 +90,11 @@ public class CharacterPlayer : CharacterBase, ICombat
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
 
+
         SetCharacterType();
+
+        Stat.RaiseHealthChangedEvent();
+
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -100,7 +105,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             case CharacterType.Normal: SetDead(); break;
             case CharacterType.Blue: Stat.DecreaseHealth(damageAmount);  break;
         }
-        
+        Stat.RaiseHealthChangedEvent();
     }
 
     private void TakeDamageByRedEnemy(int damageAmount)
@@ -164,12 +169,14 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (false == Input.anyKey)
         {
             Idle();
+            animator.SetBool("isRunning", false);
             return;
         }
         
         if (KeyManager.Inst.GetAxisRawHorizontal() != 0)
         {
             Move();
+            animator.SetBool("isRunning", true);
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.Jump))
@@ -179,8 +186,11 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
+
             base.SetState(CharacterState.MeleeAttack);
             MeleeAttack();
+            
+            animator.SetTrigger("attackTrigger");
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))

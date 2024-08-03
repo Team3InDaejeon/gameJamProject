@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CharacterStat : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class CharacterStat : MonoBehaviour
     protected int Current​StrikingPower;
     protected float Current​MoveSpeed;
 
+    public event Action<int> OnHealthChanged;
 
     // Unity doesn't call constructors for MonoBehaviours, use Awake or Start instead
     private void Awake()
@@ -44,6 +46,11 @@ public class CharacterStat : MonoBehaviour
     public void SetHealth(float NewHealth)
     {
         CurrentHealth = (int)Mathf.Clamp(NewHealth, MinHealth, MaxHealth);
+        OnHealthChanged?.Invoke(CurrentHealth);
+    }
+    public void SetMaxHealth(int NewMaxHealth)
+    {
+        MaxHealth = NewMaxHealth;
     }
 
     public void SetATK(float NewStrikingPower)
@@ -84,5 +91,13 @@ public class CharacterStat : MonoBehaviour
     public void DecreaseMoveSpeed(float Amount)
     {
         SetATK(Current​MoveSpeed - Amount);
+    }
+    public ScriptableEnemy GetCharacterInfo()
+    {
+        return CharacterInfo as ScriptableEnemy;
+    }
+    public void RaiseHealthChangedEvent()
+    {
+        OnHealthChanged?.Invoke(CurrentHealth);
     }
 }

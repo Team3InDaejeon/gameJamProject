@@ -527,10 +527,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  MinHealth: 0
+  MinHealth: -100
   MaxStrikingPower: 100
   MaxMoveSpeed: 5
   CharacterInfo: {fileID: 0}
+
 --- !u!212 &1546052894
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -685,6 +686,7 @@ MonoBehaviour:
   DotDamageAmount: 10
   FireTrapPrefab: {fileID: 6069097726315083715, guid: 6f7d9c15752d9e043a0bb1be6aa12d9a, type: 3}
   DurationDistance: 2
+
 --- !u!114 &1546052899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,6 +715,7 @@ MonoBehaviour:
   SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
   Force: 10
   SkillDuration: 0.4
+
 --- !u!114 &1546052901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
+
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

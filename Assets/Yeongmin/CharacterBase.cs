@@ -33,11 +33,15 @@ public abstract class CharacterBase : MonoBehaviour
     public CharacterType CurrentType { get;  private set; }
     public CharacterStat GetStatComponent() { return Stat; }
 
-    virtual protected void Start() 
+    
+    virtual protected void Start()
     {
         Stat = GetComponent<CharacterStat>(); 
         State = CharacterState.Idle;
+        
     }
+
+    
 
     virtual protected void SetState(CharacterState NewState) 
     {
