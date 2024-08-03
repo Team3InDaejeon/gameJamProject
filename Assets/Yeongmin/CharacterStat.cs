@@ -31,7 +31,6 @@ public class CharacterStat : MonoBehaviour
         {
             MaxStrikingPower = CharacterInfo.StrikingPower;
         }
-        Debug.Log("CharacterStat Awake");
 
         // Set the current stats to their respective max values
         CurrentHealth = MaxHealth;

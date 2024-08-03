@@ -45,16 +45,13 @@ public class CharacterPlayer : CharacterBase, ICombat
             Stat.OnHealthChanged += (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
 
-
-        // SkillMap.Add(CharacterState.MeleeAttack, GetComponent<PlayerASkill>());
         SkillMap.Add(CharacterState.QSkill, GetComponent<PlayerQSkill>());
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
 
-        // Debug.Log(SkillMap.Count);
-
         // Debugging Scriptable Skill
+        /*
         foreach (var kvp in SkillMap)
         {
             CharacterSkill skill = kvp.Value;
@@ -66,7 +63,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             {
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
-        }
+        }*/
     }
 
     private void OnDestroy()
@@ -269,8 +266,6 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         if (Input.GetKeyDown(KeyManager.Inst.QSkill)) 
         {
-            Debug.Log("MoveSpeed From Move: " + Stat.GetMoveSpeed());
-            // 좌우 이동
             Vector2 direction = transform.right;
             Vector2 force = direction * Force;
             CharacterRigidbody.AddForce(force, ForceMode2D.Impulse);
@@ -282,7 +277,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.SetState(CharacterState.Move);
         int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
-        // 좌우 이동
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);
         transform.Translate(v  * Time.deltaTime);
     }
@@ -298,6 +292,6 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void MeleeAttack() 
     {
-        // Stat.GetATK();
+        Stat.GetATK();
     }
 }
