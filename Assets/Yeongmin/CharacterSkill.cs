@@ -6,7 +6,6 @@ using UnityEngine;
 public abstract class CharacterSkill : MonoBehaviour
 {
     public ScriptableSkill SkillInfo;
-    int CurrentSkillCoolTime = 0;
     protected CharacterPlayer Player;
 
     [SerializeField]

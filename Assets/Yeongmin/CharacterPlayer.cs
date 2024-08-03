@@ -21,16 +21,17 @@ public class CharacterPlayer : CharacterBase, ICombat
     float JumpForce = 10.0f;
 
     CharacterSkill CurrentSkill;
-    Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
-
+    Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
+    SpiralWhip SpiralWhipWeapon;
     public bool bIsInvincible { get; private set; }
+
+    public event System.Action OnCharacterDead;
 
     public void SetInvincibility(bool invincible)
     {
         bIsInvincible = invincible;
     }
 
-    public event System.Action OnCharacterDead;
 
     protected override void Start()
     {
@@ -38,6 +39,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        SpiralWhipWeapon = GetComponentInChildren<SpiralWhip>();
 
         if (Stat != null)
         {
@@ -49,6 +51,11 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
+
+        if (SpiralWhipWeapon) 
+        {
+            SpiralWhipWeapon.Initialize(Stat.GetATK(), transform);
+        }
 
         // Debugging Scriptable Skill
         /*
@@ -64,6 +71,7 @@ public class CharacterPlayer : CharacterBase, ICombat
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
         }*/
+
     }
 
     private void OnDestroy()
@@ -292,6 +300,16 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void MeleeAttack() 
     {
-        Stat.GetATK();
+        SpiralWhipWeapon.bIsAttackActive = true;
+    }
+
+    protected void SetWhipAngle(float angle)
+    {
+        SpiralWhipWeapon.SetWhipAngle (angle);
+    }
+
+    public void EndMeleeAttack()
+    {
+        SpiralWhipWeapon.bIsAttackActive = false;
     }
 }

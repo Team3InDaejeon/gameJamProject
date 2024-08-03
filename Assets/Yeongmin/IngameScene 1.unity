@@ -345,6 +345,14 @@ PrefabInstance:
       propertyPath: CooltimeUI
       value: 
       objectReference: {fileID: 8050983265763720003}
+    - target: {fileID: 3500958379855946061, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: TriggerBox
+      value: 
+      objectReference: {fileID: 1312535230}
+    - target: {fileID: 3500958379855946061, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: WhipLength
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5211351197351171570, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: m_Name
       value: Player
@@ -508,6 +516,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAITest
       objectReference: {fileID: 0}
+    - target: {fileID: 3549380794780290643, guid: 42fb93f3b3c2f428e97402aa864bd06b, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 6915711765963966195, guid: 2a10dc8f8c1a398419e85ea1ae5206ac, type: 3}
+    - target: {fileID: 3549380794780290643, guid: 42fb93f3b3c2f428e97402aa864bd06b, type: 3}
+      propertyPath: takeDamageEffect
+      value: 
+      objectReference: {fileID: 8952839095479930137, guid: 209d2ff2962f273478711d6e5063326f, type: 3}
     - target: {fileID: 5116423814613803366, guid: 42fb93f3b3c2f428e97402aa864bd06b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.35
@@ -842,6 +858,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!61 &1312535230 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2002038877246351748, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+  m_PrefabInstance: {fileID: 339118431}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9115510202208752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,10 +1733,6 @@ PrefabInstance:
     - target: {fileID: 2839387101164193731, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4612383791085701551, guid: ee53cb311bd4a03409887c3a076d1474, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
