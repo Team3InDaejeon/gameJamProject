@@ -35,7 +35,7 @@ public abstract class CharacterBase : MonoBehaviour
 
     
 
-    HealthManager HealthTempUI;
+    PlayerUIManager HealthTempUI;
     virtual protected void Start()
     {
         Stat = GetComponent<CharacterStat>(); 
