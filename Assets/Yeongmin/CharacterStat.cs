@@ -95,6 +95,10 @@ public class CharacterStat : MonoBehaviour
     {
         return CharacterInfo as ScriptableEnemy;
     }
+    public int GetMaxHealth()
+    {
+        return MaxHealth;
+    }
     public void RaiseHealthChangedEvent()
     {
         OnHealthChanged?.Invoke(CurrentHealth);
