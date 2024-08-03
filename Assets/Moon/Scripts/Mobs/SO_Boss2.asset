@@ -15,6 +15,7 @@ MonoBehaviour:
   Index: Boss2
   Name: "\uC624\uB9CC"
   Type: 2
+  moveSpeed: 2
   Health: 550
   Atk1Damage: 50
   Atk2Damage: 25

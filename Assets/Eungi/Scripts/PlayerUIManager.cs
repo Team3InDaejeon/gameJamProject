@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerUIManager : MonoBehaviour
 {
     [Header("Skill_UI")]
-    public float SkillCool = 0.0f;
-    public Image img_Skill;
+    public Image[] img_Skill = new Image[4];
     public Text coolTimeCounter;
+    public int KeyInputValue;
 
-    [Header("Skill_Setting")]
-    public ScriptableSkill Skill_Info;
-
+    private float SkillCool = 0.0f;
     private float currentCoolTime;
     private bool canUseSkill = true;
 
@@ -58,7 +57,10 @@ public class PlayerUIManager : MonoBehaviour
     {
         TypeIMG = GetComponent<Image>();
 
-        img_Skill.fillAmount = 0.0f;
+        for (int i = 0; i < 3; i++)
+        {
+            img_Skill[i].fillAmount = 0.0f;
+        }
 
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
@@ -68,7 +70,13 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(CoolTime(SkillCool));
+        StartCoroutine(CoolTime(SkillCool, KeyInputValue));
+
+        if (Input.GetKeyDown(KeyManager.Inst.QSkill))
+        {   
+            KeyInputValue = 0;
+            Debug.Log("QSkill");
+        }
     }
 
     public void UpdateGauge(int Amount)
@@ -102,9 +110,9 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    IEnumerator CoolTime(float cool) //Skill Filter
+    IEnumerator CoolTime(float cool, int keyValue) //Skill Filter
     {
-        while(img_Skill.fillAmount > 0.0f)
+        while(img_Skill[keyValue].fillAmount > 0.0f)
         {
             currentCoolTime -= 1 * Time.smoothDeltaTime;
             coolTimeCounter.text = "" + (int)currentCoolTime;
@@ -114,7 +122,7 @@ public class PlayerUIManager : MonoBehaviour
                 coolTimeCounter.text = "";
             }
 
-            img_Skill.fillAmount -= 1 * Time.smoothDeltaTime/cool;
+            img_Skill[keyValue].fillAmount -= 1 * Time.smoothDeltaTime/cool;
 
             yield return null;
         }
