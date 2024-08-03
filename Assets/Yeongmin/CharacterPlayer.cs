@@ -277,7 +277,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.SetState(CharacterState.Move);
         int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
-        // 좌우 이동
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);
         transform.Translate(v  * Time.deltaTime);
     }
@@ -293,6 +292,6 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void MeleeAttack() 
     {
-        // Stat.GetATK();
+        Stat.GetATK();
     }
 }
