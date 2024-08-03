@@ -231,7 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
-  Force: 2
+  CooltimeUI: {fileID: 0}
+  Force: 7
   SkillDuration: 0.4
 --- !u!114 &3835467276103436037
 MonoBehaviour:
@@ -246,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
+  CooltimeUI: {fileID: 0}
 --- !u!114 &7945162358105227556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
+  CooltimeUI: {fileID: 0}
   SkillDuration: 5
   DotDamageAmount: 10
   FireTrapPrefab: {fileID: 6069097726315083715, guid: 6f7d9c15752d9e043a0bb1be6aa12d9a, type: 3}
@@ -276,6 +279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 75db9d49573268c418704ac7275418a7, type: 2}
+  CooltimeUI: {fileID: 0}
   DamageAmount: 50
 --- !u!114 &9117359880619361172
 MonoBehaviour:
@@ -290,3 +294,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 9d1150cb39b5ed242babcbe782080024, type: 2}
+  CooltimeUI: {fileID: 0}

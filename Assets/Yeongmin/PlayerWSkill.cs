@@ -12,7 +12,15 @@ public class PlayerWSkill : CharacterSkill
             CooldownManager.StartCooldown();
         }
     }
-    public override void UpdateSkill() { }
+    public override void UpdateSkill() 
+    {
+        if (Player == null)
+        {
+            return;
+        }
+
+        base.UpdateSkill();
+    }
     public override void EndSkill() 
     {
     

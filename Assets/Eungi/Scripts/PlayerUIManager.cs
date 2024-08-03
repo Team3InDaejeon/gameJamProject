@@ -6,14 +6,6 @@ using System;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [Header("Skill_UI")]
-    public Image img_Skill;
-    public Text coolTimeCounter;
-
-    private float SkillCool = 0.0f;
-    private float currentCoolTime;
-    private bool canUseSkill = true;
-
     private static PlayerUIManager playerUIManager;
     public static PlayerUIManager Inst
     {
@@ -24,7 +16,7 @@ public class PlayerUIManager : MonoBehaviour
                 playerUIManager = FindObjectOfType<PlayerUIManager>();
                 if (playerUIManager == null)
                 {
-                    Debug.LogError("GameManager does Not Exist!");
+                    Debug.LogError("playerUIManager does Not Exist!");
                 }
             }
             return playerUIManager;
@@ -55,8 +47,6 @@ public class PlayerUIManager : MonoBehaviour
     void Start()
     {
         TypeIMG = GetComponent<Image>();
-
-        img_Skill.fillAmount = 0.0f;
 
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
@@ -98,27 +88,5 @@ public class PlayerUIManager : MonoBehaviour
                 BlueHealthBar.value = Amount/100;
             }
         }
-    }
-
-    IEnumerator CoolTime(float cool) //Skill Filter
-    {
-        while(img_Skill.fillAmount > 0.0f)
-        {
-            currentCoolTime -= 1 * Time.smoothDeltaTime;
-            coolTimeCounter.text = "" + (int)currentCoolTime;
-
-            if (currentCoolTime <= 0)
-            {
-                coolTimeCounter.text = "";
-            }
-
-            img_Skill.fillAmount -= 1 * Time.smoothDeltaTime/cool;
-            Debug.Log("Test");
-
-            yield return null;
-        }
-        canUseSkill = true;
-
-        yield break;
     }
 }
