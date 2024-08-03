@@ -25,6 +25,7 @@ public class PlayerUIManager : MonoBehaviour
     [Header("Player_Type")]
     public bool RedType = false;
     public bool BlueType = false;
+    public bool NormalType = false;
 
     [Header("HealthBar_Slider")]
     public Slider RedHealthBar;
@@ -34,6 +35,7 @@ public class PlayerUIManager : MonoBehaviour
     public GameObject ConditionOBJ;
     public Sprite Red_IMG;
     public Sprite Blue_IMG;
+    public Sprite Normal_IMG;
 
     Image TypeIMG;
 
@@ -65,6 +67,7 @@ public class PlayerUIManager : MonoBehaviour
         {
             RedType = true;
             BlueType = true;
+            TypeIMG.sprite = Normal_IMG;
         }
 
         if (Amount > 0.0f)
