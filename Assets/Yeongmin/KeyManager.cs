@@ -62,13 +62,20 @@ public class KeyManager : MonoBehaviour
 
 
   // ==���� �Լ�======================
-  public float GetAxisRawHorizontal()
+  public int GetAxisRawHorizontal()
   {
-        return Input.GetAxis("Horizontal");
-     // if (Input.GetKey(MoveLeft)) return -1;
-     // else if (Input.GetKey(MoveRight)) return 1;
-     // else return 0;
-  }
+        if (Input.GetKey(MoveLeft))
+        {
+            return -1;
+        }
+
+        if (Input.GetKey(MoveRight))
+        {
+            return 1;
+        }
+
+        return 0;
+    }
 
   public int GetAxisRawVertical()
   {

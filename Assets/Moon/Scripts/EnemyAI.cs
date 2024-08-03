@@ -71,19 +71,19 @@ public class EnemyAI : CharacterBase,ICombat
         }
         Initialize();
     }
-    void Update(){
+    protected virtual void Update(){
         fsm.Driver.Update.Invoke();
     }
     void FixedUpdate()
     {
-        // 바운딩 박스의 바닥 부분의 중심 좌표 계산
+        // 바운??박스??바닥 부분의 중심 좌표 계산
         Vector2 origin = boxCollider.bounds.center;
         origin.y = boxCollider.bounds.min.y;
 
         // Raycast 발사
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
 
-        // 디버그 Ray 그리기
+        // ?�버�?Ray 그리�?
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
         
     }
@@ -123,14 +123,19 @@ public class EnemyAI : CharacterBase,ICombat
     void Attack_Enter()
     {
         Debug.Log("Attack Start");
-        animator.SetFloat("walkSpeed", 0);
+        if(animator!=null)
+            animator.SetFloat("walkSpeed", 0);
+        if(target!=null){
+            Flip(target.position);
+        }
         //TODO : Enemy Attack Animation Start
     }
     void Attack_Update(){
         if(currentAttackTime>=cooltime){
             //TODO : Enemy Attack
             currentAttackTime=0;
-            animator.SetTrigger("attackTrigger");
+            if (animator != null)
+                animator.SetTrigger("attackTrigger");
         }
         else if(target != null && Vector2.Distance(transform.position, target.position) > attackRange+1f)
         {
@@ -138,13 +143,18 @@ public class EnemyAI : CharacterBase,ICombat
         }
         else{
             currentAttackTime+=Time.deltaTime;
+            if (target != null)
+            {
+                Flip(target.position);
+            }
         }
     }
 
     void Death_Enter()
     {
         Debug.Log("Death Start");
-        animator.SetTrigger("deathTrigger");
+        if (animator != null)
+            animator.SetTrigger("deathTrigger");
         //TODO : Enemy Death Animation Start
         Destroy(gameObject,2f);
     }
@@ -181,7 +191,8 @@ public class EnemyAI : CharacterBase,ICombat
 
         Vector2 headDirection =(targetPosition - (Vector2)transform.position).normalized;
 
-        animator.SetFloat("walkSpeed", Mathf.Abs(headDirection.x));
+        if (animator != null)
+            animator.SetFloat("walkSpeed", Mathf.Abs(headDirection.x));
 
         Flip(target);
 
@@ -244,5 +255,12 @@ public class EnemyAI : CharacterBase,ICombat
     protected override void SetDead()
     {
         
+    }
+
+    public Transform GetTarget(){
+        return target;
+    }
+    public void SetTarget(Transform transform){
+        target=transform;
     }
 }

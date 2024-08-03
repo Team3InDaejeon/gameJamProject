@@ -16,15 +16,21 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     float SlowValue;
 
-    private Rigidbody2D CharacterRigidbody;
+    public Rigidbody2D CharacterRigidbody { get; private set; }
     private Animator animator;
     float JumpForce = 10.0f;
 
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap;
 
-    public event System.Action OnCharacterDead;
+    public bool bIsInvincible { get; private set; }
 
+    public void SetInvincibility(bool invincible)
+    {
+        bIsInvincible = invincible;
+    }
+
+    public event System.Action OnCharacterDead;
 
     protected override void Start()
     {
@@ -45,6 +51,21 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
+
+        // Debugging Scriptable Skill
+        /*
+        foreach (var kvp in SkillMap)
+        {
+            CharacterSkill skill = kvp.Value;
+            if (skill != null && skill.SkillInfo != null)
+            {
+                Debug.Log($"Index: {skill.SkillInfo.Index}, Name: {skill.SkillInfo.Name},Effect: {skill.SkillInfo.Effect}, Cooldown: {skill.SkillInfo.Cooltime}");
+            }
+            else
+            {
+                Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
+            }
+        }*/
     }
 
     private void OnDestroy()
@@ -57,13 +78,23 @@ public class CharacterPlayer : CharacterBase, ICombat
     }
     public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
     {
+        if (bIsInvincible) 
+        {
+            return;
+        }
+
         switch (enemyType) 
         {
             case EnemyType.Normal: TakeDamageByNormalEnemy(damageAmount);  break;
             case EnemyType.Red: TakeDamageByRedEnemy(damageAmount); break;
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
+
+
+        SetCharacterType();
+
         Stat.RaiseHealthChangedEvent();
+
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -121,6 +152,11 @@ public class CharacterPlayer : CharacterBase, ICombat
     void Update()
     {
         InputProc();
+
+        if (CurrentSkill) 
+        {
+            CurrentSkill.UpdateSkill();
+        }
     }
 
     private void FixedUpdate() 
@@ -137,9 +173,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             return;
         }
         
-        if (
-            KeyManager.Inst.GetAxisRawHorizontal() != 0 ||
-            KeyManager.Inst.GetAxisRawVertical() != 0)
+        if (KeyManager.Inst.GetAxisRawHorizontal() != 0)
         {
             Move();
             animator.SetBool("isRunning", true);
@@ -152,7 +186,10 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
-            ChangeSkill(CharacterState.MeleeAttack);
+
+            base.SetState(CharacterState.MeleeAttack);
+            MeleeAttack();
+            
             animator.SetTrigger("attackTrigger");
         }
 
@@ -228,23 +265,39 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.SetState(CharacterState.Idle);
     }
 
-    protected override void Move(float multiplier = 1.0f) 
+    public void MoveWithMultiplier(float Force) 
+    {
+        if (Input.GetKeyDown(KeyManager.Inst.QSkill)) 
+        {
+            Debug.Log("MoveSpeed From Move: " + Stat.GetMoveSpeed());
+            // 좌우 이동
+            Vector2 direction = transform.right;
+            Vector2 force = direction * Force;
+            CharacterRigidbody.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    protected override void Move(float multiplier = 1.0f)
     {
         base.SetState(CharacterState.Move);
-
-        float horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
+        int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
         // 좌우 이동
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);
-       transform.Translate(v * Stat.GetMoveSpeed() * Time.deltaTime);
+        transform.Translate(v  * Time.deltaTime);
     }
 
 
     protected override void Jump() 
     {
-      //  if (bIsGrounded)
+        if (bIsGrounded)
         {
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
         }
+    }
+
+    public void MeleeAttack() 
+    {
+        // Stat.GetATK();
     }
 }

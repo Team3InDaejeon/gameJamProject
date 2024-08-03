@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Canvas = GameObject.FindGameObjectWithTag("CanvasUI");
+       //  Canvas = GameObject.FindGameObjectWithTag("CanvasUI");
     }
 
     public void GameOver()
     {
         //GameSceneManager.instance.ChangeScene(GameOverSceneName);
 
-        GameObject GOB = Instantiate(GameOverButton) as GameObject;
-        GOB.transform.SetParent(Canvas.transform, false);
+        // GameObject GOB = Instantiate(GameOverButton) as GameObject;
+        // GOB.transform.SetParent(Canvas.transform, false);
     }
 }
