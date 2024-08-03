@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class BossPattern : MonoBehaviour
 {
-    public float interval;
+    public float interval=1f;
 
     public abstract IEnumerator ExecutePattern();
     public abstract void Init(BossAI bossAI);

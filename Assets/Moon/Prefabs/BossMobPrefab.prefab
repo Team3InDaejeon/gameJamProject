@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4447050777984471965}
   - component: {fileID: 8047838595086164577}
   - component: {fileID: 1779123269516701919}
-  - component: {fileID: 7621636485633052787}
   - component: {fileID: 4090467176940611510}
   m_Layer: 7
   m_Name: BossMobPrefab
@@ -178,33 +177,6 @@ MonoBehaviour:
   MaxStrikingPower: 10
   MaxMoveSpeed: 3
   CharacterInfo: {fileID: 11400000, guid: 4fc50df2ad661384fb59a9a30a2771ea, type: 2}
---- !u!114 &7621636485633052787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6496118922242070507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ad88418cedc79e44aa8e0f221792faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  searchRange: 17.03
-  attackRange: 16.33
-  cooltime: 2
-  jumpPower: 1
-  moveSpeed: 3
-  enemyType: 0
-  hitEffect: {fileID: 0}
-  takeDamageEffect: {fileID: 0}
-  timeForMoving: 10
-  rayLength: 1.2
-  rb: {fileID: 0}
-  availablePatterns:
-  - {fileID: 4090467176940611510}
-  patternOrder: 000000000000000000000000
-  bossInfo: {fileID: 11400000, guid: b7dd57923a0e4f44d90c52f883d655ba, type: 2}
 --- !u!114 &4090467176940611510
 MonoBehaviour:
   m_ObjectHideFlags: 0
