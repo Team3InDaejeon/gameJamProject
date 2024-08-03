@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LoadingSceneManager : MonoBehaviour
 {
-    public Slider slider;
+    public Slider slider;   
     public string SceneName;
 
     private float time;
@@ -16,6 +16,11 @@ public class LoadingSceneManager : MonoBehaviour
         StartCoroutine(LoadAsynSceneCoroutine());
     }
 
+    public void LoadScene(string sceneName)
+    {
+        SceneName = sceneName;
+    }   
+
     IEnumerator LoadAsynSceneCoroutine()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneName);
@@ -24,8 +29,8 @@ public class LoadingSceneManager : MonoBehaviour
         while (!operation.isDone)
         {
             time =+ Time.time;
-            slider.value = time/10f;
-            if (time > 10)
+            slider.value = time/5f;
+            if (time > 5)
             {
                 operation.allowSceneActivation = true;
             }
@@ -33,4 +38,6 @@ public class LoadingSceneManager : MonoBehaviour
             yield return null;
         }
     }
+    
+
 }

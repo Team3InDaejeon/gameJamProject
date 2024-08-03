@@ -9,15 +9,17 @@ public class IntroScene : MonoBehaviour
     public Image image;
     public TMP_Text teamText;
     public TMP_Text start;
-
-    bool isStart = false;
+    public Button button;
     // Start is called before the first frame update
     void Start()
     {
         Sequence MySequence = DOTween.Sequence();
         MySequence.Append(MySequence2())
-        .OnComplete(() => { start.DOFade(1, 1.5f); isStart = true; });
-
+        .OnComplete(() => { start.DOFade(1, 1.5f); });
+        button.onClick.AddListener(() => { 
+                GameSceneManager.Inst.ChangeScene("Stage_01"); 
+                Debug.Log("Clicked");
+        });
     }
     Sequence MySequence2()
     {
