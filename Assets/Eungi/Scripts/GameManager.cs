@@ -23,12 +23,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Test
-    public float PlayerHP = 100.0f;
     public GameObject GameOverButton;
-
-    private GameObject Canvas;
-
-    public int EventTick = 0;
 
     void Start()
     {
@@ -37,9 +32,25 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        //GameSceneManager.instance.ChangeScene(GameOverSceneName);
+        // GameOver
+    }
 
-        // GameObject GOB = Instantiate(GameOverButton) as GameObject;
-        // GOB.transform.SetParent(Canvas.transform, false);
+    public void EnterBossCombat() 
+    {
+        // EnterBossRoom
+        GameObject VRCamera = GameObject.FindWithTag("CineMachineCamera");
+        if (VRCamera != null)
+        {
+            VRCamera.GetComponent<BossRoomCamera>().SetFollowCameraHolder();
+        }
+    }
+
+    public void PostBossDeath() 
+    {
+        GameObject VRCamera = GameObject.FindWithTag("CineMachineCamera");
+        if (VRCamera != null)
+        {
+            VRCamera.GetComponent<BossRoomCamera>().SetFollowPlayer();
+        }
     }
 }

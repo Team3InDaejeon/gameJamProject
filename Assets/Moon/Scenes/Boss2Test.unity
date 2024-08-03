@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &45008863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 45008864}
+  - component: {fileID: 45008865}
+  m_Layer: 0
+  m_Name: CameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &45008864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45008863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45008865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45008863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 813a6da7e8d2b07458786086120461bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &73210993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,7 +312,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &243913000
@@ -352,7 +396,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &313806432
@@ -436,7 +480,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &367817212
@@ -520,7 +564,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &519420028
@@ -1083,7 +1127,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &981697750
@@ -1115,9 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866bd3ae3d66b4082a9a999bc1601416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerHP: 100
   GameOverButton: {fileID: 0}
-  EventTick: 0
 --- !u!4 &981697752
 Transform:
   m_ObjectHideFlags: 0
@@ -1214,7 +1256,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1338553574
@@ -1298,7 +1340,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1458950660
@@ -1532,7 +1574,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 0.6770833}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2060672672
@@ -1546,6 +1588,7 @@ GameObject:
   - component: {fileID: 2060672674}
   - component: {fileID: 2060672673}
   - component: {fileID: 2060672675}
+  - component: {fileID: 2060672676}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -1623,6 +1666,18 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 833454490}
   m_Damping: 0.5
   m_MaxWindowSize: -1
+--- !u!114 &2060672676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060672672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f251b05f27ee7a443bc71d70b946d07f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5773337742415386710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1693,3 +1748,4 @@ SceneRoots:
   - {fileID: 833454491}
   - {fileID: 5773337742415386710}
   - {fileID: 1458950662}
+  - {fileID: 45008864}
