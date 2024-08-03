@@ -13,7 +13,7 @@ public class InteractiveNPC : MonoBehaviour
 
     void Start()
     {
-        UI_Dialogue = GameObject.FindWithTag("NPCUI").GetComponent<NPCSpawner>();
+        UI_Dialogue = GameObject.FindWithTag("NPCUI").GetComponent<NPCSpawner>().GetComponent<DialogueUI>();
         CurrentStage = GameManager.Inst.CurrentStage;
         if (UI_Dialogue) 
         {

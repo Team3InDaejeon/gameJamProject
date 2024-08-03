@@ -444,6 +444,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void EndMeleeAttack()
     {
+        Debug.Log("EndMeleeAttack");
         SpiralWhipWeapon.bIsAttackActive = false;
         SpiralWhipWeapon.gameObject.SetActive(false);
     }

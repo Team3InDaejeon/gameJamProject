@@ -21,7 +21,9 @@ public class NPCSpawner : MonoBehaviour
             {
                 GameManager.Inst.EnterBossCombat();
             }
+            Destroy(this);
         }
+       
     }
 
     // 1, 2, 3 // 11,12,13,14
@@ -29,6 +31,7 @@ public class NPCSpawner : MonoBehaviour
     {
         int NPCIndex = CurrentStage + 10;
         Instantiate(monsterEntries[NPCIndex], transform.position, Quaternion.identity);
+        Destroy(this);
         // InteractiveNPC if (npc.GetComponent<InteractiveNPC>()) 
     }
 }
