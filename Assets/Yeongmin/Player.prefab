@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 179547d7c25c580488bcf7fc22cda130, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -180,6 +180,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 0}
   DefaultGravity: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  RayLength: 0.5
+  hitEffect: {fileID: 0}
+  takeDamageEffect: {fileID: 0}
 --- !u!114 &5920578198030522346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
+  CooltimeUI: {fileID: 0}
   Force: 2
   SkillDuration: 0.4
 --- !u!114 &4824269709243248241
@@ -246,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
+  CooltimeUI: {fileID: 0}
 --- !u!114 &2801035859182580756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,6 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 38cc0d5d6d92f544ea092097114681bf, type: 2}
+  CooltimeUI: {fileID: 0}
   SkillDuration: 5
   DotDamageAmount: 10
   FireTrapPrefab: {fileID: 6069097726315083715, guid: 6f7d9c15752d9e043a0bb1be6aa12d9a, type: 3}
@@ -276,6 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 75db9d49573268c418704ac7275418a7, type: 2}
+  CooltimeUI: {fileID: 0}
   DamageAmount: 50
 --- !u!114 &2113102008705674622
 MonoBehaviour:
@@ -290,3 +300,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: 9d1150cb39b5ed242babcbe782080024, type: 2}
+  CooltimeUI: {fileID: 0}

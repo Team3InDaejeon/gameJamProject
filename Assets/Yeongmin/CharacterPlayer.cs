@@ -255,7 +255,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
         Vector2 direction = Vector2.down;
 
-        // 레이캐스트를 사용하여 바닥 체크
         RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, AirRayLength);
 
         if (hitInfo.collider != null)
@@ -309,10 +308,22 @@ public class CharacterPlayer : CharacterBase, ICombat
     protected override void Move(float multiplier = 1.0f)
     {
         base.SetState(CharacterState.Move);
-        int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
-        Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);
-        transform.Translate(v  * Time.deltaTime);
+        int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // 입력 값에 따라 스프라이트를 좌우로 뒤집음
+        if (horizontalInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (horizontalInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+
+        Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed() * multiplier, CharacterRigidbody.velocity.y);
+        transform.Translate(v * Time.deltaTime);
     }
 
 
