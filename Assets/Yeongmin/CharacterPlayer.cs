@@ -20,8 +20,8 @@ public class CharacterPlayer : CharacterBase, ICombat
     private Animator animator;
     float JumpForce = 10.0f;
     [SerializeField]
-    float RayLength = 0.2f;
-    float AirRayLength = 0.8f;
+    float RayLength = 0.5f;
+    float AirRayLength = 0.5f;
 
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
