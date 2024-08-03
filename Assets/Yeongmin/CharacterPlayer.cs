@@ -427,6 +427,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         SpiralWhipWeapon.bIsAttackActive = true;
         GameObject effect = Instantiate(hitEffect, SpiralWhipWeapon.transform.position, Quaternion.identity);
         Destroy(effect, 2f);
+        SpiralWhipWeapon.gameObject.SetActive(true);
     }
 
     protected void SetWhipAngle(float angle)
@@ -444,6 +445,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     public void EndMeleeAttack()
     {
         SpiralWhipWeapon.bIsAttackActive = false;
+        SpiralWhipWeapon.gameObject.SetActive(false);
     }
 
     public void StartESkillAnimation() 
