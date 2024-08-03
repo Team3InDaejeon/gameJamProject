@@ -16,7 +16,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     float SlowValue;
 
-    private Rigidbody2D CharacterRigidbody;
+    public Rigidbody2D CharacterRigidbody { get; private set; }
     private Animator animator;
     float JumpForce = 10.0f;
 
@@ -24,6 +24,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     Dictionary<CharacterState, CharacterSkill> SkillMap;
 
     public bool bIsInvincible { get; private set; }
+
     public void SetInvincibility(bool invincible)
     {
         bIsInvincible = invincible;
@@ -50,6 +51,8 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
 
+        // Debugging Scriptable Skill
+        /*
         foreach (var kvp in SkillMap)
         {
             CharacterSkill skill = kvp.Value;
@@ -61,7 +64,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             {
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
-        }
+        }*/
     }
 
     private void OnDestroy()
@@ -144,6 +147,11 @@ public class CharacterPlayer : CharacterBase, ICombat
     void Update()
     {
         InputProc();
+
+        if (CurrentSkill) 
+        {
+            CurrentSkill.UpdateSkill();
+        }
     }
 
     private void FixedUpdate() 
@@ -246,15 +254,31 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.SetState(CharacterState.Idle);
     }
 
-    protected override void Move(float multiplier = 1.0f) 
+   //  public void MoveWithMultiplier(float multiplier) 
+   //  {
+   //      Move(multiplier);
+   //  }
+
+    public void MoveWithMultiplier(float Force) 
+    {
+        if (Input.GetKeyDown(KeyManager.Inst.QSkill)) 
+        {
+            Debug.Log("MoveSpeed From Move: " + Stat.GetMoveSpeed());
+            // 좌우 이동
+            Vector2 direction = transform.right;
+            Vector2 force = direction * Force;
+            CharacterRigidbody.AddForce(force, ForceMode2D.Impulse);
+        }
+    }
+
+    protected override void Move(float multiplier = 1.0f)
     {
         base.SetState(CharacterState.Move);
-
         int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
         // 좌우 이동
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);
-       transform.Translate(v * Stat.GetMoveSpeed() * Time.deltaTime);
+        transform.Translate(v  * Time.deltaTime);
     }
 
 

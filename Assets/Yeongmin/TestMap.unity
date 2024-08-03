@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillInfo: {fileID: 11400000, guid: f9da68ddd2e8dea4f980a1d5d99ff1ca, type: 2}
-  SpeedMultiplier: 2
+  Force: 10
   SkillDuration: 0.5
 --- !u!114 &1546052901
 MonoBehaviour:
