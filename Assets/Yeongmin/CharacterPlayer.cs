@@ -179,7 +179,8 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
-            ChangeSkill(CharacterState.MeleeAttack);
+            base.SetState(CharacterState.MeleeAttack);
+            MeleeAttack();
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))
@@ -254,11 +255,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         base.SetState(CharacterState.Idle);
     }
 
-   //  public void MoveWithMultiplier(float multiplier) 
-   //  {
-   //      Move(multiplier);
-   //  }
-
     public void MoveWithMultiplier(float Force) 
     {
         if (Input.GetKeyDown(KeyManager.Inst.QSkill)) 
@@ -284,9 +280,14 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     protected override void Jump() 
     {
-      //  if (bIsGrounded)
+        if (bIsGrounded)
         {
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
         }
+    }
+
+    public void MeleeAttack() 
+    {
+        // Stat.GetATK();
     }
 }

@@ -30,7 +30,7 @@ public abstract class CharacterBase : MonoBehaviour
 {
     protected CharacterStat Stat;
     protected CharacterState State;
-    protected CharacterType CurrentType;
+    public CharacterType CurrentType { get;  private set; }
     public CharacterStat GetStatComponent() { return Stat; }
 
     virtual protected void Start() 

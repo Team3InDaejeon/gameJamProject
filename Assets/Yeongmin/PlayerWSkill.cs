@@ -13,5 +13,8 @@ public class PlayerWSkill : CharacterSkill
         }
     }
     public override void UpdateSkill() { }
-    public override void EndSkill() { }
+    public override void EndSkill() 
+    {
+    
+    }
 }
