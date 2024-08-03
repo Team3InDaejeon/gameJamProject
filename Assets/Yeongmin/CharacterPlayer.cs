@@ -5,13 +5,13 @@ using System.Linq;
 
 public class CharacterPlayer : CharacterBase, ICombat
 {
-    public LayerMask BackGroundLayerMask; 
+    public LayerMask BackGroundLayerMask;
 
     [Header("")]
     [Tooltip("")]
     public GameObject Camera;
 
-    [Tooltip("")] 
+    [Tooltip("")]
     public float DefaultGravity = 1.0f;
     private float Gravity = 1.0f;
     private bool bIsGrounded = false;
@@ -37,6 +37,8 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public event System.Action OnCharacterDead;
 
+    bool bIsFlipped = false;
+
     public void SetInvincibility(bool invincible)
     {
         bIsInvincible = invincible;
@@ -46,11 +48,11 @@ public class CharacterPlayer : CharacterBase, ICombat
     protected override void Start()
     {
         base.Start();
-        
+
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         SpiralWhipWeapon = GetComponentInChildren<SpiralWhip>();
-        layermask=(-1)-(1<<LayerMask.NameToLayer("Background"));
+        layermask = (-1) - (1 << LayerMask.NameToLayer("Background"));
         if (Stat != null)
         {
             OnCharacterDead += GameManager.Inst.GameOver;
@@ -62,7 +64,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
 
-        if (SpiralWhipWeapon) 
+        if (SpiralWhipWeapon)
         {
             SpiralWhipWeapon.Initialize(Stat.GetATK(), transform);
         }
@@ -82,8 +84,8 @@ public class CharacterPlayer : CharacterBase, ICombat
             }
         }*/
 
-        int BackgroundLayer= LayerMask.NameToLayer("Background");
-        BackGroundLayerMask= ~(1 << BackgroundLayer);
+        int BackgroundLayer = LayerMask.NameToLayer("Background");
+        BackGroundLayerMask = ~(1 << BackgroundLayer);
     }
 
     private void OnDestroy()
@@ -94,16 +96,16 @@ public class CharacterPlayer : CharacterBase, ICombat
             Stat.OnHealthChanged -= (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
     }
-    public void TakeDamage(int damageAmount,EnemyType enemyType=EnemyType.Normal) 
+    public void TakeDamage(int damageAmount, EnemyType enemyType = EnemyType.Normal)
     {
-        if (bIsInvincible) 
+        if (bIsInvincible)
         {
             return;
         }
 
-        switch (enemyType) 
+        switch (enemyType)
         {
-            case EnemyType.Normal: TakeDamageByNormalEnemy(damageAmount);  break;
+            case EnemyType.Normal: TakeDamageByNormalEnemy(damageAmount); break;
             case EnemyType.Red: TakeDamageByRedEnemy(damageAmount); break;
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
@@ -117,13 +119,13 @@ public class CharacterPlayer : CharacterBase, ICombat
         Destroy(effect, 2f);
     }
 
-    private void TakeDamageByNormalEnemy ( int damageAmount)
+    private void TakeDamageByNormalEnemy(int damageAmount)
     {
-        switch (CurrentType) 
+        switch (CurrentType)
         {
-            case CharacterType.Red: Stat.IncreaseHealth(damageAmount);  break;
+            case CharacterType.Red: Stat.IncreaseHealth(damageAmount); break;
             case CharacterType.Normal: SetDead(); break;
-            case CharacterType.Blue: Stat.DecreaseHealth(damageAmount);  break;
+            case CharacterType.Blue: Stat.DecreaseHealth(damageAmount); break;
         }
         Stat.RaiseHealthChangedEvent();
     }
@@ -138,14 +140,14 @@ public class CharacterPlayer : CharacterBase, ICombat
         Stat.DecreaseHealth(damageAmount);
     }
 
-    private void SetCharacterType() 
+    private void SetCharacterType()
     {
-        if (Stat.GetHealth() == 0 ) 
+        if (Stat.GetHealth() == 0)
         {
             SetType(CharacterType.Normal);
             return;
         }
-        else if (Stat.GetHealth() < 100 && Stat.GetHealth() > 0) 
+        else if (Stat.GetHealth() < 100 && Stat.GetHealth() > 0)
         {
             SetType(CharacterType.Red);
             return;
@@ -159,7 +161,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         SetDead();
     }
 
-    protected override void SetDead() 
+    protected override void SetDead()
     {
         SetState(CharacterState.Dead);
 
@@ -174,7 +176,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         InputProc();
 
-        if (CurrentSkill) 
+        if (CurrentSkill)
         {
             CurrentSkill.UpdateSkill();
         }
@@ -187,13 +189,13 @@ public class CharacterPlayer : CharacterBase, ICombat
         Gizmos.DrawLine(origin, origin + Vector2.down * AirRayLength);
     }
 
-    private void FixedUpdate() 
+    private void FixedUpdate()
     {
         CheckOnGround();
         CheckOnAir();
     }
 
-    private void InputProc() 
+    private void InputProc()
     {
         if (false == Input.anyKey)
         {
@@ -201,7 +203,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             animator.SetBool("isRunning", false);
             return;
         }
-        
+
         if (KeyManager.Inst.GetAxisRawHorizontal() != 0)
         {
             Move();
@@ -241,7 +243,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    void ChangeSkill(CharacterState NewState) 
+    void ChangeSkill(CharacterState NewState)
     {
         base.SetState(NewState);
 
@@ -256,7 +258,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    private void CheckOnAir() 
+    private void CheckOnAir()
     {
         /*Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
         Vector2 direction = Vector2.down;
@@ -355,17 +357,26 @@ public class CharacterPlayer : CharacterBase, ICombat
             Debug.Log("Not grounded");
         }
     }
-    
-    protected override void Idle() 
+
+    protected override void Idle()
     {
         base.SetState(CharacterState.Idle);
+    }
+
+    public Vector2 GetDirection()
+    {
+        if (bIsFlipped)
+        {
+            return Vector2.left; 
+        }
+        return Vector2.right;
     }
 
     public void MoveWithMultiplier(float Force) 
     {
         if (Input.GetKeyDown(KeyManager.Inst.QSkill)) 
         {
-            Vector2 direction = transform.right;
+            Vector2 direction = GetDirection();
             Vector2 force = direction * Force;
             CharacterRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
@@ -382,10 +393,12 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (horizontalInput < 0)
         {
             spriteRenderer.flipX = true;
+            bIsFlipped = true;
         }
         else if (horizontalInput > 0)
         {
             spriteRenderer.flipX = false;
+            bIsFlipped = false;
         }
 
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed() * multiplier, CharacterRigidbody.velocity.y);

@@ -53,7 +53,7 @@ public class PlayerESkill : CharacterSkill
 
         float PlayerWidth = Player.GetComponent<BoxCollider2D>().bounds.size.x;
         float FireTrapWidth = FireTrapPrefab.GetComponent<BoxCollider2D>().bounds.size.x;
-        Vector2 SpawnPosition = (Vector2)transform.position +(Vector2)transform.right *(PlayerWidth + FireTrapWidth/2);
+        Vector2 SpawnPosition = (Vector2)transform.position +Player.GetDirection() * (PlayerWidth + FireTrapWidth/2);
         SpawnPosition += new Vector2(DurationDistance,0);
         ActiveFireTrap = Instantiate(FireTrapPrefab, SpawnPosition, Quaternion.identity);
         FireTrap fireTrap = ActiveFireTrap.GetComponent<FireTrap>();

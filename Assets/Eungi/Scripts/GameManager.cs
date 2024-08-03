@@ -55,11 +55,10 @@ public class GameManager : MonoBehaviour
         }
 
         // NPC 스폰
-        GameObject Spawner = GameObject.FindWithTag("NPCSpawner");
-        NPCSpawner = Spawner.GetComponent<NPCSpawner>();
-        if (NPCSpawner) 
+        NPCSpawner Spawner = GameObject.FindWithTag("NPCSpawner").GetComponent<NPCSpawner>();
+        if (Spawner) 
         {
-            NPCSpawner.SpawnInteractiveNPC(CurrentStage);
+            Spawner.SpawnInteractiveNPC(CurrentStage);
         }
     }
 }
