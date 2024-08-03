@@ -19,6 +19,7 @@ public class BossAI : EnemyAI
     {
         base.Start();
         // 보스 특정 초기화
+        SetTarget(GameObject.FindGameObjectWithTag("Player").transform);
         Stat.SetMaxHealth(bossInfo.Health); // 예: 보스의 체력을 더 높게 설정
         moveSpeed = 2f; // 예: 보스의 이동 속도를 더 느리게 설정
         foreach(var pattern in availablePatterns)
@@ -56,8 +57,12 @@ public class BossAI : EnemyAI
         }
 
         yield return new WaitForSeconds(nextPattern.interval);
+        if(patternQueue.Count == 0)
+        {
+            yield return new WaitForSeconds(5.0f);
+            InitializePatternQueue();
+        }
 
-        patternQueue.Enqueue(nextPattern);
         isExecutingPattern = false;
     }
 
@@ -70,8 +75,7 @@ public class BossAI : EnemyAI
             patternQueue.Enqueue(pattern);
         }
     }
-
-    
+    protected override void KnockBack(){}
     protected override void Move(float multiplier = 1)
     {
         base.Move(multiplier * 0.8f); 
