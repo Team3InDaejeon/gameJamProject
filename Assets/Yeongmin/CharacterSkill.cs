@@ -33,9 +33,12 @@ public abstract class CharacterSkill : MonoBehaviour
     }
 
     public abstract void StartSkill();
-    public virtual void UpdateSkill() 
+    
+    void Update() 
     {
         CooldownManager.Update();
     }
+
+    public abstract void UpdateSkill();
     public abstract void EndSkill();
 }

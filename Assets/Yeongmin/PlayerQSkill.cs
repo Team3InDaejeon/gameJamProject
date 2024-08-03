@@ -28,7 +28,6 @@ public class PlayerQSkill : CharacterSkill
             return;
         }
 
-        base.UpdateSkill();
         if (Player.bIsInvincible) 
         {
             if (Time.time - SkillStartTime >= SkillDuration)

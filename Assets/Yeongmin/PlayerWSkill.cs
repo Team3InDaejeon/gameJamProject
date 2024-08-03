@@ -19,8 +19,6 @@ public class PlayerWSkill : CharacterSkill
         {
             return;
         }
-
-        base.UpdateSkill();
     }
     public override void EndSkill() 
     {

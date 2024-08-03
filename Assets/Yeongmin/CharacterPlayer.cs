@@ -176,10 +176,10 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         InputProc();
 
-        if (CurrentSkill)
-        {
-            CurrentSkill.UpdateSkill();
-        }
+       // if (CurrentSkill)
+       // {
+       //     CurrentSkill.UpdateSkill();
+       // }
     }
 
     private void OnDrawGizmos()

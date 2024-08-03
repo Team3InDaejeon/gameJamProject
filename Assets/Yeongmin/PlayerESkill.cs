@@ -33,8 +33,6 @@ public class PlayerESkill : CharacterSkill
         {
             return;
         }
-
-        base.UpdateSkill();
     }
     public override void EndSkill() 
     {
