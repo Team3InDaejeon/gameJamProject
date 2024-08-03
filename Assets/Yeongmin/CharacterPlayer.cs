@@ -176,10 +176,10 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         InputProc();
 
-       // if (CurrentSkill)
-       // {
-       //     CurrentSkill.UpdateSkill();
-       // }
+        if (CurrentSkill)
+        {
+            CurrentSkill.UpdateSkill();
+        }
     }
 
     private void OnDrawGizmos()
@@ -293,20 +293,17 @@ public class CharacterPlayer : CharacterBase, ICombat
             if (hitInfo.collider.CompareTag("Ground"))
             {
                 bIsGrounded = true;
-                Debug.Log("Grounded on: " + hitInfo.collider.name);
                 animator.SetBool("IsInAir", false);
             }
             else
             {
                 bIsGrounded = false;
-                Debug.Log("Not grounded, hit: " + hitInfo.collider.name);
                 animator.SetBool("IsInAir", true);
             }
         }
         else
         {
             bIsGrounded = false;
-            Debug.Log("Not grounded");
             animator.SetBool("IsInAir", true);
         }
     }
@@ -378,6 +375,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             Vector2 direction = GetDirection();
             Vector2 force = direction * Force;
             CharacterRigidbody.AddForce(force, ForceMode2D.Impulse);
+           
         }
     }
 
@@ -433,7 +431,14 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     protected void SetWhipAngle(float angle)
     {
-        SpiralWhipWeapon.SetWhipAngle (angle);
+        if (bIsFlipped)
+        {
+            SpiralWhipWeapon.SetWhipAngle(180.0f-angle);
+        }
+        else 
+        {
+            SpiralWhipWeapon.SetWhipAngle (angle);
+        }
     }
 
     public void EndMeleeAttack()

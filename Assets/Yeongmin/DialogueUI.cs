@@ -44,7 +44,7 @@ public class DialogueUI : MonoBehaviour
 
     void Start()
     {
-        this.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     public void StartDialogue() 

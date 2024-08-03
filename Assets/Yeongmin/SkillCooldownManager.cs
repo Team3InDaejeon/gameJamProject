@@ -29,8 +29,6 @@ public class SkillCooldownManager
     {
         LastSkillTime = Time.time;
         bIsCooldownActive = true;
-
-        Debug.Log("StartCooldown");
     }
 
     public void Update() 

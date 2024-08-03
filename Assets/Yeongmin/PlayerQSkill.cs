@@ -37,6 +37,7 @@ public class PlayerQSkill : CharacterSkill
             else
             {
                 Player.MoveWithMultiplier(Force);
+                Debug.Log("UpdateSkill");
             }
         }
     }
