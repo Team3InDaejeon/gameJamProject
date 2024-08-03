@@ -21,6 +21,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     float JumpForce = 10.0f;
     [SerializeField]
     float RayLength = 0.2f;
+    float AirRayLength = 0.8f;
 
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
@@ -73,7 +74,6 @@ public class CharacterPlayer : CharacterBase, ICombat
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
         }*/
-
     }
 
     private void OnDestroy()
@@ -98,11 +98,10 @@ public class CharacterPlayer : CharacterBase, ICombat
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
 
-
         SetCharacterType();
 
         Stat.RaiseHealthChangedEvent();
-
+        animator.SetTrigger("Attacked");
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -154,6 +153,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead?.Invoke();
+            animator.SetTrigger("Dead");
         }
     }
 
@@ -169,14 +169,15 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     private void OnDrawGizmos()
     {
-        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(origin, origin + Vector2.down * RayLength);
+        Gizmos.DrawLine(origin, origin + Vector2.down * AirRayLength);
     }
 
     private void FixedUpdate() 
     {
         CheckOnGround();
+        CheckOnAir();
     }
 
     private void InputProc() 
@@ -241,6 +242,27 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
+    private void CheckOnAir() 
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
+        Vector2 direction = Vector2.down;
+
+        // 레이캐스트를 사용하여 바닥 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, AirRayLength);
+
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                animator.SetBool("IsInAir", false);
+                return;
+            }
+        }
+        bIsGrounded = false;
+        animator.SetBool("IsInAir", true);
+    }
+
     private void CheckOnGround()
     {
         Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
@@ -291,6 +313,15 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (bIsGrounded)
         {
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
+            animator.SetTrigger("IsJump");
+        }
+    }
+
+    public void EndJump()
+    {
+        if (false == bIsGrounded)
+        {
+            animator.SetTrigger("IsJump");
         }
     }
 
@@ -308,5 +339,10 @@ public class CharacterPlayer : CharacterBase, ICombat
     public void EndMeleeAttack()
     {
         SpiralWhipWeapon.bIsAttackActive = false;
+    }
+
+    public void StartESkillAnimation() 
+    {
+        animator.SetTrigger("WSkillTrigger");
     }
 }
