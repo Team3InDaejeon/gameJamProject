@@ -7,9 +7,8 @@ using System;
 public class PlayerUIManager : MonoBehaviour
 {
     [Header("Skill_UI")]
-    public Image[] img_Skill = new Image[4];
+    public Image img_Skill;
     public Text coolTimeCounter;
-    public int KeyInputValue;
 
     private float SkillCool = 0.0f;
     private float currentCoolTime;
@@ -57,10 +56,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         TypeIMG = GetComponent<Image>();
 
-        for (int i = 0; i < 3; i++)
-        {
-            img_Skill[i].fillAmount = 0.0f;
-        }
+        img_Skill.fillAmount = 0.0f;
 
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
@@ -70,13 +66,7 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(CoolTime(SkillCool, KeyInputValue));
-
-        if (Input.GetKeyDown(KeyManager.Inst.QSkill))
-        {   
-            KeyInputValue = 0;
-            Debug.Log("QSkill");
-        }
+        
     }
 
     public void UpdateGauge(int Amount)
@@ -110,9 +100,9 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
-    IEnumerator CoolTime(float cool, int keyValue) //Skill Filter
+    IEnumerator CoolTime(float cool) //Skill Filter
     {
-        while(img_Skill[keyValue].fillAmount > 0.0f)
+        while(img_Skill.fillAmount > 0.0f)
         {
             currentCoolTime -= 1 * Time.smoothDeltaTime;
             coolTimeCounter.text = "" + (int)currentCoolTime;
@@ -122,7 +112,8 @@ public class PlayerUIManager : MonoBehaviour
                 coolTimeCounter.text = "";
             }
 
-            img_Skill[keyValue].fillAmount -= 1 * Time.smoothDeltaTime/cool;
+            img_Skill.fillAmount -= 1 * Time.smoothDeltaTime/cool;
+            Debug.Log("Test");
 
             yield return null;
         }

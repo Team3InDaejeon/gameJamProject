@@ -21,7 +21,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     float JumpForce = 10.0f;
 
     CharacterSkill CurrentSkill;
-    Dictionary<CharacterState, CharacterSkill> SkillMap;
+    Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
 
     public bool bIsInvincible { get; private set; }
 
@@ -35,6 +35,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     protected override void Start()
     {
         base.Start();
+        
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -44,16 +45,16 @@ public class CharacterPlayer : CharacterBase, ICombat
             Stat.OnHealthChanged += (int health) => PlayerUIManager.Inst.UpdateGauge((int)health);
         }
 
-        SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
 
-        SkillMap.Add(CharacterState.MeleeAttack, GetComponent<PlayerASkill>());
+        // SkillMap.Add(CharacterState.MeleeAttack, GetComponent<PlayerASkill>());
         SkillMap.Add(CharacterState.QSkill, GetComponent<PlayerQSkill>());
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
 
+        // Debug.Log(SkillMap.Count);
+
         // Debugging Scriptable Skill
-        /*
         foreach (var kvp in SkillMap)
         {
             CharacterSkill skill = kvp.Value;
@@ -65,7 +66,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             {
                 Debug.LogWarning($"Skill data for state {kvp.Key} is not properly assigned.");
             }
-        }*/
+        }
     }
 
     private void OnDestroy()

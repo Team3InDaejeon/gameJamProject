@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SkillCooltimeUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] int SkillCoolTime = 0;
+    
     void Start()
     {
         
