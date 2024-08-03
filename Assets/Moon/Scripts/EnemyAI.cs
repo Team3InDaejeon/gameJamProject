@@ -32,7 +32,7 @@ public class EnemyAI : CharacterBase,ICombat
     protected float moveSpeed=3;
     public EnemyType enemyType=EnemyType.Red;
     private BoxCollider2D boxCollider;
-    private SpriteRenderer spriteRenderer; // ?�격 ?�과�??�한 ?�프?�이???�더??
+    private SpriteRenderer spriteRenderer; // ?¼ê²© ?¨ê³¼ë¥??„í•œ ?¤í”„?¼ì´???Œë”??
 
     [Header("Effect Setting")]
     public GameObject hitEffect;
@@ -45,7 +45,7 @@ public class EnemyAI : CharacterBase,ICombat
     [Header("Test Setting")]
     public float rayLength=1.2f;
 
-    StateMachine<EnemyState> fsm;
+    public StateMachine<EnemyState> fsm;
     public Rigidbody2D rb;
     Transform target;
     Vector2 randomPoint;
@@ -67,6 +67,9 @@ public class EnemyAI : CharacterBase,ICombat
         rb = GetComponent<Rigidbody2D>();
         animator=GetComponent<Animator>();
         boxCollider=GetComponent<BoxCollider2D>();
+        if(boxCollider==null){
+            Debug.Log("BoxCollider2D is null");
+        }
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (Stat!=null){
             moveSpeed=Stat.GetMoveSpeed();
@@ -83,14 +86,12 @@ public class EnemyAI : CharacterBase,ICombat
     }
     void FixedUpdate()
     {
-        // 바운??박스??바닥 부분의 중심 좌표 계산
         Vector2 origin = boxCollider.bounds.center;
         origin.y = boxCollider.bounds.min.y;
 
-        // Raycast 발사
+        // Raycast ë°œì‚¬
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
 
-        // ?�버�?Ray 그리�?
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
         
     }
@@ -287,7 +288,7 @@ public class EnemyAI : CharacterBase,ICombat
         isGrounded = false;
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
-    void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRange);
@@ -308,4 +309,5 @@ public class EnemyAI : CharacterBase,ICombat
     public void SetTarget(Transform transform){
         target=transform;
     }
+
 }

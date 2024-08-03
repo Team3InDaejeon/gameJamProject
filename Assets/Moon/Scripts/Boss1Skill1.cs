@@ -62,7 +62,6 @@ public class Boss1Skill1 : BossPattern
             // 보스가 타겟을 향해 회전
             Vector3 directionToTarget = (targetPosition - bossTransform.position).normalized;
             float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
-            Debug.Log(angle);
             bossArm.transform.rotation = Quaternion.Euler(0, 0, angle-180);
             // 시각적 효과 (예: 레이저 조준선)
             Debug.DrawLine(bossTransform.position, targetPosition, Color.red);
@@ -87,8 +86,9 @@ public class Boss1Skill1 : BossPattern
         float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
         bossArm.transform.rotation = Quaternion.Euler(0, 0, angle - 180);
 
-        Vector3 originalLocalPosition = bossArm.transform.localPosition;
-        Vector3 extendedLocalPosition = originalLocalPosition + Vector3.left * 10;
+        Vector3 originalPosition = bossArm.transform.position;
+        Vector3 extendDirection = bossArm.transform.TransformDirection(Vector3.left);
+        Vector3 extendedPosition = originalPosition + extendDirection * 15;
 
         float elapsedTime = 0f;
         float extendDuration = attackRange / armExtendSpeed; // 팔을 뻗는 데 걸리는 시간 계산
@@ -98,23 +98,26 @@ public class Boss1Skill1 : BossPattern
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / extendDuration; // 0에서 1 사이의 값
 
-            // 로컬 X축을 따라 팔을 선형적으로 확장
-            bossArm.transform.localPosition = Vector3.Lerp(originalLocalPosition, extendedLocalPosition, t);
+            // 월드 좌표계에서 팔을 선형적으로 확장
+            bossArm.transform.position = Vector3.Lerp(originalPosition, extendedPosition, t);
 
             yield return null;
         }
 
         // 최종 위치 보정
-        bossArm.transform.localPosition = extendedLocalPosition;
+        bossArm.transform.position = extendedPosition;
     }
 
     private IEnumerator RetractArm()
     {
-        Vector3 extendedLocalPosition = bossArm.transform.localPosition;
-        Quaternion extendedRotation = bossArm.transform.localRotation;
+        Vector3 extendedPosition = bossArm.transform.position;
+        Quaternion extendedRotation = bossArm.transform.rotation;
+
+        Vector3 retractDirection = bossArm.transform.TransformDirection(Vector3.right); // 팔을 접는 방향
+        Vector3 targetPosition = extendedPosition + retractDirection * attackRange; // 원래 위치로 돌아가기
 
         float elapsedTime = 0f;
-        float retractDuration = Vector3.Distance(extendedLocalPosition, originalArmPosition) / armExtendSpeed;
+        float retractDuration = attackRange / armExtendSpeed;
 
         while (elapsedTime < retractDuration)
         {
@@ -122,17 +125,18 @@ public class Boss1Skill1 : BossPattern
             float t = elapsedTime / retractDuration; // 0에서 1 사이의 값
 
             // 위치를 선형적으로 보간
-            bossArm.transform.localPosition = Vector3.Lerp(extendedLocalPosition, originalArmPosition, t);
+            bossArm.transform.position = Vector3.Lerp(extendedPosition, targetPosition, t);
 
             // 회전을 구면 선형 보간(Slerp)으로 부드럽게 변경
-            bossArm.transform.localRotation = Quaternion.Slerp(extendedRotation, originalArmRotation, t);
+            bossArm.transform.rotation = Quaternion.Slerp(extendedRotation, originalArmRotation, t);
 
             yield return null;
         }
-        
+
         // 최종 위치와 회전 보정
-        bossArm.transform.localPosition = originalArmPosition;
-        bossArm.transform.localRotation = originalArmRotation;
+        bossArm.transform.position = targetPosition;
+        bossArm.transform.rotation = originalArmRotation;
+        bossArm.transform.localPosition = originalArmPosition; // 로컬 위치도 원래대로 복원
         bossArm.SetActive(false);
     }
 
