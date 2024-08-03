@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3544725691086835002}
   - component: {fileID: 5280753682643600552}
   - component: {fileID: 5939196881101128754}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MonsterSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
