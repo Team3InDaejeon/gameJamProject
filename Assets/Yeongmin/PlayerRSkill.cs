@@ -13,10 +13,10 @@ public class PlayerRSkill : CharacterSkill
     {
         if (Player != null && CooldownManager.CheckCooldown())
         {
-            if (Player.CurrentType != CharacterType.Blue) 
-            {
-                return;
-            }
+           if (Player.CurrentType != CharacterType.Blue) 
+           {
+               return;
+           }
             CooldownManager.StartCooldown();
             OriginalATK = Player.GetStatComponent().GetATK();
             Player.GetStatComponent().SetATK(DamageAmount);

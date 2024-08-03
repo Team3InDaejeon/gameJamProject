@@ -13,24 +13,33 @@ public class CharacterPlayer : CharacterBase, ICombat
     public float DefaultGravity = 1.0f;
     private float Gravity = 1.0f;
     private bool bIsGrounded = false;
-
+    public LayerMask groundLayer; // 그라운드 레이어 마스크
     float SlowValue;
 
     public Rigidbody2D CharacterRigidbody { get; private set; }
     private Animator animator;
     float JumpForce = 10.0f;
+    [SerializeField]
+    float RayLength = 0.2f;
+    float AirRayLength = 0.8f;
 
     CharacterSkill CurrentSkill;
-    Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();  
+    Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
+    SpiralWhip SpiralWhipWeapon;
+
+    [Header("Effect Setting")]
+    public GameObject hitEffect;
+    public GameObject takeDamageEffect;
 
     public bool bIsInvincible { get; private set; }
+
+    public event System.Action OnCharacterDead;
 
     public void SetInvincibility(bool invincible)
     {
         bIsInvincible = invincible;
     }
 
-    public event System.Action OnCharacterDead;
 
     protected override void Start()
     {
@@ -38,6 +47,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         
         CharacterRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        SpiralWhipWeapon = GetComponentInChildren<SpiralWhip>();
 
         if (Stat != null)
         {
@@ -49,6 +59,11 @@ public class CharacterPlayer : CharacterBase, ICombat
         SkillMap.Add(CharacterState.WSkill, GetComponent<PlayerWSkill>());
         SkillMap.Add(CharacterState.ESkill, GetComponent<PlayerESkill>());
         SkillMap.Add(CharacterState.RSkill, GetComponent<PlayerRSkill>());
+
+        if (SpiralWhipWeapon) 
+        {
+            SpiralWhipWeapon.Initialize(Stat.GetATK(), transform);
+        }
 
         // Debugging Scriptable Skill
         /*
@@ -88,11 +103,13 @@ public class CharacterPlayer : CharacterBase, ICombat
             case EnemyType.Blue: TakeDamageByBlueEnemy(damageAmount); break;
         }
 
-
         SetCharacterType();
 
         Stat.RaiseHealthChangedEvent();
 
+        animator.SetTrigger("Attacked");
+        GameObject effect = Instantiate(takeDamageEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 2f);
     }
 
     private void TakeDamageByNormalEnemy ( int damageAmount)
@@ -144,6 +161,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (Stat != null)
         {
             OnCharacterDead?.Invoke();
+            animator.SetTrigger("Dead");
         }
     }
 
@@ -157,9 +175,17 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(origin, origin + Vector2.down * AirRayLength);
+    }
+
     private void FixedUpdate() 
     {
-       // CheckOnGround();
+        CheckOnGround();
+        CheckOnAir();
     }
 
     private void InputProc() 
@@ -186,8 +212,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         {
             base.SetState(CharacterState.MeleeAttack);
             MeleeAttack();
-            
-            animator.SetTrigger("attackTrigger");
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))
@@ -226,36 +250,46 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    // private void CheckOnGround()
-    // {
-    //     //Debug.Log("bIsGrounded: " + bIsGrounded);
+    private void CheckOnAir() 
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + AirRayLength);
+        Vector2 direction = Vector2.down;
 
-    //     List<RaycastHit> hitInfos;
-    //     Vector3 center = transform.position;
-    //     hitInfos = Physics.SphereCastAll(center, characterController.radius, Vector3.down, 0.001f).ToList();
+        // 레이캐스트를 사용하여 바닥 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, AirRayLength);
 
-    //     hitInfos.RemoveAll(hit => (hit.transform.root.GetComponent<CharacterBase>() != null));
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                animator.SetBool("IsInAir", false);
+                return;
+            }
+        }
+        bIsGrounded = false;
+        animator.SetBool("IsInAir", true);
+    }
 
-    //     hitInfos.RemoveAll(hit => (hit.transform.root.gameObject.layer == LayerMask.NameToLayer("Projectiles")));
+    private void CheckOnGround()
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
+        Vector2 direction = Vector2.down;
+        float distance = RayLength;
 
-    //     if (hitInfos.Count == 0)
-    //     {
-    //         // GroundCheckTimer = GROUND_CHECK_TIME;
-    //         bIsGrounded = false;
-    //         return;
-    //     }
+        // 레이캐스트를 사용하여 바닥 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, distance);
 
-    //     for (int i = 0; i < hitInfos.Count; i++)
-    //     {
-    //         //Debug.Log("Hit Object Name: " + hitInfos[i].collider.gameObject.name);
-    //         if (hitInfos[i].collider.tag == "Landable")
-    //         {
-    //             bIsGrounded = true;
-    //             Gravity = DefaultGravity;
-    //             return;
-    //         }
-    //     }
-    // }
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                return;
+            }
+        }
+        bIsGrounded = false;
+    }
     
     protected override void Idle() 
     {
@@ -287,11 +321,38 @@ public class CharacterPlayer : CharacterBase, ICombat
         if (bIsGrounded)
         {
             CharacterRigidbody.velocity = new Vector2(CharacterRigidbody.velocity.x, JumpForce);
+            animator.SetTrigger("IsJump");
+        }
+    }
+
+    public void EndJump()
+    {
+        if (false == bIsGrounded)
+        {
+            animator.SetTrigger("IsJump");
         }
     }
 
     public void MeleeAttack() 
     {
-        Stat.GetATK();
+        animator.SetTrigger("attackTrigger");
+        SpiralWhipWeapon.bIsAttackActive = true;
+        GameObject effect = Instantiate(hitEffect, SpiralWhipWeapon.transform.position, Quaternion.identity);
+        Destroy(effect, 2f);
+    }
+
+    protected void SetWhipAngle(float angle)
+    {
+        SpiralWhipWeapon.SetWhipAngle (angle);
+    }
+
+    public void EndMeleeAttack()
+    {
+        SpiralWhipWeapon.bIsAttackActive = false;
+    }
+
+    public void StartESkillAnimation() 
+    {
+        animator.SetTrigger("WSkillTrigger");
     }
 }

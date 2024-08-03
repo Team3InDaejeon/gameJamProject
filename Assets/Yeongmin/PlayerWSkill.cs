@@ -10,6 +10,7 @@ public class PlayerWSkill : CharacterSkill
         {
             Player.GetStatComponent().SetHealth(0);
             CooldownManager.StartCooldown();
+            Player.StartESkillAnimation();
         }
     }
     public override void UpdateSkill() 
