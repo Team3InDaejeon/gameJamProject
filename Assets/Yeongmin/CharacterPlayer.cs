@@ -159,9 +159,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             return;
         }
         
-        if (
-            KeyManager.Inst.GetAxisRawHorizontal() != 0 ||
-            KeyManager.Inst.GetAxisRawVertical() != 0)
+        if (KeyManager.Inst.GetAxisRawHorizontal() != 0)
         {
             Move();
         }
@@ -252,7 +250,7 @@ public class CharacterPlayer : CharacterBase, ICombat
     {
         base.SetState(CharacterState.Move);
 
-        float horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
+        int horizontalInput = KeyManager.Inst.GetAxisRawHorizontal();
 
         // 좌우 이동
         Vector2 v = new Vector2(horizontalInput * Stat.GetMoveSpeed(), CharacterRigidbody.velocity.y);

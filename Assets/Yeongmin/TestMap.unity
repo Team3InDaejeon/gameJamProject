@@ -529,7 +529,7 @@ MonoBehaviour:
   MaxHealth: 100
   MinHealth: 0
   MaxStrikingPower: 100
-  MaxMoveSpeed: 0.2
+  MaxMoveSpeed: 5
   CharacterInfo: {fileID: 0}
 --- !u!212 &1546052894
 SpriteRenderer:
