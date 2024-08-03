@@ -32,7 +32,7 @@ public class EnemyAI : CharacterBase,ICombat
     protected float moveSpeed=3;
     public EnemyType enemyType=EnemyType.Red;
     private BoxCollider2D boxCollider;
-    private SpriteRenderer spriteRenderer; // 피격 효과를 위한 스프라이트 렌더러
+    private SpriteRenderer spriteRenderer; // ?�격 ?�과�??�한 ?�프?�이???�더??
 
     [Header("Effect Setting")]
     public GameObject hitEffect;
@@ -90,7 +90,7 @@ public class EnemyAI : CharacterBase,ICombat
         // Raycast 발사
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
 
-        // ?�버�?Ray 그리�?
+        // ?�버�?Ray 그리�?
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
         
     }
@@ -101,7 +101,6 @@ public class EnemyAI : CharacterBase,ICombat
     //State Functions
     void Idle_Enter()
     {
-        Debug.Log("Idle Start");
         StartCoroutine(FindTarget(searchRange, 1, EnemyState.Walk));
         //TODO : Enemy Idle Animation Start
     }
@@ -112,7 +111,6 @@ public class EnemyAI : CharacterBase,ICombat
     
     void Walk_Enter()
     {
-        Debug.Log("Walk Start");
         StartCoroutine(FindTarget(attackRange, .1f, EnemyState.Attack));
         //TODO : Enemy Walk Animation Start
     }
@@ -129,7 +127,6 @@ public class EnemyAI : CharacterBase,ICombat
     }
     void Attack_Enter()
     {
-        Debug.Log("Attack Start");
         if(animator!=null)
             animator.SetFloat("walkSpeed", 0);
         if(target!=null){
@@ -159,7 +156,6 @@ public class EnemyAI : CharacterBase,ICombat
 
     void Death_Enter()
     {
-        Debug.Log("Death Start");
         if (animator != null)
             animator.SetTrigger("deathTrigger");
         //TODO : Enemy Death Animation Start

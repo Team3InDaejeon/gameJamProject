@@ -194,8 +194,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         {
             base.SetState(CharacterState.MeleeAttack);
             MeleeAttack();
-            
-            animator.SetTrigger("attackTrigger");
+           
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))
@@ -300,6 +299,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
     public void MeleeAttack() 
     {
+        animator.SetTrigger("attackTrigger");
         SpiralWhipWeapon.bIsAttackActive = true;
     }
 

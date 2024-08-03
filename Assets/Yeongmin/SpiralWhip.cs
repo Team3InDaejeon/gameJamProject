@@ -50,14 +50,6 @@ public class SpiralWhip : MonoBehaviour
             {
                 target.TakeDamage(HitDamage);
             }
-            else 
-            {
-                Debug.Log("target is null");
-            }
-        }
-        else
-        {
-            Debug.Log("bIsAttackActive is false");
         }
     }
 
