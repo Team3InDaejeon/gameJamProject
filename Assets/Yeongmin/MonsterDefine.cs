@@ -20,6 +20,7 @@ public enum NonPlayerType
     Npc2,
     Npc3,
     Npc4,
+    Npc5,
 };
 
 public class MonsterDefine : MonoBehaviour
