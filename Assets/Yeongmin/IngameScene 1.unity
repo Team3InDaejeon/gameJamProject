@@ -357,6 +357,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5751677704383762883, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5751677704383762883, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7945162358105227556, guid: d57db650df4aa1d4fac9e925bdf3be40, type: 3}
       propertyPath: CooltimeUI
       value: 
@@ -385,7 +393,7 @@ GameObject:
   - component: {fileID: 451003173}
   - component: {fileID: 451003172}
   - component: {fileID: 451003174}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}

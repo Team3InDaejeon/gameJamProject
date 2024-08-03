@@ -13,12 +13,14 @@ public class CharacterPlayer : CharacterBase, ICombat
     public float DefaultGravity = 1.0f;
     private float Gravity = 1.0f;
     private bool bIsGrounded = false;
-
+    public LayerMask groundLayer; // 그라운드 레이어 마스크
     float SlowValue;
 
     public Rigidbody2D CharacterRigidbody { get; private set; }
     private Animator animator;
     float JumpForce = 10.0f;
+    [SerializeField]
+    float RayLength = 0.2f;
 
     CharacterSkill CurrentSkill;
     Dictionary<CharacterState, CharacterSkill> SkillMap = new Dictionary<CharacterState, CharacterSkill>();
@@ -165,9 +167,16 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(origin, origin + Vector2.down * RayLength);
+    }
+
     private void FixedUpdate() 
     {
-       // CheckOnGround();
+        CheckOnGround();
     }
 
     private void InputProc() 
@@ -194,7 +203,6 @@ public class CharacterPlayer : CharacterBase, ICombat
         {
             base.SetState(CharacterState.MeleeAttack);
             MeleeAttack();
-           
         }
 
         if (Input.GetKeyDown(KeyManager.Inst.QSkill))
@@ -233,36 +241,25 @@ public class CharacterPlayer : CharacterBase, ICombat
         }
     }
 
-    // private void CheckOnGround()
-    // {
-    //     //Debug.Log("bIsGrounded: " + bIsGrounded);
+    private void CheckOnGround()
+    {
+        Vector2 origin = (Vector2)transform.position + Vector2.down * (GetComponent<BoxCollider2D>().bounds.extents.y + RayLength);
+        Vector2 direction = Vector2.down;
+        float distance = RayLength;
 
-    //     List<RaycastHit> hitInfos;
-    //     Vector3 center = transform.position;
-    //     hitInfos = Physics.SphereCastAll(center, characterController.radius, Vector3.down, 0.001f).ToList();
+        // 레이캐스트를 사용하여 바닥 체크
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, distance);
 
-    //     hitInfos.RemoveAll(hit => (hit.transform.root.GetComponent<CharacterBase>() != null));
-
-    //     hitInfos.RemoveAll(hit => (hit.transform.root.gameObject.layer == LayerMask.NameToLayer("Projectiles")));
-
-    //     if (hitInfos.Count == 0)
-    //     {
-    //         // GroundCheckTimer = GROUND_CHECK_TIME;
-    //         bIsGrounded = false;
-    //         return;
-    //     }
-
-    //     for (int i = 0; i < hitInfos.Count; i++)
-    //     {
-    //         //Debug.Log("Hit Object Name: " + hitInfos[i].collider.gameObject.name);
-    //         if (hitInfos[i].collider.tag == "Landable")
-    //         {
-    //             bIsGrounded = true;
-    //             Gravity = DefaultGravity;
-    //             return;
-    //         }
-    //     }
-    // }
+        if (hitInfo.collider != null)
+        {
+            if (hitInfo.collider.CompareTag("Ground"))
+            {
+                bIsGrounded = true;
+                return;
+            }
+        }
+        bIsGrounded = false;
+    }
     
     protected override void Idle() 
     {
