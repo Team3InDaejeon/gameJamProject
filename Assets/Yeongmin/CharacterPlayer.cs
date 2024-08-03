@@ -186,7 +186,6 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         if (Input.GetKeyDown(KeyManager.Inst.MeleeAttack))
         {
-
             base.SetState(CharacterState.MeleeAttack);
             MeleeAttack();
             
