@@ -9,14 +9,7 @@ public class PlayerQSkill : CharacterSkill
 
     [SerializeField]
     float SkillDuration = 0.5f;
-
     float SkillStartTime = 0.0f;
-    float OriginalSpeed;
-
-    PlayerQSkill()
-    {
-        
-    }
 
     public override void StartSkill() 
     {
@@ -25,8 +18,6 @@ public class PlayerQSkill : CharacterSkill
             Player.SetInvincibility(true);  
             SkillStartTime = Time.time;
             CooldownManager.StartCooldown();
-            // OriginalSpeed = Player.GetStatComponent().GetMoveSpeed();
-            // Debug.Log("MoveSpeed From QSkill: " + OriginalSpeed * SpeedMultiplier);
         }
     }
     
