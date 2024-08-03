@@ -32,6 +32,12 @@ public class EnemyAI : CharacterBase,ICombat
     protected float moveSpeed=3;
     public EnemyType enemyType=EnemyType.Red;
     private BoxCollider2D boxCollider;
+    private SpriteRenderer spriteRenderer; // 피격 효과를 위한 스프라이트 렌더러
+
+    [Header("Effect Setting")]
+    public GameObject hitEffect;
+    public GameObject takeDamageEffect;
+
 
     //AI Setting
     public float timeForMoving = 10;
@@ -61,7 +67,8 @@ public class EnemyAI : CharacterBase,ICombat
         rb = GetComponent<Rigidbody2D>();
         animator=GetComponent<Animator>();
         boxCollider=GetComponent<BoxCollider2D>();
-        if(Stat!=null){
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (Stat!=null){
             moveSpeed=Stat.GetMoveSpeed();
             ScriptableEnemy enemyInfo=Stat.GetCharacterInfo();
             Stat.SetMaxHealth(enemyInfo.Health);
@@ -83,7 +90,7 @@ public class EnemyAI : CharacterBase,ICombat
         // Raycast 발사
         isGrounded = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Platform"));
 
-        // ?�버�?Ray 그리�?
+        // ?�버�?Ray 그리�?
         Debug.DrawRay(origin, Vector2.down * rayLength, Color.red);
         
     }
@@ -134,8 +141,8 @@ public class EnemyAI : CharacterBase,ICombat
         if(currentAttackTime>=cooltime){
             //TODO : Enemy Attack
             currentAttackTime=0;
-            if (animator != null)
-                animator.SetTrigger("attackTrigger");
+            GameObject effect=Instantiate(hitEffect,target.position,Quaternion.identity);
+            Destroy(effect,2f);
         }
         else if(target != null && Vector2.Distance(transform.position, target.position) > attackRange+1f)
         {
@@ -228,15 +235,57 @@ public class EnemyAI : CharacterBase,ICombat
         }
     }
 
-    public void TakeDamage(int damage, EnemyType enemyType = EnemyType.Normal)
+    public virtual void TakeDamage(int damage, EnemyType enemyType = EnemyType.Normal)
     {
+
         Stat.DecreaseHealth(damage);
         Debug.Log("Enemy Health : " + Stat.GetHealth());
-        if(Stat.GetHealth()<=0){
+        KnockBack();
+        
+
+        if (Stat.GetHealth() <= 0)
+        {
             fsm.ChangeState(EnemyState.Death);
         }
+        else{
+            StartCoroutine(TakeDamageEffect());
+        }
+        
     }
+    private IEnumerator TakeDamageEffect()
+    {
+        bool clicker=false;
+        GameObject effect=Instantiate(takeDamageEffect,transform.position,Quaternion.identity);
+        Destroy(effect,2f);
+        if (spriteRenderer != null)
+        {
+            float elapsedTime = 0f;
 
+            while (elapsedTime < 1f)
+            {
+                if(clicker){
+                    spriteRenderer.color = new Color(1,1,1,1);
+                    clicker=false;
+                }
+                else{
+                    spriteRenderer.color = new Color(1,1,1,0.5f);
+                    clicker=true;
+                }
+                yield return new WaitForSeconds(0.35f);
+                elapsedTime += 0.35f;
+            }
+            spriteRenderer.enabled = true;
+        }
+
+    }
+    protected virtual void KnockBack(){
+        if(transform.localScale.x==1){
+            rb.AddForce(Vector2.left*5,ForceMode2D.Impulse);
+        }else{
+            rb.AddForce(Vector2.right*5,ForceMode2D.Impulse);
+        }
+        
+    }
     protected override void Jump()
     {
         isGrounded = false;
