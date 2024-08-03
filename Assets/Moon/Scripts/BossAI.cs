@@ -50,6 +50,10 @@ public class BossAI : EnemyAI
             StartCoroutine(ExecuteNextPattern());
         }
         Debug.Log("Now Base Update()");
+        if(Stat.GetCurrentHealth() <= 0)
+        {
+            SetDead();
+        }
     }
 
     protected virtual IEnumerator ExecuteNextPattern()

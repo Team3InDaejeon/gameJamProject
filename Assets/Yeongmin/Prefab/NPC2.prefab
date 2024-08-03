@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f2cd12a8ac3ad429315f79859af752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCDataInfo: {fileID: 0}
+  NPCDataInfo: {fileID: 11400000, guid: 8fb948e655b48a5418765f86563b034c, type: 2}
   CurrentStage: 0
   UI_Dialogue: {fileID: 0}
 --- !u!212 &3654567682771989962
