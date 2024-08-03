@@ -46,7 +46,7 @@ public class PlayerUIManager : MonoBehaviour
 
     void Start()
     {
-        TypeIMG = GetComponent<Image>();
+        TypeIMG = ConditionOBJ.GetComponent<Image>();
 
         RedHealthBar.value = 0.0f;
         BlueHealthBar.value = 0.0f;
