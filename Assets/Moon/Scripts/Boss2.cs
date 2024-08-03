@@ -10,7 +10,7 @@ public class Boss2 : BossAI
     [SerializeField]
     private float playerDetectionRange = 10f;
 
-    private bool isExecutingPattern = false;
+    private bool isExecuting = false;
 
     protected override void Start()
     {
@@ -24,7 +24,7 @@ public class Boss2 : BossAI
 
         if (IsPlayerInAttackRange())
         {
-            if (!isExecutingPattern)
+            if (!isExecuting)
             {
                 base.Update(); // 패턴 실행을 위한 기본 Update 호출
             }
@@ -35,14 +35,14 @@ public class Boss2 : BossAI
         }
         else if (IsPlayerInDetectionRange())
         {
-            if (!isExecutingPattern)
+            if (!isExecuting)
             {
                 MoveTowardsPlayer();
             }
         }
         else
         {
-            if (!isExecutingPattern)
+            if (!isExecuting)
             {
                 fsm.ChangeState(EnemyState.Walk);
                 WanderMovement();
@@ -105,15 +105,15 @@ public class Boss2 : BossAI
 
     protected override IEnumerator ExecuteNextPattern()
     {
-        isExecutingPattern = true;
+        isExecuting = true;
         yield return StartCoroutine(base.ExecuteNextPattern());
-        isExecutingPattern = false;
+        isExecuting = false;
     }
 
     // 필요한 경우 Move 메서드 오버라이드
     protected override void Move(float multiplier = 1)
     {
-        if (!isExecutingPattern)
+        if (!isExecuting)
         {
             base.Move(multiplier);
         }

@@ -49,7 +49,8 @@ public class EnemyAI : CharacterBase,ICombat
     public Rigidbody2D rb;
     Transform target;
     Vector2 randomPoint;
-    Animator animator;
+    [HideInInspector]
+    public Animator animator;
     float currentTimeForMoving=0;
     float currentAttackTime=0;
     bool isGrounded=true;
@@ -157,10 +158,7 @@ public class EnemyAI : CharacterBase,ICombat
 
     void Death_Enter()
     {
-        if (animator != null)
-            animator.SetTrigger("deathTrigger");
-        //TODO : Enemy Death Animation Start
-        Destroy(gameObject,2f);
+        SetDead();
     }
 
     //Utility Functions
@@ -300,7 +298,10 @@ public class EnemyAI : CharacterBase,ICombat
 
     protected override void SetDead()
     {
-        
+        if (animator != null)
+            animator.SetTrigger("deathTrigger");
+        //TODO : Enemy Death Animation Start
+        Destroy(gameObject, 2f);
     }
 
     public Transform GetTarget(){

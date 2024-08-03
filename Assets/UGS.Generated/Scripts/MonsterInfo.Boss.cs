@@ -60,6 +60,7 @@ namespace MonsterInfo
 		public System.String Name;
 		public System.String Description;
 		public System.Int32 Hp;
+		public System.Single MoveSpeed;
 		public System.String EnemyType;
 		public System.Int32 Atk1Damage;
 		public System.Int32 Atk2Damage;
