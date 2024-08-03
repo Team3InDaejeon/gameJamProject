@@ -49,6 +49,7 @@ public class BossAI : EnemyAI
         {
             StartCoroutine(ExecuteNextPattern());
         }
+        Debug.Log("Now Base Update()");
     }
 
     protected virtual IEnumerator ExecuteNextPattern()
