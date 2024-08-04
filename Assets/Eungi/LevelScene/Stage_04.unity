@@ -1982,6 +1982,30 @@ PrefabInstance:
       propertyPath: NPCType
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.data[11]
+      value: 
+      objectReference: {fileID: 5128113996325192320, guid: 0dc5dbd002b280b4a80c2edd14bdfacc, type: 3}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.data[12]
+      value: 
+      objectReference: {fileID: 3891483346368275828, guid: 73fb8a07ef666f341bc7bd223cc03f6f, type: 3}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.data[13]
+      value: 
+      objectReference: {fileID: 5128113996325192320, guid: 00e04138f6506ba4bb923105cdd1b905, type: 3}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.data[14]
+      value: 
+      objectReference: {fileID: 5128113996325192320, guid: 485e4c4fdcecff8498304442602ded36, type: 3}
+    - target: {fileID: 5939196881101128754, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
+      propertyPath: monsterEntries.Array.data[15]
+      value: 
+      objectReference: {fileID: 5128113996325192320, guid: 11efd0a95fef2484c877a9212e4326e6, type: 3}
     - target: {fileID: 7017284381374071445, guid: 5ac4829b0f0d90a4195471a53c3a8e0f, type: 3}
       propertyPath: m_Name
       value: MonsterSpawner (10)
@@ -3863,6 +3887,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1079705379156510530, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
+      propertyPath: m_TagString
+      value: BlueHealthBar
+      objectReference: {fileID: 0}
     - target: {fileID: 1170189634621917005, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
       propertyPath: m_Name
       value: PlayerUI
@@ -3886,6 +3914,10 @@ PrefabInstance:
     - target: {fileID: 2093002253349451873, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4113732821188449886, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
+      propertyPath: m_TagString
+      value: ConditionIMG
       objectReference: {fileID: 0}
     - target: {fileID: 4941664599642944112, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
       propertyPath: m_Pivot.x
@@ -3998,6 +4030,10 @@ PrefabInstance:
     - target: {fileID: 8507723955033695588, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8526290678922382274, guid: 8d61c9315009043c7ad6a5ff27f28751, type: 3}
+      propertyPath: m_TagString
+      value: RedHealthBar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

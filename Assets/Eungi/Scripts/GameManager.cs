@@ -55,6 +55,14 @@ public class GameManager : MonoBehaviour
 
     public void PostBossDeath() 
     {
+        if(rightBlock!=null)
+        {
+            Destroy(rightBlock);
+        }
+        if(leftBlock!=null)
+        {
+            Destroy(leftBlock);
+        }
         if(IsBossDead){
             return;
         }

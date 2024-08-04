@@ -109,7 +109,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -178,9 +178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca1aa665ce2cdf4ca5febb7a89ce36e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackGroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
   Camera: {fileID: 0}
   DefaultGravity: 1
   groundLayer:

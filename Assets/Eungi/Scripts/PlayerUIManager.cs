@@ -56,6 +56,9 @@ public class PlayerUIManager : MonoBehaviour
         BlueType = true;
 
         TypeIMG.sprite = Normal_IMG;
+        RedHealthBar=GameObject.FindWithTag("RedHealthBar").GetComponent<Slider>();
+        BlueHealthBar = GameObject.FindWithTag("BlueHealthBar").GetComponent<Slider>();
+        ConditionOBJ = GameObject.FindWithTag("ConditionIMG");
     }
 
     void Update()
@@ -65,6 +68,18 @@ public class PlayerUIManager : MonoBehaviour
 
     public void UpdateGauge(int Amount)
     {
+        if(RedHealthBar==null)
+        {
+            RedHealthBar = GameObject.FindWithTag("RedHealthBar").GetComponent<Slider>();
+        }
+        if (BlueHealthBar == null)
+        {
+            BlueHealthBar = GameObject.FindWithTag("BlueHealthBar").GetComponent<Slider>();
+        }
+        if (ConditionOBJ == null)
+        {
+            ConditionOBJ = GameObject.FindWithTag("ConditionIMG");
+        }
         if (Amount == 0.0f)
         {
             RedType = true;

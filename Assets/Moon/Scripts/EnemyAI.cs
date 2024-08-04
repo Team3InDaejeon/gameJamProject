@@ -142,7 +142,7 @@ public class EnemyAI : CharacterBase,ICombat
             currentAttackTime=0;
             GameObject effect=Instantiate(hitEffect,target.position,Quaternion.identity);
             Destroy(effect,2f);
-            target.GetComponent<ICombat>().TakeDamage(Stat.GetATK(),enemyType);
+            target.GetComponent<CharacterPlayer>().TakeDamage(Stat.GetATK(),enemyType);
         }
         else if(target != null && Vector2.Distance(transform.position, target.position) > attackRange+1f)
         {

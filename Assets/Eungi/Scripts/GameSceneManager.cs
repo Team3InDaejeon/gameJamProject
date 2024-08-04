@@ -56,7 +56,7 @@ public class GameSceneManager : MonoBehaviour
         }
 
         // LoadingSceneManager가 로드되길 기다립니다.
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitUntil(() => FindObjectOfType<LoadingSceneManager>() != null);
 
         // LoadingSceneManager에게 다음 씬 정보를 전달합니다.
         LoadingSceneManager loadingManager = FindObjectOfType<LoadingSceneManager>();

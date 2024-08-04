@@ -6,7 +6,7 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField]
     NonPlayerType NPCType;
-    [Header("�������?�־��ּ���")]
+    [Header("�������?�־��ּ���")]
     public List<GameObject> monsterEntries = new List<GameObject>();
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,7 +34,7 @@ public class NPCSpawner : MonoBehaviour
     // 1, 2, 3 // 11,12,13,14
     public void SpawnInteractiveNPC(int CurrentStage)
     {
-        int NPCIndex = CurrentStage + 11;
+        int NPCIndex = CurrentStage + 12;
         Instantiate(monsterEntries[NPCIndex], transform.position, Quaternion.identity);
         // InteractiveNPC if (npc.GetComponent<InteractiveNPC>()) 
     }
