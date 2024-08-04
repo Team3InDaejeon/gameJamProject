@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CharacterPlayer : CharacterBase, ICombat
 {
-    public LayerMask BackGroundLayerMask;
+    int PlatformLayerMask;
 
     [Header("")]
     [Tooltip("")]
@@ -84,8 +84,7 @@ public class CharacterPlayer : CharacterBase, ICombat
             }
         }*/
 
-        int BackgroundLayer = LayerMask.NameToLayer("Background");
-        BackGroundLayerMask = ~(1 << BackgroundLayer);
+        PlatformLayerMask = 1 << LayerMask.NameToLayer("Platform");
     }
 
     private void OnDestroy()
@@ -288,7 +287,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         Vector2 direction = Vector2.down;
 
         // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
-        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, BackGroundLayerMask);
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, PlatformLayerMask);
         //Debug.Log(hitInfo.collider);
         if (hitInfo.collider != null)
         {
@@ -335,7 +334,7 @@ public class CharacterPlayer : CharacterBase, ICombat
         Vector2 direction = Vector2.down;
 
         // 레이캐스트를 사용하여 "NothingLayer"를 제외한 모든 레이어 체크
-        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, BackGroundLayerMask);
+        RaycastHit2D hitInfo = Physics2D.Raycast(origin, direction, RayLength, PlatformLayerMask);
         if (hitInfo.collider != null)
         {
             // 충돌한 콜라이더의 태그가 "Ground"인지 확인

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCDataInfo: {fileID: 11400000, guid: 0fbb7bcd34f21a446a74fbca0376c13e, type: 2}
   CurrentStage: 0
-  UI_Dialogue: {fileID: 0}
+  UI_Dialogue: {fileID: 5409773699025886344, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
 --- !u!212 &3654567682771989962
 SpriteRenderer:
   m_ObjectHideFlags: 0
