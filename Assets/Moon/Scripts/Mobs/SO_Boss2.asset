@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: "\uC624\uB9CC"
   Type: 2
   moveSpeed: 2
-  Health: 550
+  Health: 100
   Atk1Damage: 50
   Atk2Damage: 25
   Atk3Damage: 50

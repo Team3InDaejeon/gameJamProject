@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: "\uBE44\uBA85"
   Type: 0
   moveSpeed: 0
-  Health: 400
+  Health: 100
   Atk1Damage: 30
   Atk2Damage: 50
   Atk3Damage: 0

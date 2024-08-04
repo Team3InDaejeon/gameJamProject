@@ -366,6 +366,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHPUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6128380362633265684, guid: 9e070b112f24d45b1a7fdd6647fb9cf6, type: 3}
+      propertyPath: m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6128380362633265684, guid: 9e070b112f24d45b1a7fdd6647fb9cf6, type: 3}
+      propertyPath: m_MaxValue
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6168479430267800478, guid: 9e070b112f24d45b1a7fdd6647fb9cf6, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
