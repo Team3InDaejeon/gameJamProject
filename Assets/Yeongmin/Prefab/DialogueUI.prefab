@@ -348,6 +348,7 @@ MonoBehaviour:
   Image_Name: {fileID: 8680321004517098314}
   Text_Dialogue: {fileID: 1120167566851941123}
   Text_Name: {fileID: 1092064793191298276}
+  Button_Next: {fileID: 1067797488951505770}
   UI_Ingame:
   - {fileID: 0}
   - {fileID: 0}
