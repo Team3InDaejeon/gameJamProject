@@ -6,12 +6,18 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField]
     NonPlayerType NPCType;
-    [Header("������� �־��ּ���")]
+    [Header("�������?�־��ּ���")]
     public List<GameObject> monsterEntries = new List<GameObject>();
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if ((int)NPCType > 10 && (int)NPCType < 15)
+        {
+            return;
+        }
+
         CharacterPlayer Player = other.GetComponent<CharacterPlayer>();
+        
         if (Player != null)
         {
             GameObject npc = Instantiate(monsterEntries[(int)NPCType], transform.position, Quaternion.identity);
