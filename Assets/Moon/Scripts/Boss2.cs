@@ -21,17 +21,14 @@ public class Boss2 : BossAI
 
     protected override void Update()
     {
-
+        if (!isExecuting)
+        {
+            base.Update(); // 패턴 실행을 위한 기본 Update 호출
+        }
         if (IsPlayerInAttackRange())
         {
-            if (!isExecuting)
-            {
-                base.Update(); // 패턴 실행을 위한 기본 Update 호출
-            }
-            else
-            {
-                StopMovement(); // 패턴 실행 중에는 움직임 정지
-            }
+            
+            
         }
         else if (IsPlayerInDetectionRange())
         {

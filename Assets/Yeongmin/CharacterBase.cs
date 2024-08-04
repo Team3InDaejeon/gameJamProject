@@ -57,5 +57,5 @@ public abstract class CharacterBase : MonoBehaviour
     protected abstract void Idle();
     protected abstract void Move(float multiplier = 1f);
     protected abstract void Jump();
-    protected abstract void SetDead();
+    protected virtual void SetDead(){}
 }

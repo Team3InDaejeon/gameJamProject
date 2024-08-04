@@ -241,6 +241,7 @@ public class EnemyAI : CharacterBase,ICombat
 
         if (Stat.GetHealth() <= 0)
         {
+            Debug.Log("Enemy is Dead");
             fsm.ChangeState(EnemyState.Death);
         }
         else{
@@ -301,6 +302,7 @@ public class EnemyAI : CharacterBase,ICombat
     {
         if (animator != null)
             animator.SetTrigger("deathTrigger");
+        Debug.Log("SetDead");
         //TODO : Enemy Death Animation Start
         Destroy(gameObject, 2f);
     }

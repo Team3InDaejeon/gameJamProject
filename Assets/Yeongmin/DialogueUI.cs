@@ -42,10 +42,6 @@ public class DialogueUI : MonoBehaviour
         Text_Dialogue.text = NPCDataInfo.Name;
     }
 
-    void Start()
-    {
-        this.gameObject.SetActive(false);
-    }
 
     public void StartDialogue() 
     {

@@ -6,7 +6,7 @@ public class NPCSpawner : MonoBehaviour
 {
     [SerializeField]
     NonPlayerType NPCType;
-    [Header("╪Ь╪╜╢К╥н Ёж╬Наж╪╪©Д")]
+    [Header("О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫ж╬О©╫О©╫ж╪О©╫О©╫О©╫")]
     public List<GameObject> monsterEntries = new List<GameObject>();
 
     void OnTriggerEnter2D(Collider2D other)
@@ -20,6 +20,7 @@ public class NPCSpawner : MonoBehaviour
             if ((int)NPCType > 7 && (int)NPCType < 11)
             {
                 GameManager.Inst.EnterBossCombat();
+                GetComponent<BoxCollider2D>().isTrigger = false;
             }
             Destroy(this);
         }
@@ -29,9 +30,8 @@ public class NPCSpawner : MonoBehaviour
     // 1, 2, 3 // 11,12,13,14
     public void SpawnInteractiveNPC(int CurrentStage)
     {
-        int NPCIndex = CurrentStage + 10;
+        int NPCIndex = CurrentStage + 11;
         Instantiate(monsterEntries[NPCIndex], transform.position, Quaternion.identity);
-        Destroy(this);
         // InteractiveNPC if (npc.GetComponent<InteractiveNPC>()) 
     }
 }

@@ -54,6 +54,8 @@ public class PlayerUIManager : MonoBehaviour
         BlueHealthBar.value = 0.0f;
         RedType = true;
         BlueType = true;
+
+        TypeIMG.sprite = Normal_IMG;
     }
 
     void Update()
