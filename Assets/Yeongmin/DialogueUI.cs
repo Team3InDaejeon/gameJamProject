@@ -14,6 +14,8 @@ public class DialogueUI : MonoBehaviour
     TextMeshProUGUI Text_Dialogue;
     [SerializeField]
     TextMeshProUGUI Text_Name;
+    [SerializeField]
+    GameObject Button_Next;
 
     [SerializeField]
     List<GameObject> UI_Ingame;
@@ -49,6 +51,11 @@ public class DialogueUI : MonoBehaviour
         {
             UI_Ingame[i].SetActive(false);
         }
+        Image_Background.gameObject.SetActive(true);
+        Image_Name.gameObject.SetActive(true);
+        Text_Dialogue.gameObject.SetActive(true);
+        Text_Name.gameObject.SetActive(true);
+        Button_Next.SetActive(true);
         SetDialogue();
     }
 
@@ -69,6 +76,11 @@ public class DialogueUI : MonoBehaviour
             {
                 UI_Ingame[i].SetActive(true);
             }
+            Image_Background.gameObject.SetActive(false);
+            Image_Name.gameObject.SetActive(false);
+            Text_Dialogue.gameObject.SetActive(false);
+            Text_Name.gameObject.SetActive(false);
+            Button_Next.SetActive(false);
             GameManager.Inst.NextStage();
         }
         else 

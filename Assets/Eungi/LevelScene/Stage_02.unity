@@ -1154,25 +1154,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2119064052}
     m_Modifications:
-    - target: {fileID: 393812459891738397, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067797488951505770, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2744243125507268242, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4769339358360823659, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_Name
       value: DialogueUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4769339358360823659, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_TagString
-      value: NPCUI
       objectReference: {fileID: 0}
     - target: {fileID: 5409773699025886344, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: UI_Ingame.Array.data[0]
@@ -1182,10 +1166,6 @@ PrefabInstance:
       propertyPath: UI_Ingame.Array.data[1]
       value: 
       objectReference: {fileID: 411907057}
-    - target: {fileID: 6099792795080074723, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8163413652523114622, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1265,10 +1245,6 @@ PrefabInstance:
     - target: {fileID: 8163413652523114622, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9040406326761549201, guid: 4070c5aa8ee63664eabc7ea565ec6af1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5321,7 +5297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
@@ -5354,7 +5330,7 @@ Canvas:
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_TargetDisplay: 1
+  m_TargetDisplay: 0
 --- !u!224 &2119064052
 RectTransform:
   m_ObjectHideFlags: 0
