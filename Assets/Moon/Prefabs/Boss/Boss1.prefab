@@ -217,8 +217,8 @@ MonoBehaviour:
   jumpPower: 1
   moveSpeed: 3
   enemyType: 0
-  hitEffect: {fileID: 0}
-  takeDamageEffect: {fileID: 0}
+  hitEffect: {fileID: 8952839095479930137, guid: 209d2ff2962f273478711d6e5063326f, type: 3}
+  takeDamageEffect: {fileID: 8952839095479930137, guid: 209d2ff2962f273478711d6e5063326f, type: 3}
   timeForMoving: 10
   rayLength: 1.2
   rb: {fileID: 0}
