@@ -20,11 +20,9 @@ public class NPCSpawner : MonoBehaviour
             if ((int)NPCType > 7 && (int)NPCType < 11)
             {
                 GameManager.Inst.EnterBossCombat();
-                GetComponent<BoxCollider2D>().isTrigger = false;
             }
             Destroy(this);
         }
-       
     }
 
     // 1, 2, 3 // 11,12,13,14

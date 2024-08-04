@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject GameOverButton;
     public int CurrentStage = 0;
+    public bool IsBossDead = false;
 
     void Start()
     {
@@ -47,6 +48,11 @@ public class GameManager : MonoBehaviour
 
     public void PostBossDeath() 
     {
+        
+        if(IsBossDead){
+            return;
+        }
+        IsBossDead = true;
         // 카메라 고정
         GameObject VRCamera = GameObject.FindWithTag("CineMachineCamera");
         if (VRCamera != null)

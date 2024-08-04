@@ -252,7 +252,8 @@ public class EnemyAI : CharacterBase,ICombat
     private IEnumerator TakeDamageEffect()
     {
         bool clicker=false;
-        GameObject effect=Instantiate(takeDamageEffect,transform.position,Quaternion.identity);
+        SoundManager.Inst.PlayOneShot("TakeDamage");
+        GameObject effect =Instantiate(takeDamageEffect,transform.position,Quaternion.identity);
         Destroy(effect,2f);
         if (spriteRenderer != null)
         {

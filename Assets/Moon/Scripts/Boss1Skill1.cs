@@ -80,6 +80,7 @@ public class Boss1Skill1 : BossPattern
 
     private IEnumerator ExtendArm()
     {
+        SoundManager.Inst.PlayOneShot("Boss1Skill");
         Vector3 directionToTarget = (targetPosition - bossTransform.position).normalized;
 
         // 먼저 팔의 회전을 설정합니다

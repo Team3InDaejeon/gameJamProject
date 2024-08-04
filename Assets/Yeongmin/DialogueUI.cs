@@ -39,7 +39,7 @@ public class DialogueUI : MonoBehaviour
         }
 
         MaxIndex = Dialogues.Count;
-        Text_Dialogue.text = NPCDataInfo.Name;
+        Text_Dialogue.text = NPCDataInfo.Name;  
     }
 
 

@@ -114,6 +114,7 @@ public class CharacterPlayer : CharacterBase, ICombat
 
         Stat.RaiseHealthChangedEvent();
 
+        SoundManager.Inst.PlayOneShot("TakeDamage");
         animator.SetTrigger("Attacked");
         GameObject effect = Instantiate(takeDamageEffect, transform.position, Quaternion.identity);
         Destroy(effect, 2f);
