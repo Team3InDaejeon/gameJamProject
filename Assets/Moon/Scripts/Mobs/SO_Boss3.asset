@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: "\uD328\uB9AC"
   Type: 1
   moveSpeed: 0
-  Health: 1000
+  Health: 100
   Atk1Damage: 45
   Atk2Damage: 20
   Atk3Damage: 1

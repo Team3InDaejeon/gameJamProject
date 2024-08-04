@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Index: Mob1
   Name: "\uB9DD\uB839"
-  Type: 1
-  Health: 30
   StrikingPower: 20
+  Type: 1
+  Health: 100
