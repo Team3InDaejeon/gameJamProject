@@ -28,7 +28,10 @@ public class InteractiveNPC : MonoBehaviour
 
     void StartDialogue() 
     {
-        UI_Dialogue.gameObject.SetActive(true);
+        int numOfChild = this.transform.childCount;
+        for (int i = 0; i < numOfChild; i++){
+            this.transform.GetChild(i).gameObject.SetActive(true);
+        }
         UI_Dialogue.StartDialogue();
     }
 }

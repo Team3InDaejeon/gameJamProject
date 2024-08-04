@@ -25,7 +25,10 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverButton;
     public int CurrentStage = 0;
     public bool IsBossDead = false;
+    public GameObject Square;
 
+    GameObject rightBlock;
+    GameObject leftBlock;
     void Start()
     {
        //  Canvas = GameObject.FindGameObjectWithTag("CanvasUI");
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void EnterBossCombat() 
+    public void EnterBossCombat(Transform ColiderCenter) 
     {
         // EnterBossRoom
         GameObject VRCamera = GameObject.FindWithTag("CineMachineCamera");
@@ -44,6 +47,10 @@ public class GameManager : MonoBehaviour
         {
             VRCamera.GetComponent<BossRoomCamera>().SetFollowCameraHolder();
         }
+        Vector2 Offset = new Vector2(15, 0);
+        rightBlock=Instantiate(Square, (Vector2)ColiderCenter.position + Offset, Quaternion.identity);
+        leftBlock = Instantiate(Square, (Vector2)ColiderCenter.position - Offset, Quaternion.identity);
+
     }
 
     public void PostBossDeath() 

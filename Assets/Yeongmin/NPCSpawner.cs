@@ -19,7 +19,7 @@ public class NPCSpawner : MonoBehaviour
             // 8, 9, 10 NPCType == BossType
             if ((int)NPCType > 7 && (int)NPCType < 11)
             {
-                GameManager.Inst.EnterBossCombat();
+                GameManager.Inst.EnterBossCombat(Player.transform);
             }
             Destroy(this);
         }
