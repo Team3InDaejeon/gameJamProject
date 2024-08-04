@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
 
     public void PostBossDeath() 
     {
-        
         if(IsBossDead){
             return;
         }
