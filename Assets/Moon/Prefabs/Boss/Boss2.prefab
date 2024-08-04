@@ -215,7 +215,7 @@ MonoBehaviour:
   cooltime: 2
   jumpPower: 1
   moveSpeed: 3
-  enemyType: 0
+  enemyType: 2
   hitEffect: {fileID: 3873282938445293568, guid: 62256e7bf431dd744b39a569c3459401, type: 3}
   takeDamageEffect: {fileID: 8952839095479930137, guid: 209d2ff2962f273478711d6e5063326f, type: 3}
   timeForMoving: 10
