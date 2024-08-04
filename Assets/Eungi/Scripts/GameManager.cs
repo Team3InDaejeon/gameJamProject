@@ -90,6 +90,10 @@ public class GameManager : MonoBehaviour
                 ++CurrentStage;
                 GameSceneManager.Inst.ChangeScene("Stage_04");
                 break;
+            case 3:
+                ++CurrentStage;
+                GameSceneManager.Inst.ChangeScene("Stage_05");
+                break;
         }
     }
 }
