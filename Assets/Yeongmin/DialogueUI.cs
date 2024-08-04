@@ -27,15 +27,15 @@ public class DialogueUI : MonoBehaviour
 
     public void Initialize(ScriptableNPC NPCDataInfo) 
     {
-        if (!string.IsNullOrEmpty(NPCDataInfo.Script1))
+        if (NPCDataInfo.Script1 != "0")
         {
             Dialogues.Add(NPCDataInfo.Script1);
         }
-        if (!string.IsNullOrEmpty(NPCDataInfo.Script2))
+        if (NPCDataInfo.Script2 != "0")
         {
             Dialogues.Add(NPCDataInfo.Script2);
         }
-        if (!string.IsNullOrEmpty(NPCDataInfo.Script3))
+        if (NPCDataInfo.Script3 != "0")
         {
             Dialogues.Add(NPCDataInfo.Script3);
         }
@@ -56,6 +56,7 @@ public class DialogueUI : MonoBehaviour
         Text_Dialogue.gameObject.SetActive(true);
         Text_Name.gameObject.SetActive(true);
         Button_Next.SetActive(true);
+
         SetDialogue();
     }
 
@@ -81,11 +82,12 @@ public class DialogueUI : MonoBehaviour
             Text_Dialogue.gameObject.SetActive(false);
             Text_Name.gameObject.SetActive(false);
             Button_Next.SetActive(false);
+
             GameManager.Inst.NextStage();
         }
         else 
         {
-            StartDialogue();
+            SetDialogue();
         }
     }
 }
