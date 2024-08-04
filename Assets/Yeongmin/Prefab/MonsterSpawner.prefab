@@ -76,7 +76,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7, y: 22.61}
+  m_Size: {x: 14.52, y: 23.4}
   m_EdgeRadius: 0
 --- !u!114 &5939196881101128754
 MonoBehaviour:
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0b288fd914b2324b964f55008e649b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCType: 10
+  NPCType: 4
   monsterEntries:
   - {fileID: 3719754451594008297, guid: 6bcb211b04a620844904a4af7c7b5164, type: 3}
   - {fileID: 3719754451594008297, guid: 42918f34fcda3244389b2602ce224ae3, type: 3}
